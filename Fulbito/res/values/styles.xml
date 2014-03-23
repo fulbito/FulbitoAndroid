@@ -16,5 +16,45 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <!-- Estilo del layout Principal de la interfaz de logueo. -->
+    <style name="LayoutLogin">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_centerInParent">true</item> 
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>    
+
+    <!-- Estilo del textView de la interfaz de logueo. -->
+    <style name="TxtVwLogin">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item> 
+    </style> 
+    
+    <!-- Estilo del editText de la interfaz de logueo. -->
+    <style name="EdtTxtLogin">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item> 
+        <item name="android:background">@drawable/resaltar_campo_on_focus</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    
+    <!-- Estilo del Button de la interfaz de logueo. -->
+    <style name="ButtonLogin">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/boton_interfaz_login</item>  
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>     
+        <item name="android:textStyle">italic</item>
+    </style>
 
 </resources>

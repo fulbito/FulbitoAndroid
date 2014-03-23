@@ -21,21 +21,52 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int borde_layout_registracion=0x7f020000;
+        public static final int boton_interfaz_login=0x7f020001;
+        public static final int campo_interfaz_login=0x7f020002;
+        public static final int campo_interfaz_login_activo=0x7f020003;
+        public static final int fondo=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int logo=0x7f020006;
+        public static final int resaltar_campo_on_focus=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f080000;
+        public static final int action_settings=0x7f080015;
+        public static final int btnBuscarFoto=0x7f08000d;
+        public static final int btnIngresar=0x7f080004;
+        public static final int btnRegistrar=0x7f08000a;
+        public static final int btnTomarFoto=0x7f08000e;
+        public static final int editText1=0x7f080010;
+        public static final int editText2=0x7f080012;
+        public static final int editText3=0x7f080014;
+        public static final int edtTxtAlias=0x7f080006;
+        public static final int edtTxtConfirmarContrasena=0x7f080009;
+        public static final int edtTxtContrasenaLogin=0x7f080003;
+        public static final int edtTxtContrasenaRegistrar=0x7f080008;
+        public static final int edtTxtEmailLogin=0x7f080002;
+        public static final int edtTxtEmailRegistrar=0x7f080007;
+        public static final int imageView1=0x7f080000;
+        public static final int txtVwAlias=0x7f08000b;
+        public static final int txtVwConfirmaContrasena=0x7f080013;
+        public static final int txtVwContrasenaActual=0x7f08000f;
+        public static final int txtVwContrasenaNueva=0x7f080011;
+        public static final int txtVwFoto=0x7f08000c;
+        public static final int txtVwLogin=0x7f080001;
+        public static final int txtVwRegistrar=0x7f080005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int activity_mod_usuario=0x7f030001;
     }
     public static final class menu {
         public static final int main=0x7f070000;
+        public static final int mod_usuario=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050002;
+        public static final int title_activity_mod_usuario=0x7f050003;
     }
     public static final class style {
         /** 
@@ -64,5 +95,17 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        /**  Estilo del Button de la interfaz de logueo. 
+         */
+        public static final int ButtonLogin=0x7f060005;
+        /**  Estilo del editText de la interfaz de logueo. 
+         */
+        public static final int EdtTxtLogin=0x7f060004;
+        /**  Estilo del layout Principal de la interfaz de logueo. 
+         */
+        public static final int LayoutLogin=0x7f060002;
+        /**  Estilo del textView de la interfaz de logueo. 
+         */
+        public static final int TxtVwLogin=0x7f060003;
     }
 }

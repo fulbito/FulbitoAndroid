@@ -6,11 +6,97 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/fondo"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        style="@style/LayoutLogin" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="6"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"            
+            android:orientation="vertical" 
+            android:background="@drawable/borde_layout_registracion" >
+
+            <TextView
+                android:id="@+id/txtVwLogin"
+                style="@style/TxtVwLogin"
+                android:text="Bienvenido otra vez"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtTxtEmailLogin"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="Correo Electrónico" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/edtTxtContrasenaLogin"
+                style="@style/EdtTxtLogin"
+                android:ems="10"                
+                android:inputType="textPassword"
+                android:hint="Contraseña" />
+
+            <Button
+                android:id="@+id/btnIngresar"
+                style="@style/ButtonLogin"
+                android:text="Ingresar" />
+
+            <TextView
+                android:id="@+id/txtVwRegistrar"
+                style="@style/TxtVwLogin"
+                android:text="Eres nuevo?"
+                android:gravity="center" 
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtTxtAlias"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Alias" />
+
+            <EditText
+                android:id="@+id/edtTxtEmailRegistrar"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="Correo Electrónico" />
+
+            <EditText
+                android:id="@+id/edtTxtContrasenaRegistrar"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Contraseña" />
+
+            <EditText
+                android:id="@+id/edtTxtConfirmarContrasena" 
+                style="@style/EdtTxtLogin"               
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Confirma Contraseña" />
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                style="@style/ButtonLogin"
+                android:text="Registrarme" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
