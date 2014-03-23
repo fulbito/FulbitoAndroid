@@ -1,5 +1,3 @@
-package com.fulbitoAndroid.clases;
-
 /* ----------------------------------------------------------------------------- 
 Nombre: 		Usuario
 Descripción:	Clase que contiene los datos de un usuario de la aplicación
@@ -10,6 +8,8 @@ Log de modificaciones:
 Fecha		Autor		Descripción
 16/03/2014	MAC			Creación
 ----------------------------------------------------------------------------- */
+
+package com.fulbitoAndroid.clases;
 
 public class Usuario 
 {

@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/txtVwLogin"
                 style="@style/TxtVwLogin"
-                android:text="Bienvenido otra vez"
+                android:text="@string/txtLogin"
                 android:gravity="center"
                 android:textSize="20sp" />
 
@@ -38,7 +38,7 @@
                 style="@style/EdtTxtLogin"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:hint="Correo Electrónico" >
+                android:hint="@string/txtCampoCorreoElectronico" >
 
                 <requestFocus />
             </EditText>
@@ -48,17 +48,17 @@
                 style="@style/EdtTxtLogin"
                 android:ems="10"                
                 android:inputType="textPassword"
-                android:hint="Contraseña" />
+                android:hint="@string/txtCampoContrasena" />
 
             <Button
                 android:id="@+id/btnIngresar"
                 style="@style/ButtonLogin"
-                android:text="Ingresar" />
+                android:text="@string/txtBotonIngresar" />
 
             <TextView
                 android:id="@+id/txtVwRegistrar"
                 style="@style/TxtVwLogin"
-                android:text="Eres nuevo?"
+                android:text="@string/txtRegistrar"
                 android:gravity="center" 
                 android:textSize="20sp" />
 
@@ -67,33 +67,33 @@
                 style="@style/EdtTxtLogin"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Alias" />
+                android:hint="@string/txtCampoAlias" />
 
             <EditText
                 android:id="@+id/edtTxtEmailRegistrar"
                 style="@style/EdtTxtLogin"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:hint="Correo Electrónico" />
+                android:hint="@string/txtCampoCorreoElectronico" />
 
             <EditText
                 android:id="@+id/edtTxtContrasenaRegistrar"
                 style="@style/EdtTxtLogin"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Contraseña" />
+                android:hint="@string/txtCampoContrasena" />
 
             <EditText
                 android:id="@+id/edtTxtConfirmarContrasena" 
                 style="@style/EdtTxtLogin"               
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Confirma Contraseña" />
+                android:hint="@string/txtCampoConfirmarContrasena" />
 
             <Button
                 android:id="@+id/btnRegistrar"
                 style="@style/ButtonLogin"
-                android:text="Registrarme" />
+                android:text="@string/txtBotonRegistrarme" />
 
         </LinearLayout>
 

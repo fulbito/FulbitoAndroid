@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="txtLogin">Bienvenido otra vez</string>   
+    <string name="txtRegistrar">Eres nuevo?</string>
+    <string name="txtCampoCorreoElectronico">Correo Electrónico</string>
+    <string name="txtCampoContrasena">Contraseña</string>
+    <string name="txtBotonIngresar">Ingresar</string>
+	<string name="txtCampoAlias">Alias</string>   
+	<string name="txtCampoConfirmarContrasena">Confirma Contraseña</string>
+	<string name="txtBotonRegistrarme">Registrarme</string>		    
+</resources>
