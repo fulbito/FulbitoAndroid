@@ -7,5 +7,7 @@
     <string name="txtBotonIngresar">Ingresar</string>
 	<string name="txtCampoAlias">Alias</string>   
 	<string name="txtCampoConfirmarContrasena">Confirma Contraseña</string>
-	<string name="txtBotonRegistrarme">Registrarme</string>		    
+	<string name="txtBotonRegistrarme">Registrarme</string>	
+	    <string name="txtLoginTwitter">Ingresar con Twitter</string>
+    <string name="txtLoginFacebook">Ingresar con Facebook</string>	    
 </resources>

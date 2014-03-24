@@ -31,6 +31,8 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1</item> 
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
     </style> 
     
     <!-- Estilo del editText de la interfaz de logueo. -->
@@ -57,4 +59,24 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <!-- Estilo del Button twitter. -->
+    <style name="ButtonTwitter">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/boton_twitter</item>  
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>     
+    </style>
+    
+    <!-- Estilo del Button facebook. -->
+    <style name="ButtonFacebook">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/boton_facebook</item>  
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>     
+    </style>
+    
 </resources>

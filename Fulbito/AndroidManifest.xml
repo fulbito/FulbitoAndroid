@@ -32,6 +32,10 @@
             android:name="com.fulbitoAndroid.admUsuario.LoginUsuarioActivity"
             android:label="@string/title_activity_login_usuario" >
         </activity>
+        <activity
+            android:name="com.fulbitoAndroid.admUsuario.RegistrarUsuarioActivity"
+            android:label="@string/title_activity_registrar_usuario" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+            <TextView
+                android:id="@+id/txtVwRegistrar"
+                style="@style/TxtVwLogin"
+                android:text="@string/txtRegistrar" />
+            
+            <EditText
+                android:id="@+id/edtTxtAlias"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/txtCampoAlias" />
+
+            <EditText
+                android:id="@+id/edtTxtEmailRegistrar"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="@string/txtCampoCorreoElectronico" />
+
+            <EditText
+                android:id="@+id/edtTxtContrasenaRegistrar"
+                style="@style/EdtTxtLogin"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/txtCampoContrasena" />
+
+            <EditText
+                android:id="@+id/edtTxtConfirmarContrasena" 
+                style="@style/EdtTxtLogin"               
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/txtCampoConfirmarContrasena" />
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                style="@style/ButtonLogin"
+                android:text="@string/txtBotonRegistrarme" />
+
+
+</LinearLayout>
