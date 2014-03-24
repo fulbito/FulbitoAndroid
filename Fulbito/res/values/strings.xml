@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Fulbito</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_mod_usuario">ModUsuarioActivity</string>
-	<string name="txtLogin">Welcome again</string>
-	<string name="txtRegistrar">Are you new?</string>
-	<string name="txtCampoCorreoElectronico">E-mail</string>
-	<string name="txtCampoContrasena">Password</string>
-	<string name="txtBotonIngresar">Login</string>
-	<string name="txtCampoAlias">Nick</string>
-	<string name="txtCampoConfirmarContrasena">Confirm password</string>
-	<string name="txtBotonRegistrarme">signup</string>
+    <string name="txtLogin">Welcome again</string>
+    <string name="txtRegistrar">Are you new?</string>
+    <string name="txtCampoCorreoElectronico">E-mail</string>
+    <string name="txtCampoContrasena">Password</string>
+    <string name="txtBotonIngresar">Login</string>
+    <string name="txtCampoAlias">Nick</string>
+    <string name="txtCampoConfirmarContrasena">Confirm password</string>
+    <string name="txtBotonRegistrarme">signup</string>
+    <string name="title_activity_login_usuario">LoginUsuarioActivity</string>
+
 </resources>

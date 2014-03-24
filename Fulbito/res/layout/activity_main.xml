@@ -9,94 +9,11 @@
     android:background="@drawable/fondo"
     tools:context=".MainActivity" >
 
-    <LinearLayout
-        style="@style/LayoutLogin" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="6"
-            android:src="@drawable/logo" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"            
-            android:orientation="vertical" 
-            android:background="@drawable/borde_layout_registracion" >
-
-            <TextView
-                android:id="@+id/txtVwLogin"
-                style="@style/TxtVwLogin"
-                android:text="@string/txtLogin"
-                android:gravity="center"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/edtTxtEmailLogin"
-                style="@style/EdtTxtLogin"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="@string/txtCampoCorreoElectronico" >
-
-                <requestFocus />
-            </EditText>
-
-            <EditText
-                android:id="@+id/edtTxtContrasenaLogin"
-                style="@style/EdtTxtLogin"
-                android:ems="10"                
-                android:inputType="textPassword"
-                android:hint="@string/txtCampoContrasena" />
-
-            <Button
-                android:id="@+id/btnIngresar"
-                style="@style/ButtonLogin"
-                android:text="@string/txtBotonIngresar" />
-
-            <TextView
-                android:id="@+id/txtVwRegistrar"
-                style="@style/TxtVwLogin"
-                android:text="@string/txtRegistrar"
-                android:gravity="center" 
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/edtTxtAlias"
-                style="@style/EdtTxtLogin"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="@string/txtCampoAlias" />
-
-            <EditText
-                android:id="@+id/edtTxtEmailRegistrar"
-                style="@style/EdtTxtLogin"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="@string/txtCampoCorreoElectronico" />
-
-            <EditText
-                android:id="@+id/edtTxtContrasenaRegistrar"
-                style="@style/EdtTxtLogin"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/txtCampoContrasena" />
-
-            <EditText
-                android:id="@+id/edtTxtConfirmarContrasena" 
-                style="@style/EdtTxtLogin"               
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/txtCampoConfirmarContrasena" />
-
-            <Button
-                android:id="@+id/btnRegistrar"
-                style="@style/ButtonLogin"
-                android:text="@string/txtBotonRegistrarme" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="6"
+        android:src="@drawable/logo" />
 
 </RelativeLayout>

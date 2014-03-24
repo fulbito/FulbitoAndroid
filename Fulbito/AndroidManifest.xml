@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="8" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,10 @@
         <activity
             android:name="com.fulbitoAndroid.admUsuario.ModUsuarioActivity"
             android:label="@string/title_activity_mod_usuario" >
+        </activity>
+        <activity
+            android:name="com.fulbitoAndroid.admUsuario.LoginUsuarioActivity"
+            android:label="@string/title_activity_login_usuario" >
         </activity>
     </application>
 
