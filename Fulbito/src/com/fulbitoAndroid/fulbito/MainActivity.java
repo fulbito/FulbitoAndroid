@@ -11,21 +11,22 @@ Fecha		Autor		Descripción
 
 package com.fulbitoAndroid.fulbito;
 
-import com.fulbitoAndroid.admUsuario.LoginUsuarioActivity;
-import com.fulbitoAndroid.fulbito.R;
-
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+
+import com.fulbitoAndroid.admUsuario.LoginUsuarioActivity;
 
 public class MainActivity extends Activity {
-
+	static final String TAG="MainActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		Log.d(TAG,"En el OnCreate");
 		//la aplicación espera 3 segundos antes de comenzar, mostrando un splash
 		//En este activity se debería lanzar la inicialización de la aplicación
 		final Handler handler = new Handler();
