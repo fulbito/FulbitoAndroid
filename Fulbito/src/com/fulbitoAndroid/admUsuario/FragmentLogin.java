@@ -1,16 +1,6 @@
 package com.fulbitoAndroid.admUsuario;
 
-import java.io.IOException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.fulbitoAndroid.fulbito.R;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -50,6 +40,9 @@ public class FragmentLogin extends Fragment {
         TextView txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);        
         txtVwLogin.setTypeface(typeFace);        
         
+        TextView txtVwRegistrar = (TextView) getView().findViewById(R.id.txtVwRegistrar);       
+        txtVwRegistrar.setTypeface(typeFace);
+        
       //seteamos el evento OnClick del botón btnIngresar
         Button btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
         
@@ -60,6 +53,16 @@ public class FragmentLogin extends Fragment {
                     startActivity(intent);      
             }
         });  
+        
+		Button btnRegistrar = (Button) getView().findViewById(R.id.btnRegistrar);
+		
+		btnRegistrar.setOnClickListener(new OnClickListener() 
+		{   public void onClick(View v) 
+		{   
+			Intent intent = new Intent(getActivity().getApplicationContext(), RegistrarUsuarioActivity.class);
+			startActivity(intent);
+		}
+		});
                 
     }
 }

@@ -3,15 +3,8 @@ package com.fulbitoAndroid.admUsuario;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Typeface;
+
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
 
 public class LoginUsuarioActivity extends FragmentActivity {
@@ -20,24 +13,7 @@ public class LoginUsuarioActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_usuario);
-    	
-    	//Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
-    	Typeface typeFace = Typeface.createFromAsset(getAssets(), "Helvetica-Black-SemiBold.ttf");
-        
-        TextView txtVwRegistrar = (TextView) findViewById(R.id.txtVwRegistrar);       
-        txtVwRegistrar.setTypeface(typeFace);
-        
-        /////////////////////
-        Button btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
-        
-        btnRegistrar.setOnClickListener(new OnClickListener() 
-        {   public void onClick(View v) 
-            {   
-        		Intent intent = new Intent(getApplicationContext(), RegistrarUsuarioActivity.class);
-        		startActivity(intent);
-            }
-        });      
+        setContentView(R.layout.activity_login_usuario);               
     }
 
 

@@ -22,7 +22,8 @@
        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"            
+            android:layout_weight="1"      
+            android:layout_marginTop="10dp"      
             android:orientation="vertical" 
             android:background="@drawable/borde_layout_registracion" >
             
@@ -31,29 +32,7 @@
     			android:id="@+id/frgLogin"
     			android:layout_width="fill_parent"
     			android:layout_height="fill_parent"
-    			android:layout_weight="1" />
-            
-            <TextView
-                android:id="@+id/txtVwRegistrar"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:layout_weight="4"
-                android:text="@string/txtRegistrar" />            
-            
-            <Button
-                android:id="@+id/btnRegistrar"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="4"
-                android:background="@drawable/boton_interfaz_login"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:textStyle="italic"
-                android:text="@string/txtBotonRegistrarme" />
-            
+    			android:layout_weight="1" />                     
         </LinearLayout>
 
     </LinearLayout>

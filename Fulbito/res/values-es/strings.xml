@@ -8,6 +8,18 @@
 	<string name="txtCampoAlias">Alias</string>   
 	<string name="txtCampoConfirmarContrasena">Confirma Contraseña</string>
 	<string name="txtBotonRegistrarme">Registrarme</string>	
-	    <string name="txtLoginTwitter">Ingresar con Twitter</string>
-    <string name="txtLoginFacebook">Ingresar con Facebook</string>	    
+	<string name="txtLoginTwitter">Ingresar con Twitter</string>
+    <string name="txtLoginFacebook">Ingresar con Facebook</string>
+    
+    <string name="txtAliasVacio">Debe ingresar su Alias.</string>
+	<string name="txtLargoAlias">Su alias debe tener entre 6 y 20 caracteres.</string>
+	<string name="txtCorreoVacio">Debe ingresar un Correo Electrónico.</string>
+	<string name="txtCorreoInvalido">Debe ingresar un Correo Electrónico válido.</string>
+	<string name="txtContrasenaVacio">Debe ingresar una Contraseña.</string>
+	<string name="txtLargoContrasena">La contraseña debe tener entre 6 y 20 caracteres.</string>
+	<string name="txtContrasenaConfirmadaVacia">Debe confirmar la Contraseña ingresada.</string>
+	<string name="txtLargoContrasenaConfirmada">La contraseña debe tener entre 6 y 20 caracteres.</string>
+	<string name="txtContrasenasDistintas">Las contraseñas deben ser iguales.</string>
+	<string name="txtCamposVacios">Completar los campos vacios.</string>
+	<string name="txtRevisarCampos">Revise los campos ingresados.</string>	    
 </resources>
