@@ -46,29 +46,7 @@ public class ListMenuAdapter extends BaseAdapter{
 		TextView tvTituloItem;
 		ImageView ivIcono;
 	}
-	/*
-	public View getView(int iPosition, View vConvertView, ViewGroup vgParent)
-	{
-		Fila fView;
 
-		LayoutInflater liInflator = activity.getLayoutInflater();
-		if(vConvertView == null)
-		{
-			fView = new Fila();
-			ItemMenuLateral itm = arrItems.get(iPosition);
-			vConvertView = liInflator.inflate(R.layout.item_menu_lateral, null);
-			fView.tvTituloItem = (TextView) vConvertView.findViewById(R.id.tvItem);
-			fView.tvTituloItem.setText(itm.getTitulo());
-			fView.ivIcono = (ImageView) vConvertView.findViewById(R.id.imgItem);
-			fView.ivIcono.setImageResource(itm.getIcono());
-			vConvertView.setTag(fView);
-		}
-		else
-		{
-			fView = (Fila) vConvertView.getTag();
-		}
-		return vConvertView;
-	}*/
 	public View getView(int iPosition, View vConvertView, ViewGroup vgParent)
 	{	
 		
