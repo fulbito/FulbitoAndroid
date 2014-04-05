@@ -32,7 +32,18 @@ public class HomeActivity extends Activity {
 		
 		//Obtenemos los elementos de la interfaz gráfica
 		lvOpcionesMenuLateral = (ListView) findViewById(R.id.drawer);
-		dlMenuLateral = (DrawerLayout) findViewById(R.id.drawer_layout);				
+		dlMenuLateral = (DrawerLayout) findViewById(R.id.drawer_layout);		
+		/*
+		ListView listview = (ListView) findViewById(R.id.listview);
+		String[] arrOpciones = getResources().getStringArray(R.array.opciones_menu_lateral);
+
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	              android.R.layout.simple_list_item_1, android.R.id.text1, arrOpciones);
+
+
+        // Assign adapter to ListView
+	    listview.setAdapter(adapter); 
+		*/		
 		
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
@@ -52,7 +63,8 @@ public class HomeActivity extends Activity {
 			 }
 			};
 			
-			dlMenuLateral.setDrawerListener(toggle);*/
+			dlMenuLateral.setDrawerListener(toggle);
+			*/
 		
 	}
 
@@ -91,6 +103,12 @@ public class HomeActivity extends Activity {
 		{
 			alItemsMenuLateral.add(new ItemMenuLateral(arrOpciones[i], arrIconosMenuLateral.getResourceId(i, -1)));
 		}
+		
+		//Completamos el array de items con los iconos y opciones del menu
+		//for(int i=0; i<iLenghtArrOpciones; i++)
+		//{
+			alItemsMenuLateral.add(new ItemMenuLateral(arrOpciones[2], arrIconosMenuLateral.getResourceId(2, -1)));
+		//}
 		
 		//Seteamos los items del menu
 		lmaMenuLateralAdapter = new ListMenuAdapter(this, alItemsMenuLateral);		

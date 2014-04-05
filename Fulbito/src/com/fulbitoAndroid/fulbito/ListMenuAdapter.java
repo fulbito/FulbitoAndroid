@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListMenuAdapter extends BaseAdapter{
 	private Activity activity;
@@ -43,10 +44,11 @@ public class ListMenuAdapter extends BaseAdapter{
 		TextView tvTituloItem;
 		ImageView ivIcono;
 	}
-	
+	/*
 	public View getView(int iPosition, View vConvertView, ViewGroup vgParent)
 	{
 		Fila fView;
+
 		LayoutInflater liInflator = activity.getLayoutInflater();
 		if(vConvertView == null)
 		{
@@ -59,6 +61,33 @@ public class ListMenuAdapter extends BaseAdapter{
 			fView.ivIcono.setImageResource(itm.getIcono());
 			vConvertView.setTag(fView);
 		}
+		else
+		{
+			fView = (Fila) vConvertView.getTag();
+		}
+		return vConvertView;
+	}*/
+	public View getView(int iPosition, View vConvertView, ViewGroup vgParent)
+	{	
+		
+		Fila fView = new Fila();;
+		
+		if(vConvertView == null)
+		{
+			LayoutInflater liInflator = activity.getLayoutInflater();
+			vConvertView = liInflator.inflate(R.layout.item_menu_lateral, null);
+		}
+		
+		ItemMenuLateral itm = arrItems.get(iPosition);
+		
+		if(itm != null)
+		{
+			fView.tvTituloItem = (TextView) vConvertView.findViewById(R.id.tvItem);
+  			fView.tvTituloItem.setText(itm.getTitulo());
+  			fView.ivIcono = (ImageView) vConvertView.findViewById(R.id.imgItem);
+  			fView.ivIcono.setImageResource(itm.getIcono());
+  			vConvertView.setTag(fView);
+		}		
 		else
 		{
 			fView = (Fila) vConvertView.getTag();
