@@ -33,17 +33,6 @@ public class HomeActivity extends Activity {
 		//Obtenemos los elementos de la interfaz gráfica
 		lvOpcionesMenuLateral = (ListView) findViewById(R.id.drawer);
 		dlMenuLateral = (DrawerLayout) findViewById(R.id.drawer_layout);		
-		/*
-		ListView listview = (ListView) findViewById(R.id.listview);
-		String[] arrOpciones = getResources().getStringArray(R.array.opciones_menu_lateral);
-
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-	              android.R.layout.simple_list_item_1, android.R.id.text1, arrOpciones);
-
-
-        // Assign adapter to ListView
-	    listview.setAdapter(adapter); 
-		*/		
 		
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
