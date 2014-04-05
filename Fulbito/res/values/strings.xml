@@ -17,17 +17,17 @@
     <string name="txtLoginTwitter">Login with Twitter</string>
     <string name="txtLoginFacebook">Login with Facebook</string>
     <string name="title_activity_registrar_usuario">RegistrarUsuarioActivity</string>
-    
     <string name="txtAliasVacio">You must enter your Alias.</string>
-	<string name="txtLargoAlias">Their alias must be between 6 and 20 characters.</string>
-	<string name="txtCorreoVacio">You must enter an Email. </string>
-	<string name="txtCorreoInvalido">You must enter a valid Email.</string>
-	<string name="txtContrasenaVacio">You must enter a password.</string>
-	<string name="txtLargoContrasena">The password must be between 6 and 20 characters.</string>
-	<string name="txtContrasenaConfirmadaVacia">You must confirm the password entered.</string>
-	<string name="txtLargoContrasenaConfirmada">The password must be between 6 and 20 characters.</string>
-	<string name="txtContrasenasDistintas">Passwords must be equal.</string>
-	<string name="txtCamposVacios">Complete the fields empty.</string>
-	<string name="txtRevisarCampos">Check the entered fields.</string>	
+    <string name="txtLargoAlias">Their alias must be between 6 and 20 characters.</string>
+    <string name="txtCorreoVacio">You must enter an Email. </string>
+    <string name="txtCorreoInvalido">You must enter a valid Email.</string>
+    <string name="txtContrasenaVacio">You must enter a password.</string>
+    <string name="txtLargoContrasena">The password must be between 6 and 20 characters.</string>
+    <string name="txtContrasenaConfirmadaVacia">You must confirm the password entered.</string>
+    <string name="txtLargoContrasenaConfirmada">The password must be between 6 and 20 characters.</string>
+    <string name="txtContrasenasDistintas">Passwords must be equal.</string>
+    <string name="txtCamposVacios">Complete the fields empty.</string>
+    <string name="txtRevisarCampos">Check the entered fields.</string>
+    <string name="title_activity_home">HomeActivity</string>
 
 </resources>

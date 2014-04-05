@@ -1,5 +1,6 @@
 package com.fulbitoAndroid.admUsuario;
 
+import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -49,7 +50,7 @@ public class FragmentLogin extends Fragment {
         btnIngresar.setOnClickListener(new OnClickListener() 
         {   public void onClick(View v) 
             {   
-                Intent intent = new Intent(getActivity().getApplicationContext(), ModUsuarioActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                     startActivity(intent);      
             }
         });  
