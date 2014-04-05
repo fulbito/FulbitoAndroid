@@ -92,12 +92,7 @@ public class HomeActivity extends Activity {
 		{
 			alItemsMenuLateral.add(new ItemMenuLateral(arrOpciones[i], arrIconosMenuLateral.getResourceId(i, -1)));
 		}
-		
-		//Completamos el array de items con los iconos y opciones del menu
-		//for(int i=0; i<iLenghtArrOpciones; i++)
-		//{
-			alItemsMenuLateral.add(new ItemMenuLateral(arrOpciones[2], arrIconosMenuLateral.getResourceId(2, -1)));
-		//}
+			
 		
 		//Seteamos los items del menu
 		lmaMenuLateralAdapter = new ListMenuAdapter(this, alItemsMenuLateral);		

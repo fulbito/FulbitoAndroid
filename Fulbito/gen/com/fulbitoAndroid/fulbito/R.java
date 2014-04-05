@@ -67,9 +67,9 @@ public final class R {
         public static final int imgItem=0x7f09001f;
         public static final int loBotonFacebook=0x7f090017;
         public static final int loBotonTwitter=0x7f090015;
+        public static final int loFragmentContainer=0x7f090001;
         public static final int textView1=0x7f090016;
         public static final int textView2=0x7f090019;
-        public static final int texto=0x7f090001;
         public static final int tvItem=0x7f090020;
         public static final int txtVwAlias=0x7f090005;
         public static final int txtVwConfirmaContrasena=0x7f09000e;
