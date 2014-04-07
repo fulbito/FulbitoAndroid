@@ -29,5 +29,5 @@
     <string name="txtCamposVacios">Complete the fields empty.</string>
     <string name="txtRevisarCampos">Check the entered fields.</string>
     <string name="title_activity_home">HomeActivity</string>
-
+    <string name="txtMenuLateral">Menu</string>
 </resources>

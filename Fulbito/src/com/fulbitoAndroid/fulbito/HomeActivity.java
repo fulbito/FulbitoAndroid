@@ -2,28 +2,29 @@ package com.fulbitoAndroid.fulbito;
 
 import java.util.ArrayList;
 
-import com.fulbitoAndroid.admUsuario.LoginUsuarioActivity;
+import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 
-public class HomeActivity extends Activity {
+
+
+public class HomeActivity extends ActionBarActivity {
 	ListView lvOpcionesMenuLateral;
 	DrawerLayout dlMenuLateral;	
-	ActionBarDrawerToggle toggle;	
+	ActionBarDrawerToggle mDrawerToggle;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,33 +37,36 @@ public class HomeActivity extends Activity {
 		
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
-					
-		/*
-		toggle = new ActionBarDrawerToggle(this, dlMenuLateral,  R.drawable.ic_drawer, R.string.app_name, R.string.hello_world ){
+		
+		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)
+		getSupportActionBar().setTitle(R.string.app_name);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+		mDrawerToggle = new ActionBarDrawerToggle(
+			this, 
+			dlMenuLateral,  
+			R.drawable.ic_drawer, 
+			R.string.app_name, 
+			R.string.txtMenuLateral ) 
+		{		 
+			public void onDrawerClosed(View view) 
+			{
+				getSupportActionBar().setTitle(R.string.app_name);
+				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
 			 
-			 public void onDrawerClosed(View view) {
-				 super.onDrawerClosed(view);
-			  //getActionBar().setTitle(getResources().getString(R.string.app_name));
-			 //invalidateOptionsMenu();
-			 }
-			 
-			public void onDrawerOpened(View drawerView) {
-			 //getActionBar().setTitle("Menu");
-			 //invalidateOptionsMenu();
-			 }
-			};
-			
-			dlMenuLateral.setDrawerListener(toggle);
-			*/
+			public void onDrawerOpened(View drawerView) 
+			{
+				getSupportActionBar().setTitle(R.string.txtMenuLateral);
+				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
+		};
+          
+		dlMenuLateral.setDrawerListener(mDrawerToggle);
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.home, menu);
-		return true;
-	}
 	
 	//Completa los items del menú lateral del home
 	public void vCrearMenuLateral(ListView lvOpcionesMenuLateral)
@@ -119,5 +123,61 @@ public class HomeActivity extends Activity {
 				break;
 		}
 	}
+	
+	//Sobrecargas de metodos para que funcione el ActionBar
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = dlMenuLateral.isDrawerOpen(lvOpcionesMenuLateral);
+       // menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         // The action bar home/up action should open or close the drawer.
+         // ActionBarDrawerToggle will take care of this.
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle action buttons
+        switch(item.getItemId()) {
+        /*case R.id.action_websearch:
+            // create intent to perform web search for this planet
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
+            // catch event that there's no activity to handle intent
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
+            }
+            return true;*/
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
 }

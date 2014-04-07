@@ -21,5 +21,6 @@
 	<string name="txtLargoContrasenaConfirmada">La contraseña debe tener entre 6 y 20 caracteres.</string>
 	<string name="txtContrasenasDistintas">Las contraseñas deben ser iguales.</string>
 	<string name="txtCamposVacios">Completar los campos vacios.</string>
-	<string name="txtRevisarCampos">Revise los campos ingresados.</string>	    
+	<string name="txtRevisarCampos">Revise los campos ingresados.</string>	
+	<string name="txtMenuLateral">Menú</string>    
 </resources>
