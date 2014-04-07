@@ -3,10 +3,13 @@ package com.fulbitoAndroid.fulbito;
 import java.util.ArrayList;
 
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
+import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -106,6 +110,7 @@ public class HomeActivity extends ActionBarActivity {
 		lvOpcionesMenuLateral.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id){
+				dlMenuLateral.closeDrawers();
 				vMostrarFragment(position);
 			}
 		});
@@ -115,11 +120,24 @@ public class HomeActivity extends ActionBarActivity {
 	//Dispara un fragment o un activity de acuerdo al item del menu lateral seleccionado
 	private void vMostrarFragment(int iOpcionMenu)
 	{
+		FragmentManager fragmentManager;
+		android.support.v4.app.Fragment fragment;
+		
 		switch(iOpcionMenu)
 		{
 			case 1:
 				Intent intent = new Intent(getApplicationContext(), ModUsuarioActivity.class);
                 startActivity(intent);
+				break;
+			case 2:
+				fragment = new FragmentModificarPerfil();
+				fragmentManager = getSupportFragmentManager();
+		        fragmentManager.beginTransaction().replace(R.id.loFragmentContainer, fragment).commit();
+				break;
+			case 3:
+				fragment = new FragmentCrearPartido();
+				fragmentManager = getSupportFragmentManager();
+		        fragmentManager.beginTransaction().replace(R.id.loFragmentContainer, fragment).commit();
 				break;
 		}
 	}
@@ -141,6 +159,7 @@ public class HomeActivity extends ActionBarActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //Método para setear la acción a realizar cuando se hace click sobre u icono del ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
          // The action bar home/up action should open or close the drawer.
