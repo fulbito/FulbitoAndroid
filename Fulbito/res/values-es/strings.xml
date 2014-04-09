@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="txtLogin">Bienvenido otra vez</string>   
-    <string name="txtRegistrar">Eres nuevo?</string>
+    <string name="txtRegistrar">¿Eres nuevo?</string>
     <string name="txtCampoCorreoElectronico">Correo Electrónico</string>
     <string name="txtCampoContrasena">Contraseña</string>
-    <string name="txtBotonIngresar">Ingresar</string>
+    <string name="txtBotonIngresar">Ingresar con Fulbito</string>
 	<string name="txtCampoAlias">Alias</string>   
 	<string name="txtCampoConfirmarContrasena">Confirma Contraseña</string>
 	<string name="txtBotonRegistrarme">Registrarme</string>	
@@ -23,4 +23,6 @@
 	<string name="txtCamposVacios">Completar los campos vacios.</string>
 	<string name="txtRevisarCampos">Revise los campos ingresados.</string>	
 	<string name="txtMenuLateral">Menú</string>    
+	<string name="txtOlvidoContrasena">¿Olvidó su contraseña?</string>
+	<string name="txtRecuperarContrasena">Recuperar contraseña</string>
 </resources>

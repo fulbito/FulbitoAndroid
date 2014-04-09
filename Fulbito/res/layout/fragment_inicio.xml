@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+		android:id="@+id/txtVwLogin"
+		style="@style/TxtVwLogin"
+		android:text="@string/txtLogin" />
+	
+	<Button
+	    android:id="@+id/btnIngresar"
+	    style="@style/ButtonLogin"
+	    android:text="@string/txtBotonIngresar" />
+	
+		<LinearLayout
+	    android:id="@+id/loBotonTwitter"
+	    style="@style/ButtonTwitter" >
+	
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="6"
+	        android:src="@drawable/icono_twitter" />
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1" >
+
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/txtLoginTwitter"
+	            android:layout_centerInParent="true"
+	            android:textColor="#000000"
+	            android:textSize="15sp" />
+
+	    </RelativeLayout>
+	
+	</LinearLayout>
+
+	<LinearLayout
+	    android:id="@+id/loBotonFacebook"
+	    style="@style/ButtonFacebook" >
+	
+	    <ImageView
+	        android:id="@+id/imageView2"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="6"
+	        android:src="@drawable/icono_facebook" />
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1" >
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/txtLoginFacebook"
+	            android:layout_centerInParent="true"
+	            android:textColor="#000000"
+	            android:textSize="15sp" />
+
+	    </RelativeLayout>
+	
+	</LinearLayout>          
+            
+	<TextView
+	    android:id="@+id/txtVwRegistrar"
+	    style="@style/TxtVwLogin"
+	    android:text="@string/txtRegistrar" />            
+	
+	<Button
+	    android:id="@+id/btnRegistrar"
+	    style="@style/ButtonLogin"
+	    android:text="@string/txtBotonRegistrarme" />
+
+</LinearLayout>

@@ -17,8 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-import com.fulbitoAndroid.admUsuario.LoginUsuarioActivity;
-
 public class MainActivity extends Activity {
 	static final String TAG="MainActivity";
 	@Override
@@ -32,7 +30,7 @@ public class MainActivity extends Activity {
 		final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                	Intent intent = new Intent(getApplicationContext(), LoginUsuarioActivity.class);
+                	Intent intent = new Intent(getApplicationContext(), InicioActivity.class);
                     startActivity(intent);
                     finish();
             }

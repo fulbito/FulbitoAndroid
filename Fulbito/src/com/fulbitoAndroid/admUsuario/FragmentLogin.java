@@ -32,8 +32,8 @@ public class FragmentLogin extends Fragment {
         super.onActivityCreated(state);
  
         //Obtenemos los controles EditText
-    	edtTextCorreo = (EditText) getView().findViewById(R.id.edtTxtEmailRegistrar);
-    	edtTextContrasena = (EditText) getView().findViewById(R.id.edtTxtContrasenaRegistrar);
+    	edtTextCorreo = (EditText) getView().findViewById(R.id.edtTxtEmailLogin);
+    	edtTextContrasena = (EditText) getView().findViewById(R.id.edtTxtContrasenaLogin);    	
     	
     	//Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
     	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");
@@ -41,8 +41,8 @@ public class FragmentLogin extends Fragment {
         TextView txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);        
         txtVwLogin.setTypeface(typeFace);        
         
-        TextView txtVwRegistrar = (TextView) getView().findViewById(R.id.txtVwRegistrar);       
-        txtVwRegistrar.setTypeface(typeFace);
+        TextView txtTextOlvidoContrasena = (TextView) getView().findViewById(R.id.txtVwOlvidoContrasena);
+        txtTextOlvidoContrasena.setTypeface(typeFace); 
         
       //seteamos el evento OnClick del botón btnIngresar
         Button btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
@@ -53,18 +53,7 @@ public class FragmentLogin extends Fragment {
                 Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                     startActivity(intent);      
             }
-        });  
-        
-		Button btnRegistrar = (Button) getView().findViewById(R.id.btnRegistrar);
-		
-		btnRegistrar.setOnClickListener(new OnClickListener() 
-		{   public void onClick(View v) 
-		{   
-			Intent intent = new Intent(getActivity().getApplicationContext(), RegistrarUsuarioActivity.class);
-			startActivity(intent);
-		}
-		});
-                
+        });                         
     }
 }
 

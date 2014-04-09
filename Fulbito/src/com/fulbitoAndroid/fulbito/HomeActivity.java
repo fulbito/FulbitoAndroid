@@ -18,12 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-
-
 
 public class HomeActivity extends ActionBarActivity {
 	ListView lvOpcionesMenuLateral;
@@ -70,7 +67,6 @@ public class HomeActivity extends ActionBarActivity {
 		dlMenuLateral.setDrawerListener(mDrawerToggle);
 		
 	}
-
 	
 	//Completa los items del menú lateral del home
 	public void vCrearMenuLateral(ListView lvOpcionesMenuLateral)

@@ -10,7 +10,7 @@
     <string name="txtRegistrar">Are you new?</string>
     <string name="txtCampoCorreoElectronico">E-mail</string>
     <string name="txtCampoContrasena">Password</string>
-    <string name="txtBotonIngresar">Login</string>
+    <string name="txtBotonIngresar">Login with Fulbito</string>
     <string name="txtCampoAlias">Nick</string>
     <string name="txtCampoConfirmarContrasena">Confirm password</string>
     <string name="txtBotonRegistrarme">signup</string>
@@ -30,4 +30,8 @@
     <string name="txtRevisarCampos">Check the entered fields.</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="txtMenuLateral">Menu</string>
+    <string name="title_activity_inicio">InicioActivity</string>
+	<string name="txtOlvidoContrasena">Forgot your password?</string>
+    <string name="txtRecuperarContrasena">Recover password</string>
+
 </resources>

@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-/*BORRAR CODIGO INUTIL*/
 
 public class ListMenuAdapter extends BaseAdapter{
 	private Activity activity;
