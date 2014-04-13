@@ -37,7 +37,7 @@
 		android:text="@string/txtOlvidoContrasena" />
 
 	<Button
-	    android:id="@+id/btnIngresar"
+	    android:id="@+id/btnRecuperarContrasena"
 	    style="@style/ButtonLogin"
 	    android:text="@string/txtRecuperarContrasena" />
             

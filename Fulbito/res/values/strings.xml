@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Fulbito</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -33,5 +32,4 @@
     <string name="title_activity_inicio">InicioActivity</string>
 	<string name="txtOlvidoContrasena">Forgot your password?</string>
     <string name="txtRecuperarContrasena">Recover password</string>
-
 </resources>

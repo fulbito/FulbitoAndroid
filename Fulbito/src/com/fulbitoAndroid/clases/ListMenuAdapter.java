@@ -1,6 +1,10 @@
-package com.fulbitoAndroid.fulbito;
+package com.fulbitoAndroid.clases;
 
 import java.util.ArrayList;
+
+import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.fulbito.R.id;
+import com.fulbitoAndroid.fulbito.R.layout;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

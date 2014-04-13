@@ -42,5 +42,4 @@
                 style="@style/ButtonLogin"
                 android:text="@string/txtBotonRegistrarme" />
 
-
 </LinearLayout>
