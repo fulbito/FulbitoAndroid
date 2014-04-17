@@ -11,24 +11,33 @@
 	
 	<Button
 	    android:id="@+id/btnIngresar"
-	    style="@style/ButtonLogin"
+	    style="@style/ButtonLogin"	    
 	    android:text="@string/txtBotonIngresar" />
 	
-		<LinearLayout
+	<LinearLayout
 	    android:id="@+id/loBotonTwitter"
-	    style="@style/ButtonTwitter" >
+	    style="@style/ButtonTwitter"
+	    android:paddingLeft="10dp"
+	    android:paddingRight="10dp"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp" >
 	
 	    <ImageView
 	        android:id="@+id/imageView1"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="6"
-	        android:src="@drawable/icono_twitter" />
+	        android:src="@drawable/icono_twitter"
+	        android:paddingLeft="0dp"
+		    android:paddingRight="0dp"
+		    android:paddingBottom="10dp"
+		    android:paddingTop="10dp" />
 
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1" >
+	        android:layout_weight="1"
+	        android:padding="0dp" >
 
 	        <TextView
 	            android:id="@+id/textView1"
@@ -45,19 +54,29 @@
 
 	<LinearLayout
 	    android:id="@+id/loBotonFacebook"
-	    style="@style/ButtonFacebook" >
+	    style="@style/ButtonFacebook"
+	    android:padding="0dp"
+	    android:paddingLeft="10dp"
+	    android:paddingRight="10dp"
+	    android:paddingBottom="0dp"
+	    android:paddingTop="0dp" >
 	
 	    <ImageView
 	        android:id="@+id/imageView2"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="6"
-	        android:src="@drawable/icono_facebook" />
+	        android:src="@drawable/icono_facebook"
+	        android:paddingLeft="0dp"
+		    android:paddingRight="0dp"
+		    android:paddingBottom="10dp"
+		    android:paddingTop="10dp" />
 
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1" >
+	        android:layout_weight="1"
+	        android:padding="0dp" >
 
 	        <TextView
 	            android:id="@+id/textView2"

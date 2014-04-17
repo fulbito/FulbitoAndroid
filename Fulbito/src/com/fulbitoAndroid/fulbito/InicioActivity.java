@@ -1,3 +1,14 @@
+/* ----------------------------------------------------------------------------- 
+Nombre: 		InicioActivity
+Descripción:	Clase que controla la interfaz de inicio de la aplicación en la 
+				que se puede elegir entre loguearse o registrarse
+
+Log de modificaciones:
+
+Fecha		Autor		Descripción
+17/04/2014	MAC			Creación
+----------------------------------------------------------------------------- */
+
 package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.fulbito.R;
@@ -14,12 +25,16 @@ public class InicioActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
         
+        //Lanzamos el fragment FragmentInicio que contiene la botonera principal de la interfaz de inicio
 		FragmentManager fragmentManager;
 		android.support.v4.app.Fragment fragment;
+		android.support.v4.app.FragmentTransaction ftFragmentTransaction;
 		
 		fragment = new FragmentInicio();
 		fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.loFragmentContainerInicio, fragment).commit();        
+		ftFragmentTransaction = fragmentManager.beginTransaction();
+		ftFragmentTransaction.replace(R.id.loFragmentContainerInicio, fragment);
+		ftFragmentTransaction.commit();        
     }
 
     @Override

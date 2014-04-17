@@ -1,3 +1,15 @@
+/* ----------------------------------------------------------------------------- 
+Nombre: 		InicioActivity
+Descripción:	Clase que controla la interfaz Home de la aplicación, a ella se 
+				llega luego de que el usuario se loguee correctamente.
+				Contiene un menu lateral (DrawerLayout) con las opciones principales
+				de la aplicación
+
+Log de modificaciones:
+
+Fecha		Autor		Descripción
+17/04/2014	MAC			Creación
+----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.fulbito;
 
 import java.util.ArrayList;
@@ -19,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,8 +39,9 @@ import android.content.res.TypedArray;
 
 public class HomeActivity extends ActionBarActivity {
 	ListView lvOpcionesMenuLateral;
-	DrawerLayout dlMenuLateral;	
+	DrawerLayout dlLayoutPrincipal;
 	ActionBarDrawerToggle mDrawerToggle;	
+	LinearLayout lloMenuLateral;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,42 +50,18 @@ public class HomeActivity extends ActionBarActivity {
 		
 		//Obtenemos los elementos de la interfaz gráfica
 		lvOpcionesMenuLateral = (ListView) findViewById(R.id.drawer);
-		dlMenuLateral = (DrawerLayout) findViewById(R.id.drawer_layout);		
+		dlLayoutPrincipal = (DrawerLayout) findViewById(R.id.drawer_layout);
+		lloMenuLateral = (LinearLayout) findViewById(R.id.loDrawerContainer);
 		
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
-		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)
-		getSupportActionBar().setTitle(R.string.app_name);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-		mDrawerToggle = new ActionBarDrawerToggle(
-			this, 
-			dlMenuLateral,  
-			R.drawable.ic_drawer, 
-			R.string.app_name, 
-			R.string.txtMenuLateral ) 
-		{		 
-			public void onDrawerClosed(View view) 
-			{
-				getSupportActionBar().setTitle(R.string.app_name);
-				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-			}
-			 
-			public void onDrawerOpened(View drawerView) 
-			{
-				getSupportActionBar().setTitle(R.string.txtMenuLateral);
-				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-			}
-		};
-          
-		dlMenuLateral.setDrawerListener(mDrawerToggle);
-		
+		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
+		vAgregarActionBar();
 	}
 	
 	//Completa los items del menú lateral del home
-	public void vCrearMenuLateral(ListView lvOpcionesMenuLateral)
+	private void vCrearMenuLateral(ListView lvOpcionesMenuLateral)
 	{
 		ListMenuAdapter lmaMenuLateralAdapter;
 		ArrayList<ItemMenuLateral> alItemsMenuLateral = new ArrayList<ItemMenuLateral>();
@@ -108,11 +98,39 @@ public class HomeActivity extends ActionBarActivity {
 		lvOpcionesMenuLateral.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id){
-				dlMenuLateral.closeDrawers();
+				dlLayoutPrincipal.closeDrawers();
 				vMostrarFragment(position);
 			}
 		});
 		
+	}
+	
+	private void vAgregarActionBar(){
+		getSupportActionBar().setTitle(R.string.app_name);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+		mDrawerToggle = new ActionBarDrawerToggle(
+			this, 
+			dlLayoutPrincipal,  
+			R.drawable.ic_drawer, 
+			R.string.app_name, 
+			R.string.txtMenuLateral ) 
+		{		 
+			public void onDrawerClosed(View view) 
+			{
+				getSupportActionBar().setTitle(R.string.app_name);
+				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
+			 
+			public void onDrawerOpened(View drawerView) 
+			{
+				getSupportActionBar().setTitle(R.string.txtMenuLateral);
+				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
+		};
+          
+		dlLayoutPrincipal.setDrawerListener(mDrawerToggle);
 	}
 	
 	//Dispara un fragment o un activity de acuerdo al item del menu lateral seleccionado
@@ -120,22 +138,37 @@ public class HomeActivity extends ActionBarActivity {
 	{
 		FragmentManager fragmentManager;
 		android.support.v4.app.Fragment fragment;
+		android.support.v4.app.FragmentTransaction ftFragmentTransaction;
+		
+		fragmentManager = getSupportFragmentManager();
+				
+    	//Limpiamos el BackStack Fragment
+    	for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+    		fragmentManager.popBackStack();        
+    	}
 		
 		switch(iOpcionMenu)
-		{
+		{			
 			case 1:
-				Intent intent = new Intent(getApplicationContext(), ModUsuarioActivity.class);
-                startActivity(intent);
-				break;
+		        //Agregamos el fragment Modificar Perfil
+				fragment = new FragmentModificarPerfil();								
+				ftFragmentTransaction = fragmentManager.beginTransaction();
+				ftFragmentTransaction.replace(R.id.loFragmentContainer, fragment);		        																								
+				//Agregamos el fragment anterior a la pila para volver
+				ftFragmentTransaction.addToBackStack(null);
+				ftFragmentTransaction.commit();			        
+		        break;
 			case 2:
-				fragment = new FragmentModificarPerfil();
-				fragmentManager = getSupportFragmentManager();
-		        fragmentManager.beginTransaction().replace(R.id.loFragmentContainer, fragment).commit();
+				fragment = new FragmentCrearPartido();				
+				ftFragmentTransaction = fragmentManager.beginTransaction();
+				ftFragmentTransaction.replace(R.id.loFragmentContainer, fragment);		        																								
+				//Agregamos el fragment anterior a la pila para volver
+				ftFragmentTransaction.addToBackStack(null);
+				ftFragmentTransaction.commit();
 				break;
 			case 3:
-				fragment = new FragmentCrearPartido();
-				fragmentManager = getSupportFragmentManager();
-		        fragmentManager.beginTransaction().replace(R.id.loFragmentContainer, fragment).commit();
+				Intent intent = new Intent(getApplicationContext(), ModUsuarioActivity.class);
+                startActivity(intent);
 				break;
 		}
 	}
@@ -144,7 +177,7 @@ public class HomeActivity extends ActionBarActivity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.home, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -152,7 +185,8 @@ public class HomeActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = dlMenuLateral.isDrawerOpen(lvOpcionesMenuLateral);
+        //boolean drawerOpen = dlMenuLateral.isDrawerOpen(lvOpcionesMenuLateral);
+    	boolean drawerOpen = dlLayoutPrincipal.isDrawerOpen(lloMenuLateral);
        // menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -178,6 +212,13 @@ public class HomeActivity extends ActionBarActivity {
                 Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
             }
             return true;*/
+        case R.id.menu_item_1:
+        	FragmentManager fm = getSupportFragmentManager();
+        	//sacamos todos los fragments del stackpara volver al HOME
+        	for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+        	    fm.popBackStack();        
+        	}
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }

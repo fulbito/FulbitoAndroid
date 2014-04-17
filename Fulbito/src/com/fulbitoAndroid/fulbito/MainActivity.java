@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------- 
 Nombre: 		MainActivity
-Descripción:	Clase que contiene lanza el proceso de inicialización de la 
+Descripción:	Clase que lanza el proceso de inicialización de la 
 				aplicación mientras muestra un splash de la aplicación
 
 Log de modificaciones:

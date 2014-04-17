@@ -3,10 +3,9 @@ package com.fulbitoAndroid.clases;
 import java.util.ArrayList;
 
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.fulbito.R.id;
-import com.fulbitoAndroid.fulbito.R.layout;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

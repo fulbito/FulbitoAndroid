@@ -2,13 +2,13 @@
 <resources>
     <string-array
         name="opciones_menu_lateral">
-        <item>perfil</item>
-        <item>amigos</item>
-        <item>partidos publicos</item>
+        <item>Perfil</item>
+        <item>Amigos</item>
+        <item>Partidos públicos</item>
     </string-array>
     <array name= "iconos_menu_lateral">
-        <item>@drawable/ic_action_user</item>
-        <item>@drawable/ic_action_user_add</item>
+        <item>@drawable/ic_action_person_light</item>
+        <item>@drawable/ic_action_group</item>
         <item>@drawable/ic_action_search</item>
     </array>
 </resources>

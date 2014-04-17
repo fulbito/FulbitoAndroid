@@ -1,3 +1,14 @@
+/* ----------------------------------------------------------------------------- 
+Nombre: 		FragmentInicio
+Descripción:	Clase que controla la botonera principal de la interfaz de inicio
+				en la que podemos elegir entre loguearse y regitrarse
+
+Log de modificaciones:
+
+Fecha		Autor		Descripción
+17/04/2014	MAC			Creación
+----------------------------------------------------------------------------- */
+
 package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.admUsuario.FragmentLogin;
@@ -17,6 +28,10 @@ import android.widget.TextView;
  
 public class FragmentInicio extends Fragment {
 	
+	TextView txtVwLogin;
+	Button btnIngresar;
+	Button btnRegistrar;
+	
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -28,19 +43,25 @@ public class FragmentInicio extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
 
-    	//Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
-    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");
-        
-        TextView txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);        
+        //Obtenemos los controles de la interfaz gráfica
+        txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);
+        btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
+        btnRegistrar = (Button) getView().findViewById(R.id.btnRegistrar);
+    	
+        //Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
+    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");                       
         txtVwLogin.setTypeface(typeFace);        
         
         TextView txtVwRegistrar = (TextView) getView().findViewById(R.id.txtVwRegistrar);       
         txtVwRegistrar.setTypeface(typeFace);
         
-      //seteamos el evento OnClick del botón btnIngresar
-        Button btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
-        
-        btnIngresar.setOnClickListener(new OnClickListener() 
+        //seteamos el evento OnClick del botón btnIngresar                                 
+        vAgregarEventoBotónIngresar();
+        vAgregarEventoBotónRegistrar();		
+    }
+    
+    private void vAgregarEventoBotónIngresar(){
+    	btnIngresar.setOnClickListener(new OnClickListener() 
         {   
         	public void onClick(View v) 
             {   
@@ -55,11 +76,10 @@ public class FragmentInicio extends Fragment {
 				ftFragmentTransaction.addToBackStack(null);
 				ftFragmentTransaction.commit();				
             }
-        });  
-        
-		Button btnRegistrar = (Button) getView().findViewById(R.id.btnRegistrar);
-
-		btnRegistrar.setOnClickListener(new OnClickListener() 
+        }); 
+    }
+    private void vAgregarEventoBotónRegistrar(){
+    	btnRegistrar.setOnClickListener(new OnClickListener() 
 		{   
 			public void onClick(View v) 
 			{   
@@ -76,7 +96,6 @@ public class FragmentInicio extends Fragment {
 				ftFragmentTransaction.commit();		
 			}
 		});
-
     }
 }
 

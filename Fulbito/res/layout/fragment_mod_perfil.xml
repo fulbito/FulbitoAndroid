@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="#0000FF" >
-</LinearLayout>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@android:id/tabhost"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:background="@drawable/fondo" >
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="20dp">
+        <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="11"
+                android:visibility="visible" />
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp" >
+
+			<include android:id="@+id/tab1" layout="@layout/layout_mod_datos"/>
+			<include android:id="@+id/tab2" layout="@layout/layout_mod_foto"/>
+			<include android:id="@+id/tab3" layout="@layout/layout_mod_ubicacion"/>
+			<include android:id="@+id/tab4" layout="@layout/layout_mod_notificaciones"/>
+            
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
+<!--
+<android.support.v4.app.FragmentTabHost xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/mi_tabhost"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <TabWidget
+          android:id="@android:id/tabs"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" 
+          android:orientation="horizontal"/>
+       <FrameLayout
+          android:id="@+id/contenido"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"/>
+    </LinearLayout>
+</android.support.v4.app.FragmentTabHost>
+ -->

@@ -1,3 +1,14 @@
+/* ----------------------------------------------------------------------------- 
+Nombre: 		FragmentInicio
+Descripción:	Clase que controla la interfaz de logueo de usuario 
+				implementada mediante Fragment y que es invocada a través
+				del FragmentInicio.java
+
+Log de modificaciones:
+
+Fecha		Autor		Descripción
+17/04/2014	MAC			Creación
+----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.admUsuario;
 
 import com.fulbitoAndroid.fulbito.HomeActivity;
