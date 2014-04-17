@@ -22,12 +22,18 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp" >
-
-			<include android:id="@+id/tab1" layout="@layout/layout_mod_datos"/>
+	            <LinearLayout
+		            android:id="@+id/realtabcontent"
+		            android:orientation="vertical"
+		            android:layout_width="fill_parent"
+		            android:layout_height="fill_parent">    
+            	</LinearLayout>
+			<!--  
+			<include android:id="@+id/tab1" layout="@layout/fragment_mod_perfil_datos"/>
 			<include android:id="@+id/tab2" layout="@layout/layout_mod_foto"/>
 			<include android:id="@+id/tab3" layout="@layout/layout_mod_ubicacion"/>
 			<include android:id="@+id/tab4" layout="@layout/layout_mod_notificaciones"/>
-            
+            -->
         </FrameLayout>
     </LinearLayout>
 </TabHost>
