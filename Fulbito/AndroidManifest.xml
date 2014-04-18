@@ -18,7 +18,7 @@
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name="com.fulbitoAndroid.fulbito.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,24 +27,16 @@
         </activity>
         <activity
             android:name="com.fulbitoAndroid.admUsuario.ModUsuarioActivity"
-            android:label="@string/title_activity_mod_usuario" >
-        </activity>
-        <activity
-            android:name="com.fulbitoAndroid.admUsuario.LoginUsuarioActivity"
-            android:label="@string/title_activity_login_usuario" >
-        </activity>
-        <activity
-            android:name="com.fulbitoAndroid.admUsuario.RegistrarUsuarioActivity"
-            android:label="@string/title_activity_registrar_usuario" >
+            android:label="@string/title_activity_mod_usuario" android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.fulbitoAndroid.fulbito.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.fulbitoAndroid.fulbito.InicioActivity"
-            android:label="@string/title_activity_inicio" >
+            android:label="@string/title_activity_inicio" android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -14,7 +14,6 @@ Fecha		Autor		Descripción
 package com.fulbitoAndroid.admUsuario;
 
 import com.fulbitoAndroid.clases.TabContentVacio;
-import com.fulbitoAndroid.fulbito.FragmentInicio;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.content.Context;
@@ -26,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.widget.TabHost.TabContentFactory;
 
 public class FragmentModificarPerfil extends Fragment {
 	TabHost tbTabHost;
@@ -36,6 +34,12 @@ public class FragmentModificarPerfil extends Fragment {
 	android.support.v4.app.Fragment fragmentTab4;
 	android.support.v4.app.FragmentTransaction ft;
 	android.support.v4.app.FragmentManager fm;
+	
+	FragmentModPerfilDatos datosFragment;
+	FragmentModPerfilFoto fotoFragment;
+	FragmentModPerfilUbicacion ubicacionFragment;
+	FragmentModPerfilNotificaciones notificacionesFragment;
+	
 	String sTagTabAnterior = "";
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -52,98 +56,108 @@ public class FragmentModificarPerfil extends Fragment {
         
         //Call setup() before adding tabs if loading TabHost using findViewById()
         tbTabHost.setup();
-        
-        
-        
+                        
         //Agregamos la pestaña de modificar datos de usuario
         vAgregarTab("DATOS", 
-        		R.drawable.tab_img_selector_datos/*, 
-        		R.id.tab1*/);
+        		R.drawable.tab_img_selector_datos);
         
         //Agregamos la pestaña de modificar foto de usuario
         vAgregarTab("FOTO", 
-        		R.drawable.tab_img_selector_foto/*, 
-        		R.id.tab2*/);
+        		R.drawable.tab_img_selector_foto);
         
         //Agregamos la pestaña de modificar ubicacion de usuario
         vAgregarTab("UBICACION", 
         		R.drawable.
-        		tab_img_selector_ubicacion/*, 
-        		R.id.tab3*/);
+        		tab_img_selector_ubicacion);
         
         //Agregamos la pestaña de modificar configuracion de notificaciones de usuario
         vAgregarTab("NOTIFICACION", 
-        		R.drawable.tab_img_selector_notificaciones/*, 
-        		R.id.tab4*/);  
+        		R.drawable.tab_img_selector_notificaciones);  
         
-        fm =  getActivity().getSupportFragmentManager();
+        //Se esta trabajando con fragments dentro de un fragment, por lo tanto no debemos usar 
+        //getFragmentManager() ya que este obtiene el FragmentManager del activity padre y nosotros
+        //debemos laburar con el FragmentManager del fragment padre por eso usamos getChildFragmentManager
+        fm =  getChildFragmentManager();
     	ft = fm.beginTransaction();
-        fragmentTab1 = new FragmentModPerfilDatos();
-		ft.add(R.id.realtabcontent, new FragmentModPerfilDatos(), "DATOS");
-		//ft.commit();
-		fragmentTab2 = new FragmentModPerfilFoto();	
-		ft.add(R.id.realtabcontent, new FragmentModPerfilFoto(), "FOTO");
-		//ft.commit();
-		fragmentTab3 = new FragmentModPerfilUbicacion();
-		ft.add(R.id.realtabcontent, new FragmentModPerfilUbicacion(), "UBICACION");
-		//ft.commit();
-		fragmentTab4 = new FragmentModPerfilNotificaciones();
-		ft.add(R.id.realtabcontent, new FragmentModPerfilNotificaciones(), "NOTIFICACION");
-		//ft.commit();
-        ft.attach(fragmentTab1);
-        sTagTabAnterior = "DATOS";
-        ft.commit();
-        /** Defining Tab Change Listener event. This is invoked when tab is changed */
+    	//Añadimos el fragment inicial FragmentModPerfilDatos
+		ft.add(R.id.realtabcontent, new FragmentModPerfilDatos(), "DATOS");	
+		sTagTabAnterior = "DATOS";
+		//Commiteamos los cambios
+		ft.commit();
+		
+        //Definimos el Tab Change Listener event. Este se invoca cuando cambia el Tab, es decir
+		//cuando seleccionamos una pestaña. Lo que se realizará dentro de el es cambiar al 
+		//fragment correspondiente a la pestaña seleccionada, sacando el anterior fragment activo
+		//y activando el correspondiente
         TabHost.OnTabChangeListener tabChangeListener = new TabHost.OnTabChangeListener() {
         	 
             @Override
             public void onTabChanged(String tabId) {
 
-            	FragmentModPerfilDatos datosFragment = (FragmentModPerfilDatos) fm.findFragmentByTag("DATOS");
-            	FragmentModPerfilFoto fotoFragment = (FragmentModPerfilFoto) fm.findFragmentByTag("FOTO");
-            	FragmentModPerfilUbicacion ubicacionFragment = (FragmentModPerfilUbicacion) fm.findFragmentByTag("UBICACION");
-            	FragmentModPerfilNotificaciones notificacionesFragment = (FragmentModPerfilNotificaciones) fm.findFragmentByTag("NOTIFICACION");
-            	
             	ft = fm.beginTransaction();
-
+            	//sacamos el fragment activo
             	if(sTagTabAnterior == "DATOS")
             	{
+            		datosFragment = (FragmentModPerfilDatos) fm.findFragmentByTag("DATOS");
             		ft.detach(datosFragment);
             	}
             	
             	if(sTagTabAnterior == "FOTO")
             	{
+            		fotoFragment = (FragmentModPerfilFoto) fm.findFragmentByTag("FOTO");
             		ft.detach(fotoFragment);
             	}
             	
             	if(sTagTabAnterior == "UBICACION")
             	{
+            		ubicacionFragment = (FragmentModPerfilUbicacion) fm.findFragmentByTag("UBICACION");
             		ft.detach(ubicacionFragment);
             	}
             	
             	if(sTagTabAnterior == "NOTIFICACION")
             	{
+            		notificacionesFragment = (FragmentModPerfilNotificaciones) fm.findFragmentByTag("NOTIFICACION");
             		ft.detach(notificacionesFragment);
             	}
             	
+            	//hacemos visible el fragment correspondiente a la pestaña seleccionada
             	if(tabId.equalsIgnoreCase("DATOS"))
             	{
-            		ft.attach(datosFragment);
+            		//buscamos el fragment dentro del FragmentManager
+            		datosFragment = (FragmentModPerfilDatos) fm.findFragmentByTag("DATOS");
+            		if(datosFragment == null)
+            			//el fragment NO está dentro del FragmentManager, se lo añade y se lo hace visible con add
+            			ft.add(R.id.realtabcontent, new FragmentModPerfilDatos(), "DATOS");
+            		else  
+            			//el fragment está dentro del FragmentManager, solo se lo hace visible con attach
+            			ft.attach(datosFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("FOTO"))
             	{
-            		ft.attach(fotoFragment);
+            		fotoFragment = (FragmentModPerfilFoto) fm.findFragmentByTag("FOTO");
+            		if(fotoFragment == null)
+            			ft.add(R.id.realtabcontent, new FragmentModPerfilFoto(), "FOTO");
+            		else            			
+            			ft.attach(fotoFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("UBICACION"))
             	{
-            		ft.attach(ubicacionFragment);
+            		ubicacionFragment = (FragmentModPerfilUbicacion) fm.findFragmentByTag("UBICACION");
+            		if(ubicacionFragment == null)
+            			ft.add(R.id.realtabcontent, new FragmentModPerfilUbicacion(), "UBICACION");
+            		else            			
+            			ft.attach(ubicacionFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("NOTIFICACION"))
             	{
-            		ft.attach(notificacionesFragment);
+            		notificacionesFragment = (FragmentModPerfilNotificaciones) fm.findFragmentByTag("NOTIFICACION");
+            		if(notificacionesFragment == null)
+            			ft.add(R.id.realtabcontent, new FragmentModPerfilNotificaciones(), "NOTIFICACION");
+            		else            			
+            			ft.attach(notificacionesFragment);
             	}
             	
                 ft.commit();
@@ -152,8 +166,9 @@ public class FragmentModificarPerfil extends Fragment {
             }
         };
         
-        /** Setting tabchangelistener for the tab */
+        //seteamos el tabChangeListener
         tbTabHost.setOnTabChangedListener(tabChangeListener);
+                        
     }
     
     //Agrega pestaña (TAB) al TabHost
@@ -162,10 +177,8 @@ public class FragmentModificarPerfil extends Fragment {
     	View tabview = createTabView(tbTabHost.getContext(), iIconResourceId);
     	//Creamos la pestaña dentro del TabHost
         TabSpec spec = tbTabHost.newTabSpec(tag);
-        //Seteamos el layout de contenido que le corresponde a la pestaña
-        //spec.setContent(iContent);
-        spec.setContent(new TabContentVacio(tbTabHost.getContext()));
-        
+        //Seteamos un contenido vacio para la pestaña, luego se le asignará un fragment
+        spec.setContent(new TabContentVacio(tbTabHost.getContext()));        
         //Seteamos la vista correspondiente a la pestaña
         spec.setIndicator(tabview);
         //Agregamos finalmente la pestaña al TabHost
