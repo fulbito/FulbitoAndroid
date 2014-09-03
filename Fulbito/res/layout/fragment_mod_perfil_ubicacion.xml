@@ -6,12 +6,109 @@
     android:orientation="vertical"
     android:background="@drawable/borde_layout_registracion" >
 
-    <TextView
+	<TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="UBICACION"
+        android:layout_weight="2"
+        android:text="¿DÓNDE JUGAS?"
         android:textColor="#FFFFFF"
         android:gravity="center" />
+
+	<RelativeLayout
+	    android:id="@+id/loMapContainerModPerfilUbicacion"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1" >
+	    
+	</RelativeLayout>
+	<!-- 
+    <LinearLayout
+        android:id="@+id/loMapContainerModPerfilUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1" >
+    </LinearLayout>
+	 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtVwEscribeLugar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"            
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:text="Escribe un lugar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2" >
+
+        <EditText
+            android:id="@+id/edtTxtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPostalAddress"            
+            style="@style/EdtTxtLogin" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:layout_margin="5dp"
+            android:background="@drawable/boton_interfaz_login"
+            android:src="@drawable/ic_action_search" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/txtVwRadioJuego"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"            
+            android:gravity="center_vertical"
+            android:text="Radio de juego"
+            android:textColor="#FFFFFF" />
         
+        <TextView
+            android:id="@+id/txtKmRadios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"            
+            android:gravity="center"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical" >
+
+        <SeekBar
+            android:id="@+id/seekBarRadioUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+          
 </LinearLayout>

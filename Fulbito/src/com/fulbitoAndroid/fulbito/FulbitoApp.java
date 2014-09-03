@@ -1,10 +1,13 @@
 package com.fulbitoAndroid.fulbito;
 
+import com.fulbitoAndroid.clases.Usuario;
+
 import android.app.Application;
 import android.content.res.Configuration;
 import android.util.Log;
 
 public class FulbitoApp extends Application{
+	public Usuario usrUsuarioLogueado;
 	static final String TAG="FulbitoApp";
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -17,6 +20,8 @@ public class FulbitoApp extends Application{
 		// TODO Auto-generated method stub
 		super.onCreate();
 		Log.d(TAG,"OnCreate del Application Object");
+		
+		usrUsuarioLogueado = new Usuario();
 	}
 
 	@Override
@@ -25,5 +30,8 @@ public class FulbitoApp extends Application{
 		super.onTerminate();
 	}
 	
+	public Usuario usrGetUsuarioLogueado(){
+		return usrUsuarioLogueado;
+	}
 
 }

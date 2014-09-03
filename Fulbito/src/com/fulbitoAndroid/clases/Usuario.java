@@ -14,11 +14,13 @@ package com.fulbitoAndroid.clases;
 public class Usuario 
 {
 	//Atributos privados
+	private int		iId;
 	private String  sAlias;
 	private String  sEmail;
 	private String  sFoto;
 	private String  sPassword;
 	private int     iEstado;
+	private String sUbicacion;
 
 	//Métodos públicos
 	
@@ -30,6 +32,7 @@ public class Usuario
 		this.sFoto     = "";
 		this.sPassword = "";
 		this.iEstado   = 0;
+		this.sUbicacion = "";
 	}
 	//Constructor con datos de usuario
 	public Usuario(String sAlias, String sEmail, String sFoto, String sPassword, int iEstado)
@@ -51,6 +54,10 @@ public class Usuario
     }
     
     //Setters 
+	public void setId(int iId)
+	{
+		this.iId = iId;
+	}	
     public void setAlias(String sAlias)
     {
     	this.sAlias = sAlias;
@@ -71,8 +78,16 @@ public class Usuario
     {
       this.iEstado = iEstado;
     }
+    public void setUbicacion(String sUbicacion)
+    {
+      this.sUbicacion = sUbicacion;
+    }    
     
     //Getters 
+    public int getId()
+    {
+    	return iId;
+    }
     public String getAlias()
     {
       return this.sAlias;
@@ -93,4 +108,9 @@ public class Usuario
     {
       return this.iEstado;
     }	
+    public String getUbicacion()
+    {
+    	return this.sUbicacion;
+    }
+    
 }//Fin Usuario

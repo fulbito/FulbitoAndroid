@@ -20,6 +20,7 @@ import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
 import com.fulbitoAndroid.clases.ItemMenuLateral;
 import com.fulbitoAndroid.clases.ListMenuAdapter;
+import com.fulbitoAndroid.clases.Usuario;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -56,8 +57,12 @@ public class HomeActivity extends ActionBarActivity {
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
+		Usuario usrUsuario = (Usuario) ((FulbitoApp) getApplication()).usrGetUsuarioLogueado();
+		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
+		
+		
 	}
 	
 	//Completa los items del menú lateral del home
@@ -179,7 +184,7 @@ public class HomeActivity extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home, menu);
         return super.onCreateOptionsMenu(menu);
-    }
+    }	
 
     /* Called whenever we call invalidateOptionsMenu() */
     @Override

@@ -10,7 +10,7 @@
 		android:text="@string/txtLogin" />
 	
 	<Button
-	    android:id="@+id/btnIngresar"
+	    android:id="@+id/btnInicioIngresar"
 	    style="@style/ButtonLogin"	    
 	    android:text="@string/txtBotonIngresar" />
 	
@@ -97,7 +97,7 @@
 	    android:text="@string/txtRegistrar" />            
 	
 	<Button
-	    android:id="@+id/btnRegistrar"
+	    android:id="@+id/btnInicioRegistrar"
 	    style="@style/ButtonLogin"
 	    android:text="@string/txtBotonRegistrarme" />
 

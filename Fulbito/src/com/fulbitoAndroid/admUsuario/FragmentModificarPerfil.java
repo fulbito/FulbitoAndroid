@@ -40,6 +40,8 @@ public class FragmentModificarPerfil extends Fragment {
 	FragmentModPerfilUbicacion ubicacionFragment;
 	FragmentModPerfilNotificaciones notificacionesFragment;
 	
+	public String sUbicacion = "";
+	
 	String sTagTabAnterior = "";
     @Override
     public View onCreateView(LayoutInflater inflater,

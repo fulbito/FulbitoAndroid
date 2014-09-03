@@ -45,8 +45,8 @@ public class FragmentInicio extends Fragment {
 
         //Obtenemos los controles de la interfaz gráfica
         txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);
-        btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
-        btnRegistrar = (Button) getView().findViewById(R.id.btnRegistrar);
+        btnIngresar = (Button) getView().findViewById(R.id.btnInicioIngresar);
+        btnRegistrar = (Button) getView().findViewById(R.id.btnInicioRegistrar);
     	
         //Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
     	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");                       
