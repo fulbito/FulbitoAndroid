@@ -13,7 +13,8 @@ Fecha		Autor		Descripción
 
 package com.fulbitoAndroid.admUsuario;
 
-import com.fulbitoAndroid.clases.TabContentVacio;
+import herramientas.TabContentVacio;
+
 import com.fulbitoAndroid.fulbito.R;
 
 import android.content.Context;

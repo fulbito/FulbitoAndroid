@@ -1,4 +1,4 @@
-package com.fulbitoAndroid.clases;
+package herramientas;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +25,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
+
+import android.util.Log;
 
 public class WebService {
 	DefaultHttpClient httpClient;
@@ -98,9 +100,12 @@ public class WebService {
 		
 		try {
 			tmp = new StringEntity(jsonObject.toString(),"UTF-8");
+			
 		} catch (UnsupportedEncodingException e) {
 			//Log.e("Groshie", "HttpUtils : UnsupportedEncodingException : "+e);
 		}
+		
+		
 		
 		tmp.setContentType("application/json");
 		
@@ -172,12 +177,14 @@ public class WebService {
 		int i = 0;
 		for (Map.Entry<String, String> param : mParametros.entrySet())
 		{
-			if(i == 0){
+			/*if(i == 0){
 				getUrl += "?";
 			}
 			else{
 				getUrl += "&";
-			}
+			}*/
+			
+			getUrl += "/";
 			
 			try {
 				getUrl += param.getKey() + "=" + URLEncoder.encode(param.getValue(),"UTF-8");
@@ -187,7 +194,7 @@ public class WebService {
 			}
 			i++;
 		}
-		
+		getUrl = "http://www.fulbitoweb.com.ar/index.php/login/ingresar_GET/fabianmayoral@hotmail.com/123456";
 		httpGet = new HttpGet(getUrl);
 		//Log.e("WebGetURL: ",getUrl);
 
@@ -206,4 +213,31 @@ public class WebService {
 
 		return ret;
 	}
+	
+	public String sWebPostMac(String sNombreMetodo, JSONObject jsonParametro){
+		
+		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
+		response = null;
+		
+		try {
+			httpPost.setEntity(new StringEntity(jsonParametro.toString()));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			response = httpClient.execute(httpPost, localContext);
+			
+			if (response != null) {
+				ret = EntityUtils.toString(response.getEntity());
+			}
+			
+		} catch (Exception e) {
+			Log.e("Mac", "HttpUtils: " + e);
+		}
+		
+		return ret;
+	}
 }
+

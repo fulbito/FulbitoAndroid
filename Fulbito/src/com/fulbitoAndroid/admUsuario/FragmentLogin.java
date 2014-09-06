@@ -11,6 +11,9 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.admUsuario;
 
+import herramientas.CodificadorJSON;
+import herramientas.WebService;
+
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -18,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.clases.WebService;
 import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
@@ -195,11 +197,29 @@ public class FragmentLogin extends Fragment {
     	LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
     	loginTask.execute();
 */
-
+    	//Instanciamos un objeto Usuario
+    	Usuario cUsrLogin = new Usuario();
+    	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
+    	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
 		
+    	//Generamos el parametro JSON a mandar en el WebService
+    	CodificadorJSON cCodJSON = new CodificadorJSON();
+    	JSONObject cJsonLogin = cCodJSON.CodificarJSON_Login(cUsrLogin);
+		
+		//Invocamos el WebService
+    	
+    	//WebService webService = new WebService(getString(R.string.webservice_name));
+    	WebService webService = new WebService("http://www.fulbitoweb.com.ar/index.php/");
+    	//String sRespuesta = webService.sWebPostMac(getString(R.string.webservice_login), cJsonLogin);
+    	String sRespuesta = webService.sWebPostMac("login/ingresar", cJsonLogin);
+    	
+    	Log.d("MAC", sRespuesta);
+    	
+    	/*
     	//Instanciamos un objeto WebService con la URL del webservice a invocar
-    	WebService webService = new WebService(getString(R.string.webservice_name));				
-		
+    	//WebService webService = new WebService(getString(R.string.webservice_name));				
+    	WebService webService = new WebService("http://www.fulbitoweb.com.ar/");
+    	
     	//Agregamos los parámetros requeridos por el WebService
 		HashMap<String, String> mParametros = new HashMap<String, String>();
 
@@ -207,7 +227,7 @@ public class FragmentLogin extends Fragment {
 		mParametros.put(getString(R.string.ws_login_param_2), edtTextContrasena.getText().toString());
 		
 		//Ejecutamos el WebService pasandole el metodo a ejecutar y los parametros
-		String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), mParametros);
+		String sRespuesta = webService.sWebGet("index.php/login/ingresar_GET", mParametros);
 		
 		//String sRespuesta = webService.sWebPost(getString(R.string.webservice_login), mParametros);
 		
@@ -251,7 +271,7 @@ public class FragmentLogin extends Fragment {
 			e.printStackTrace();
 
 			return false;
-		}
+		}*/
 
     	return true;
     	

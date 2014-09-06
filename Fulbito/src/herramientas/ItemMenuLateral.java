@@ -1,4 +1,4 @@
-package com.fulbitoAndroid.clases;
+package herramientas;
 
 public class ItemMenuLateral {
 	private String sTitulo;
