@@ -11,8 +11,6 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.admUsuario;
 
-import herramientas.CodificadorJSON;
-import herramientas.WebService;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -24,6 +22,8 @@ import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.herramientas.CodificadorJSON;
+import com.fulbitoAndroid.herramientas.WebService;
 
 import android.app.ProgressDialog;
 import android.content.Context;

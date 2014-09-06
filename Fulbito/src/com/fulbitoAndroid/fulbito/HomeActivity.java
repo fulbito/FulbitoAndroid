@@ -12,12 +12,12 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.fulbito;
 
-import herramientas.ItemMenuLateral;
-import herramientas.ListMenuAdapter;
 
 import java.util.ArrayList;
 
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.herramientas.ItemMenuLateral;
+import com.fulbitoAndroid.herramientas.ListMenuAdapter;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
 import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;

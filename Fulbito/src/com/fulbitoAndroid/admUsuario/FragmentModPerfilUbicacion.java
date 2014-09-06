@@ -1,6 +1,5 @@
 package com.fulbitoAndroid.admUsuario;
 
-import herramientas.GPSTracker;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Locale;
 
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.herramientas.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
