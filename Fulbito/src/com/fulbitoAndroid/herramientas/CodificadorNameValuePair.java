@@ -1,3 +1,14 @@
+/* ----------------------------------------------------------------------------- 
+Nombre: 		CodificadorNameValuePair
+Descripción:	Clase que recibe objetos de la aplicación y los codifica dentro
+				de Listas de NameValuePair para poder enviarlos como paráemtros
+				a los WebServices.
+
+Log de modificaciones:
+
+Fecha		Autor		Descripción
+06/09/2014	MAC			Creación
+----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.herramientas;
 
 import java.util.ArrayList;
