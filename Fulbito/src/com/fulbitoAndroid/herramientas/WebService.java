@@ -3,28 +3,22 @@ package com.fulbitoAndroid.herramientas;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.client.params.CookiePolicy;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import android.util.Log;
 
@@ -37,8 +31,7 @@ public class WebService {
 	HttpGet httpGet = null;
 	String sWebServiceUrl;
 	
-	public WebService(String sServiceName){
-		
+	public WebService(String sServiceName){		
 		HttpParams myParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(myParams, 10000);
 		HttpConnectionParams.setSoTimeout(myParams, 10000);
@@ -48,134 +41,84 @@ public class WebService {
 		sWebServiceUrl = sServiceName;
 	}
 	
-	//metodo para invocar a un WebService POST con parametros
-	public String sWebPost(String methodName, Map<String, String> mParametros){
-		/*
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	     
-  		for(Map.Entry<String, String> param : mParametros.entrySet()){
-  				nameValuePairs.add(new BasicNameValuePair(param.getKey(), param.getValue()));	  				  			
-  		}
-	  		
-  		httpPost = new HttpPost(sWebServiceUrl + methodName);
-  		response = null;
-  		
-  		try {
-			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}				
-  		
-  		//Log.d("Groshie", webServiceUrl + "?" + data);
-  		
-  		try {
-  			response = httpClient.execute(httpPost, localContext);
-  			
-  			if (response != null) {
-  				ret = EntityUtils.toString(response.getEntity());
-  			}
-  			
-  		} catch (Exception e) {
-  			//Log.e("Groshie", "HttpUtils: " + e);
-  		}
-  		
-  		return ret;
-  		*/
+	//metodo para invocar a un WebService POST con parametros JSON
+	public String sWebPost(String sNombreMetodo, JSONObject jsonParametro)
+	{	
+		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
+		response = null;
 		
-		JSONObject jsonObject = new JSONObject();
-		//Agregamos los parametros a un objeto JSON
-		for(Map.Entry<String, String> param : mParametros.entrySet()){
-			try{
-				jsonObject.put(param.getKey(), param.getValue());
-			}
-			catch(JSONException e){
-				//Log.e("sWebPost", "JSONException : " + e);
+		try 
+		{
+			/*
+			StringEntity s = new StringEntity(jsonParametro.toString());
+			s.setContentEncoding("UTF-8");
+			s.setContentType("application/json");
+			httpPost.setEntity(s);
+			*/
+			httpPost.setEntity(new StringEntity(jsonParametro.toString()));
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			Log.e("WebService::sWebPost", e.getMessage());
+		}
+		
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+		
+		try 
+		{
+			response = httpClient.execute(httpPost, localContext);
+			if (response != null) 
+			{
+				ret = EntityUtils.toString(response.getEntity());
 			}			
-		}
-		
-		httpPost = new HttpPost(sWebServiceUrl + methodName);
-		response = null;
-		StringEntity tmp = null;
-		
-		try {
-			tmp = new StringEntity(jsonObject.toString(),"UTF-8");
-			
-		} catch (UnsupportedEncodingException e) {
-			//Log.e("Groshie", "HttpUtils : UnsupportedEncodingException : "+e);
-		}
-		
-		
-		
-		tmp.setContentType("application/json");
-		
-		httpPost.setEntity(tmp);				
-		
-		//Log.d("Groshie", webServiceUrl + "?" + data);
-		
-		try {
-			response = httpClient.execute(httpPost, localContext);
-			
-			if (response != null) {
-				ret = EntityUtils.toString(response.getEntity());
-			}
-			
-		} catch (Exception e) {
-			//Log.e("Groshie", "HttpUtils: " + e);
-		}
-		
-		return ret;
-		//return sWebPost(methodName, jsonObject.toString(), "application/json");
-	}
-	/*
-	private String sWebPost(String methodName, String data, String contentType){
-		ret = null;
-		
-		//httpClient.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.RFC_2109);
-		
-		httpPost = new HttpPost(sWebServiceUrl + methodName);
-		response = null;
-		StringEntity tmp = null;
-		
-		//httpPost.setHeader("User-Agent", "SET YOUR USER AGENT STRING HERE");
-		httpPost.setHeader("Accept", 
-				"text/html,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,**;q=0.5");
-		
-		if (contentType != null) {
-			httpPost.setHeader("Content-Type", contentType);
-		} else {
-			httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		}
-		
-		try {
-			tmp = new StringEntity(data,"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			//Log.e("Groshie", "HttpUtils : UnsupportedEncodingException : "+e);
-		}
-		
-		httpPost.setEntity(tmp);
-		
-		//Log.d("Groshie", webServiceUrl + "?" + data);
-		
-		try {
-			response = httpClient.execute(httpPost, localContext);
-			
-			if (response != null) {
-				ret = EntityUtils.toString(response.getEntity());
-			}
-			
-		} catch (Exception e) {
-			//Log.e("Groshie", "HttpUtils: " + e);
+		} 
+		catch (Exception e) 
+		{
+			Log.e("WebService::sWebPost", e.getMessage());
 		}
 		
 		return ret;
 	}
-	*/
-	public String sWebGet(String methodName, Map<String, String> mParametros){
-		String getUrl = sWebServiceUrl + methodName;
+	
+	//metodo para invocar a un WebService POST con parametros NameValuePair
+	public String sWebPost(String sNombreMetodo, List<NameValuePair> nvpParametros)
+	{	
+		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
+		response = null;		
 		
-		int i = 0;
-		for (Map.Entry<String, String> param : mParametros.entrySet())
+		try 
+		{
+			httpPost.setEntity(new UrlEncodedFormEntity(nvpParametros));
+		} 
+		catch(UnsupportedEncodingException e) 
+		{
+			Log.e("WebService::sWebPost", e.getMessage());
+		}
+		
+		try 
+		{
+			response = httpClient.execute(httpPost, localContext);
+			
+			if(response != null) 
+			{
+				ret = EntityUtils.toString(response.getEntity());
+			}
+		} 
+		catch (Exception e) 
+		{
+			Log.e("WebService::sWebPost", e.getMessage());
+		}
+		
+		return ret;
+	}
+
+	//metodo para invocar a un WebService GET con parametros almacenados en un
+	public String sWebGet(String sNombreMetodo, List<NameValuePair> nvpParametros)
+	{
+		String getUrl = sWebServiceUrl + sNombreMetodo;
+		
+		for(int i = 0; i < nvpParametros.size(); i++)
 		{
 			/*if(i == 0){
 				getUrl += "?";
@@ -186,57 +129,36 @@ public class WebService {
 			
 			getUrl += "/";
 			
-			try {
-				getUrl += param.getKey() + "=" + URLEncoder.encode(param.getValue(),"UTF-8");
-			} catch (UnsupportedEncodingException e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			try 
+			{
+				getUrl += nvpParametros.get(i).getName() + "=" + URLEncoder.encode(nvpParametros.get(i).getValue(), "UTF-8");
+			} 
+			catch (UnsupportedEncodingException e)
+			{
+				Log.e("WebService::sWebGet", e.getMessage());
 			}
-			i++;
 		}
-		getUrl = "http://www.fulbitoweb.com.ar/index.php/login/ingresar_GET/fabianmayoral@hotmail.com/123456";
+		
 		httpGet = new HttpGet(getUrl);
-		//Log.e("WebGetURL: ",getUrl);
 
-		try {
+		try 
+		{
 			response = httpClient.execute(httpGet);
-		} catch (Exception e) {
-			//Log.e("Groshie:", e.getMessage());
+		} 
+		catch (Exception e) 
+		{
+			Log.e("WebService::sWebGet", e.getMessage());
 		}
-		
-		// we assume that the response body contains the error message  
-		try {
+		 
+		try 
+		{
 			ret = EntityUtils.toString(response.getEntity());
-		} catch (IOException e) {
-			//Log.e("Groshie:", e.getMessage());
+		} 
+		catch (IOException e) 
+		{
+			Log.e("WebService::sWebGet", e.getMessage());
 		}
 
-		return ret;
-	}
-	
-	public String sWebPostMac(String sNombreMetodo, JSONObject jsonParametro){
-		
-		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
-		response = null;
-		
-		try {
-			httpPost.setEntity(new StringEntity(jsonParametro.toString()));
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			response = httpClient.execute(httpPost, localContext);
-			
-			if (response != null) {
-				ret = EntityUtils.toString(response.getEntity());
-			}
-			
-		} catch (Exception e) {
-			Log.e("Mac", "HttpUtils: " + e);
-		}
-		
 		return ret;
 	}
 }

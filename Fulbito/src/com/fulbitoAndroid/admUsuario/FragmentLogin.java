@@ -13,8 +13,10 @@ package com.fulbitoAndroid.admUsuario;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +24,8 @@ import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.herramientas.CodificadorJSON;
+import com.fulbitoAndroid.herramientas.CoDecJSON;
+import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.WebService;
 
 import android.app.ProgressDialog;
@@ -203,78 +206,45 @@ public class FragmentLogin extends Fragment {
     	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
 		
     	//Generamos el parametro JSON a mandar en el WebService
-    	CodificadorJSON cCodJSON = new CodificadorJSON();
-    	JSONObject cJsonLogin = cCodJSON.CodificarJSON_Login(cUsrLogin);
+    	CoDecJSON cCodJSON = new CoDecJSON();
+    	//JSONObject cJsonLogin = cCodJSON.jsonCodificarJSON_Login(cUsrLogin);*/
+    	
+    	CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
+    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Login(cUsrLogin);
 		
-		//Invocamos el WebService
-    	
-    	//WebService webService = new WebService(getString(R.string.webservice_name));
-    	WebService webService = new WebService("http://www.fulbitoweb.com.ar/index.php/");
-    	//String sRespuesta = webService.sWebPostMac(getString(R.string.webservice_login), cJsonLogin);
-    	String sRespuesta = webService.sWebPostMac("login/ingresar", cJsonLogin);
-    	
-    	Log.d("MAC", sRespuesta);
-    	
-    	/*
-    	//Instanciamos un objeto WebService con la URL del webservice a invocar
-    	//WebService webService = new WebService(getString(R.string.webservice_name));				
-    	WebService webService = new WebService("http://www.fulbitoweb.com.ar/");
-    	
-    	//Agregamos los parámetros requeridos por el WebService
-		HashMap<String, String> mParametros = new HashMap<String, String>();
+		//Invocamos el WebService en modo POST   	
+    	WebService webService = new WebService(getString(R.string.webservice_name));
+    	String sRespuesta = webService.sWebPost(getString(R.string.webservice_login), listaParametros);
 
-		mParametros.put(getString(R.string.ws_login_param_1), edtTextCorreo.getText().toString());
-		mParametros.put(getString(R.string.ws_login_param_2), edtTextContrasena.getText().toString());
-		
-		//Ejecutamos el WebService pasandole el metodo a ejecutar y los parametros
-		String sRespuesta = webService.sWebGet("index.php/login/ingresar_GET", mParametros);
-		
-		//String sRespuesta = webService.sWebPost(getString(R.string.webservice_login), mParametros);
+		//Invocamos el WebService en modo GET
+		//String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), listaParametros);		
 		
 		//Procesamos la respuesta del WebService
-		JSONObject respuestaJSON;
-		try {
-			respuestaJSON = new JSONObject(sRespuesta);
-			//Obtenemos la respuesta del Webservise
-			String  sError = respuestaJSON.getString(getString(R.string.ws_resp_error));
-			String 	sData = respuestaJSON.getString(getString(R.string.ws_resp_data));
-			//Procesamos la respuesta
-			//String sResp = getString(R.string.ws_resp_erronea);
-			if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
-			{
-				//El webservice envio una respuesta con error
-				Toast.makeText(getActivity().getApplicationContext(), 
-     	               sData, Toast.LENGTH_LONG).show();
-				
-				return false;
-			}
-			else
-			{
-				//El webservice envio una respuesta valida con los datos del usuario logueado
-				JSONObject usuarioJSON = new JSONObject(sData);
-				
-				//Parseamos los datos del usuario
-				String sId = usuarioJSON.getString(getString(R.string.ws_login_dato_1));
-				String sAlias = usuarioJSON.getString(getString(R.string.ws_login_dato_2));
-				String sCorreo = usuarioJSON.getString(getString(R.string.ws_login_dato_3));
-
-				//Seteamos los datos al objeto global declarado en FulbitoApp
-				Usuario usrUsuario = (Usuario) ((FulbitoApp) getActivity().getApplication()).usrGetUsuarioLogueado();
-				usrUsuario.setId(Integer.parseInt(sId));
-				usrUsuario.setAlias(sAlias);
-				usrUsuario.setEmail(sCorreo);
-				usrUsuario.setPassword(edtTextContrasena.getText().toString());
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			Log.e(TAG,"Leyendo respuesta de Webservice " + getString(R.string.webservice_login));
-			e.printStackTrace();
-
-			return false;
-		}*/
-
-    	return true;
+    	String sError = cCodJSON.sDecodificarRespuesta(sRespuesta);
+    	String sData = cCodJSON.sDecodificarData(sRespuesta);
     	
+    	if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
+		{
+			//El webservice envio una respuesta con error
+			Toast.makeText(getActivity().getApplicationContext(), 
+ 	               sData, Toast.LENGTH_LONG).show();
+			
+			return false;
+		}
+    	else
+		{
+			//El webservice envio una respuesta valida con los datos del usuario logueado    		    	
+			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
+
+			//Seteamos los datos al objeto global declarado en FulbitoApp
+			Usuario usrUsuario = (Usuario) ((FulbitoApp) getActivity().getApplication()).usrGetUsuarioLogueado();
+			usrUsuario.setId(usrJSON.getId());
+			usrUsuario.setAlias(usrJSON.getAlias());
+			usrUsuario.setEmail(usrJSON.getEmail());
+			usrUsuario.setPassword(edtTextContrasena.getText().toString());
+		}    	
+
+    	return true;    	
     }
     
     private void vValidarCampoCorreo(){
@@ -329,92 +299,4 @@ public class FragmentLogin extends Fragment {
 		bContrasenaCorrecto = true;
 		edtTextContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
     }
-    
-    public class LoginAsyncTask extends
-    AsyncTask<Void, Void, String>{
-
-    	Context mContext;
-    	ProgressDialog pd;
-            	    	
-        public LoginAsyncTask(Context context) {
-            super();
-            mContext = context;
-        }
-        
-        @Override 
-        protected void onPreExecute() {
-        	pd = new ProgressDialog(mContext);
-    		pd.setTitle("Processing...");
-    		pd.setMessage("Please wait.");
-    		pd.setCancelable(false);
-    		pd.setIndeterminate(true);
-    		pd.show();
-        }
-    	
-    	@Override
-    	protected String doInBackground(Void... param) {
-    		//Instanciamos un objeto WebService con la URL del webservice a invocar
-        	WebService webService = new WebService(getString(R.string.webservice_name));				
-    		
-        	//Agregamos los parámetros requeridos por el WebService
-    		HashMap<String, String> mParametros = new HashMap<String, String>();
-
-    		mParametros.put(getString(R.string.ws_login_param_1), edtTextCorreo.getText().toString());
-    		mParametros.put(getString(R.string.ws_login_param_2), edtTextContrasena.getText().toString());
-    		
-    		//Ejecutamos el WebService pasandole el metodo a ejecutar y los parametros
-    		String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), mParametros);
-
-    		return sRespuesta;
-    	}
-    	
-    	@Override
-        protected void onPostExecute(String sRespuesta) {
-            // Display the results of the lookup.             
-    		
-    		//Procesamos la respuesta del WebService
-    		JSONObject respuestaJSON;
-    		try {
-    			respuestaJSON = new JSONObject(sRespuesta);
-    			//Obtenemos la respuesta del Webservise
-    			String  sError = respuestaJSON.getString(getString(R.string.ws_resp_error));
-    			String 	sData = respuestaJSON.getString(getString(R.string.ws_resp_data));
-    			//Procesamos la respuesta
-    			//String sResp = getString(R.string.ws_resp_erronea);
-    			if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
-    			{
-    				//El webservice envio una respuesta con error
-    				Toast.makeText(getActivity().getApplicationContext(), 
-         	               /*R.string.txtContrasenaVacio*/sData, Toast.LENGTH_LONG).show();
-    			}
-    			else
-    			{
-    				//El webservice envio una respuesta valida con los datos del usuario logueado
-    				JSONObject usuarioJSON = new JSONObject(sData);
-    				
-    				//Parseamos los datos del usuario
-    				String sId = usuarioJSON.getString(getString(R.string.ws_login_dato_1));
-    				String sAlias = usuarioJSON.getString(getString(R.string.ws_login_dato_2));
-    				String sCorreo = usuarioJSON.getString(getString(R.string.ws_login_dato_3));
-
-    				//Seteamos los datos al objeto global declarado en FulbitoApp
-    				Usuario usrUsuario = (Usuario) ((FulbitoApp) getActivity().getApplication()).usrGetUsuarioLogueado();
-    				usrUsuario.setId(Integer.parseInt(sId));
-    				usrUsuario.setAlias(sAlias);
-    				usrUsuario.setEmail(sCorreo);
-    				usrUsuario.setPassword(edtTextContrasena.getText().toString());
-    			}
-    		} catch (JSONException e) {
-    			// TODO Auto-generated catch block
-    			Log.e(TAG,"Leyendo respuesta de Webservice " + getString(R.string.webservice_login));
-    			e.printStackTrace();
-    		}
-    		
-    		if (pd!=null) {
-    			pd.dismiss();
-    		}
-        }
-
-    }
 }
-

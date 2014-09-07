@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="webservice_name">http://www.fulbitoweb.com.ar/php/webservices/</string>
+    <string name="webservice_name">http://www.fulbitoweb.com.ar/index.php/</string>
     
     <!-- componentes de la estructura de respuesta de los webservices -->
     <string name="ws_resp_error">error</string>
@@ -10,7 +10,7 @@
     <string name="ws_resp_correcta">false</string>
     
     <!-- WebService utilizado para procesar el ingreso de un usuario al sistema -->
-    <string name="webservice_login">procesaIngresar.php</string>    
+    <string name="webservice_login">login/ingresar</string>    
     <string name="ws_login_param_1">correo</string>
     <string name="ws_login_param_2">clave</string>
     
