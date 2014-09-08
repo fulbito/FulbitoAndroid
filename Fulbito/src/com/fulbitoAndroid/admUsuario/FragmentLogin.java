@@ -20,10 +20,12 @@ import org.apache.http.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.gestionDB.UsuarioDB;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.WebService;
@@ -166,7 +168,7 @@ public class FragmentLogin extends Fragment {
 	        	else
 	        	{
 	        		//Hay campos incorrectos
-	        		if(iLargoCorreo == 0 || iLargoContrasena == 0)
+	        		/*if(iLargoCorreo == 0 || iLargoContrasena == 0)
 	        		{
 	        			if(iLargoCorreo == 0)
 	        				edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
@@ -177,10 +179,10 @@ public class FragmentLogin extends Fragment {
 	        					R.string.txtCamposVacios, Toast.LENGTH_LONG).show();
 	        		}
 	        		else
-	        		{
+	        		{*/
 	        			Toast.makeText(getActivity().getApplicationContext(), 
 	        					R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
-	        		}
+	        		//}
 	        	}  
             }
         }); 
@@ -197,9 +199,10 @@ public class FragmentLogin extends Fragment {
     //Invoca el WebService para ingresar un usuario al sistema
     private boolean bInvocaWebServiceLogin(){    	    	
     	/*
+    	 * Ver la posibilidad de invocar al WebService en segundo plano con LoginAsyncTask
     	LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
     	loginTask.execute();
-*/
+    	*/
     	//Instanciamos un objeto Usuario
     	Usuario cUsrLogin = new Usuario();
     	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
@@ -237,11 +240,15 @@ public class FragmentLogin extends Fragment {
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
 
 			//Seteamos los datos al objeto global declarado en FulbitoApp
-			Usuario usrUsuario = (Usuario) ((FulbitoApp) getActivity().getApplication()).usrGetUsuarioLogueado();
+			Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
 			usrUsuario.setId(usrJSON.getId());
 			usrUsuario.setAlias(usrJSON.getAlias());
 			usrUsuario.setEmail(usrJSON.getEmail());
 			usrUsuario.setPassword(edtTextContrasena.getText().toString());
+			
+			UsuarioDB usrDB = new UsuarioDB();
+			
+			usrDB.bInsertarUsuario(usrUsuario);
 		}    	
 
     	return true;    	

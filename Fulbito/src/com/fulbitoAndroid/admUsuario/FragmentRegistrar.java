@@ -11,16 +11,26 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.admUsuario;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoApp;
+import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.herramientas.CoDecJSON;
+import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
+import com.fulbitoAndroid.herramientas.WebService;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -99,28 +109,7 @@ public class FragmentRegistrar extends Fragment {
             	if (!hasFocus)
             	{
             		//Se pierde foco sobre el campo Alias, se procede a realizar las validaciones
-            		iLargoAlias = edtTextAlias.getText().length();
-            		//Validamos que el campo Alias no este vacio
-                	if(iLargoAlias == 0)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtAliasVacio, Toast.LENGTH_LONG).show();
-                		bAliasCorrecto = false;
-                		edtTextAlias.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}
-                	//Validamos que el campo Alias cumpla con el largo permitido
-            		if(iLargoAlias < 6 || iLargoAlias > 20)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtLargoAlias, Toast.LENGTH_LONG).show();
-                		bAliasCorrecto = false;
-                		edtTextAlias.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}
-            		//El campo Alias pasa todas las validaciones
-            		bAliasCorrecto = true;
-            		edtTextAlias.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+            		vValidarCampoAlias();
             	}
             	else
             	{
@@ -137,28 +126,7 @@ public class FragmentRegistrar extends Fragment {
             	if (!hasFocus)
             	{
             		//Se pierde foco sobre el campo Correo, se procede a realizar las validaciones
-            		iLargoCorreo = edtTextCorreo.getText().length();
-            		//Validamos que el campo Correo no este vacio
-                	if(iLargoCorreo == 0)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtCorreoVacio, Toast.LENGTH_LONG).show();
-                		bCorreoCorrecto = false;
-                		edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}
-                	//Validamos que el campo Correo sea válido
-            		if(!android.util.Patterns.EMAIL_ADDRESS.matcher(edtTextCorreo.getText()).matches())
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                				R.string.txtCorreoInvalido, Toast.LENGTH_LONG).show();
-                		bCorreoCorrecto = false;
-                		edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}          
-            		//El campo Correo pasa las validaciones
-            		bCorreoCorrecto = true;
-            		edtTextCorreo.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+            		vValidarCampoCorreo();
             	}
             	else
             	{
@@ -175,28 +143,7 @@ public class FragmentRegistrar extends Fragment {
             	if (!hasFocus)
             	{
             		//Se pierde foco sobre el campo Correo, se procede a realizar las validaciones
-            		iLargoContrasena = edtTextContrasena.getText().length();
-                	//Validamos que el campo Contraseña no este vacio
-            		if(iLargoContrasena == 0)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtContrasenaVacio, Toast.LENGTH_LONG).show();
-                		bContrasenaCorrecto = false;
-                		edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}
-                	//Validamos que el campo Contraseña respete los largos permitidos					
-            		if(iLargoContrasena < 6 || iLargoContrasena > 15)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                				R.string.txtLargoContrasena, Toast.LENGTH_LONG).show();
-                		bContrasenaCorrecto = false;
-                		edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}
-                	//El campo Contraseña pasa todas las validaciones
-            		bContrasenaCorrecto = true;
-            		edtTextContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+            		vValidarCampoContrasena();
             	}
             	else
             	{
@@ -213,38 +160,7 @@ public class FragmentRegistrar extends Fragment {
             	if (!hasFocus)
             	{
             		//Se pierde foco sobre el campo Correo, se procede a realizar las validaciones
-            		/*
-            		iLargoContrasenaConfirmada = edtTextConfirmarContrasena.getText().length();
-                	
-            		if(iLargoContrasenaConfirmada == 0)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtContrasenaConfirmadaVacia, Toast.LENGTH_LONG).show();
-                		bContrasenaConfirmadaCorrecto = false;
-                		return;
-                	}
-
-                	if(iLargoContrasenaConfirmada < 6 || iLargoContrasenaConfirmada > 15)
-                	{
-                		Toast.makeText(getActivity().getApplicationContext(), 
-                	               R.string.txtLargoContrasenaConfirmada, Toast.LENGTH_LONG).show();
-                		bContrasenaConfirmadaCorrecto = false;
-                		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-                		return;
-                	}*/
-
-            		//Validamos que el campo ConfirmarContrasena sea igual al campo Contrasena
-            		if(edtTextConfirmarContrasena.getText().toString() != edtTextContrasena.getText().toString())
-        			{
-            			Toast.makeText(getActivity().getApplicationContext(), 
-             	               R.string.txtContrasenasDistintas, Toast.LENGTH_LONG).show();
-		         		bContrasenaConfirmadaCorrecto = false;
-		         		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-		         		return;
-        			}
-            		//El campo ConfirmarContrasena paso las validaciones
-            		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
-            		bContrasenaConfirmadaCorrecto = true;
+            		vValidarCampoContrasenaConfirmada();
             	}
             	else
             	{
@@ -259,36 +175,32 @@ public class FragmentRegistrar extends Fragment {
     private void vAgregarEventoBotónRegistrar(){
         btnRegistrar.setOnClickListener(new OnClickListener() 
         {   public void onClick(View v) 
-            {   
-	        	if(bAliasCorrecto == true && bCorreoCorrecto == true && bContrasenaCorrecto == true && bContrasenaConfirmadaCorrecto == true)
-	        	{
-	        		//Todos los campos son correctos, entonces podemos invocar al WebService para registrar el Usuario
-	        		/*HttpPost httpPost = new HttpPost(String.format(URL_REGISTRAR_USR,
-        			edtTextAlias.getText().toString(),
-        			edtTextCorreo.getText().toString(),
-        			edtTextContrasena.getText().toString()));*/
+            {   	        	        		        		
+        		//Validamos los campos que ingreso el usuario
+        		vValidarCampoAlias();
+        		vValidarCampoCorreo();
+        		vValidarCampoContrasena();
+        		vValidarCampoContrasenaConfirmada();        		
         	
-		        	HttpGet httpget = new HttpGet(String.format(URL_REGISTRAR_USR,
-		        			edtTextAlias.getText().toString(),
-		        			edtTextCorreo.getText().toString(),
-		        			edtTextContrasena.getText().toString()));
-		        	
-		        	HttpResponse response;
-		        	HttpClient httpClient = new DefaultHttpClient();
-		        	
-		    		try {
-						response = httpClient.execute(httpget);
-					} catch (ClientProtocolException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        	}   
-	        	else
+        		if(bAliasCorrecto == true && bCorreoCorrecto == true && bContrasenaCorrecto == true && bContrasenaConfirmadaCorrecto == true)
+	        	{
+        			
+        			//La validación fue correcta
+        			boolean bLoginCorrecto = false;
+        			//Se llama al WebService de Login
+	            	bLoginCorrecto =  bInvocaWebServiceRegistrar();
+	            	
+	            	if(bLoginCorrecto == true)
+	            	{
+						//El login fue correcto, se ingresa al home
+	            		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+						    startActivity(intent);      
+	            	}
+	            }
+	            else
 	        	{
 	        		//Hay campos incorrectos
+	        		/*//Hay campos incorrectos
 	        		if(iLargoAlias == 0 || iLargoCorreo == 0 || iLargoContrasena == 0 || iLargoContrasenaConfirmada == 0)
 	        		{
 	        			if(iLargoAlias == 0)
@@ -303,12 +215,180 @@ public class FragmentRegistrar extends Fragment {
 	        					R.string.txtCamposVacios, Toast.LENGTH_LONG).show();
 	        		}
 	        		else
-	        		{
+	        		{*/
 	        			Toast.makeText(getActivity().getApplicationContext(), 
 	        					R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
-	        		}	        			
-	        	}
+	        		//}
+	        	}	        	
             }
         });
+    }
+
+	//Invoca el WebService para ingresar un usuario al sistema
+	private boolean bInvocaWebServiceRegistrar(){    	    	
+		/*
+		 * Ver la posibilidad de invocar al WebService en segundo plano con LoginAsyncTask
+		LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
+		loginTask.execute();
+		*/    					
+		//Instanciamos un objeto Usuario
+		Usuario cUsrRegistrar = new Usuario();
+		cUsrRegistrar.setAlias(edtTextAlias.getText().toString());
+		cUsrRegistrar.setEmail(edtTextCorreo.getText().toString());
+		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
+				
+		//Generamos el parametro JSON a mandar en el WebService
+		CoDecJSON cCodJSON = new CoDecJSON();
+		//JSONObject cJsonLogin = cCodJSON.jsonCodificarJSON_Login(cUsrLogin);*/
+		
+		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
+		List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Registrar(cUsrRegistrar);
+		
+		//Invocamos el WebService en modo POST   	
+		WebService webService = new WebService(getString(R.string.webservice_name));
+		String sRespuesta = webService.sWebPost(getString(R.string.webservice_registrar), listaParametros);
+	
+		//Invocamos el WebService en modo GET
+		//String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), listaParametros);		
+		
+		//Procesamos la respuesta del WebService
+		String sError = cCodJSON.sDecodificarRespuesta(sRespuesta);
+		String sData = cCodJSON.sDecodificarData(sRespuesta);
+		
+		if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
+		{
+			//El webservice envio una respuesta con error
+			Toast.makeText(getActivity().getApplicationContext(), 
+		               sData, Toast.LENGTH_LONG).show();
+			
+			return false;
+		}
+		else
+		{
+			//El webservice envio una respuesta valida con los datos del usuario logueado    		    	
+			//Usuario usrJSON = cCodJSON.usrDecodificarJSON_Registrar(sData);
+			Toast.makeText(getActivity().getApplicationContext(), 
+		               sData, Toast.LENGTH_LONG).show();
+			
+			//Seteamos los datos al objeto global declarado en FulbitoApp
+			Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
+			usrUsuario.setId(cUsrRegistrar.getId());
+			usrUsuario.setAlias(cUsrRegistrar.getAlias());
+			usrUsuario.setEmail(cUsrRegistrar.getEmail());
+			usrUsuario.setPassword(cUsrRegistrar.getPassword());
+		}    	
+	
+		return true;    	
+	}
+
+    private void vValidarCampoAlias(){
+    	iLargoAlias = edtTextAlias.getText().length();
+		//Validamos que el campo Alias no este vacio
+    	if(iLargoAlias == 0)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtAliasVacio, Toast.LENGTH_LONG).show();
+    		bAliasCorrecto = false;
+    		edtTextAlias.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+    	//Validamos que el campo Alias cumpla con el largo permitido
+		if(iLargoAlias < 6 || iLargoAlias > 20)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtLargoAlias, Toast.LENGTH_LONG).show();
+    		bAliasCorrecto = false;
+    		edtTextAlias.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+		//El campo Alias pasa todas las validaciones
+		bAliasCorrecto = true;
+		edtTextAlias.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+    }    
+    private void vValidarCampoCorreo(){
+    	iLargoCorreo = edtTextCorreo.getText().length();
+		//Validamos que el campo Correo no este vacio
+    	if(iLargoCorreo == 0)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtCorreoVacio, Toast.LENGTH_LONG).show();
+    		bCorreoCorrecto = false;
+    		edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+    	//Validamos que el campo Correo sea válido
+		if(!android.util.Patterns.EMAIL_ADDRESS.matcher(edtTextCorreo.getText()).matches())
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    				R.string.txtCorreoInvalido, Toast.LENGTH_LONG).show();
+    		bCorreoCorrecto = false;
+    		edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}          
+		//El campo Correo pasa las validaciones
+		bCorreoCorrecto = true;
+		edtTextCorreo.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+    }
+    private void vValidarCampoContrasena(){   	
+    	iLargoContrasena = edtTextContrasena.getText().length();
+    	//Validamos que el campo Contraseña no este vacio
+		if(iLargoContrasena == 0)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtContrasenaVacio, Toast.LENGTH_LONG).show();
+    		bContrasenaCorrecto = false;
+    		edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+    	//Validamos que el campo Contraseña respete los largos permitidos					
+		if(
+			iLargoContrasena < getResources().getInteger(R.integer.min_largo_contrasena) 
+			|| iLargoContrasena > getResources().getInteger(R.integer.max_largo_contrasena)
+		)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    				R.string.txtLargoContrasena, Toast.LENGTH_LONG).show();
+    		bContrasenaCorrecto = false;
+    		edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+    	//El campo Contraseña pasa todas las validaciones
+		bContrasenaCorrecto = true;
+		edtTextContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+    }
+    private void vValidarCampoContrasenaConfirmada(){    	
+		iLargoContrasenaConfirmada = edtTextConfirmarContrasena.getText().length();
+    	
+		if(iLargoContrasenaConfirmada == 0)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtContrasenaConfirmadaVacia, Toast.LENGTH_LONG).show();
+    		bContrasenaConfirmadaCorrecto = false;
+    		return;
+    	}
+
+    	if(iLargoContrasenaConfirmada < 6 || iLargoContrasenaConfirmada > 15)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    	               R.string.txtLargoContrasenaConfirmada, Toast.LENGTH_LONG).show();
+    		bContrasenaConfirmadaCorrecto = false;
+    		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
+    		return;
+    	}
+
+		//Validamos que el campo ConfirmarContrasena sea igual al campo Contrasena
+    	String sContrasena = edtTextContrasena.getText().toString();
+    	String sContrasenaConfirmada = edtTextConfirmarContrasena.getText().toString();
+		if(!sContrasena.equals(sContrasenaConfirmada))
+		{
+			Toast.makeText(getActivity().getApplicationContext(), 
+ 	               R.string.txtContrasenasDistintas, Toast.LENGTH_LONG).show();
+     		bContrasenaConfirmadaCorrecto = false;
+     		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
+     		return;
+		}
+		//El campo ConfirmarContrasena paso las validaciones
+		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
+		bContrasenaConfirmadaCorrecto = true;
     }
 }

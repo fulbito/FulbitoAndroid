@@ -32,4 +32,15 @@ public class CodificadorNameValuePair {
 					
 		return listaParametros;
 	}
+	
+	//Recibe un objeto Usuario y codifica el JSON que necesita el WebService de Registrar
+	public List<NameValuePair> CodificarNVP_Registrar(Usuario cUsrRegistrar)
+	{
+		List<NameValuePair> listaParametros = new ArrayList<NameValuePair>();
+		listaParametros.add(new BasicNameValuePair("alias", cUsrRegistrar.getAlias()));
+		listaParametros.add(new BasicNameValuePair("correo", cUsrRegistrar.getEmail()));
+		listaParametros.add(new BasicNameValuePair("password", cUsrRegistrar.getPassword()));
+					
+		return listaParametros;
+	}
 }

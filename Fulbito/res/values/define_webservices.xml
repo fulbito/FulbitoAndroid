@@ -17,5 +17,15 @@
     <string name="ws_login_dato_1">id</string>
     <string name="ws_login_dato_2">alias</string>
     <string name="ws_login_dato_3">mail</string>
+    
+    <!-- WebService utilizado para procesar el registro de un usuario al sistema -->
+    <string name="webservice_registrar">login/registrar_usuario</string>    
+    <string name="ws_registrar_param_1">alias</string>
+    <string name="ws_registrar_param_2">correo</string>
+    <string name="ws_registrar_param_3">password</string>
+    
+    <string name="ws_registrar_dato_1">id</string>
+    <string name="ws_registrar_dato_2">alias</string>
+    <string name="ws_registrar_dato_3">mail</string>    
    
 </resources>

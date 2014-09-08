@@ -21,6 +21,7 @@ import com.fulbitoAndroid.herramientas.ListMenuAdapter;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
 import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class HomeActivity extends ActionBarActivity {
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
-		Usuario usrUsuario = (Usuario) ((FulbitoApp) getApplication()).usrGetUsuarioLogueado();
+		Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
 		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();

@@ -1,6 +1,9 @@
 package com.fulbitoAndroid.fulbito;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.gestionDB.FulbitoSQLiteHelper;
+import com.fulbitoAndroid.gestionDB.SingletonFulbitoDB;
 
 import android.app.Application;
 import android.content.res.Configuration;
@@ -21,7 +24,8 @@ public class FulbitoApp extends Application{
 		super.onCreate();
 		Log.d(TAG,"OnCreate del Application Object");
 		
-		usrUsuarioLogueado = new Usuario();
+		//usrUsuarioLogueado = new Usuario();
+		initSingletons();
 	}
 
 	@Override
@@ -30,8 +34,9 @@ public class FulbitoApp extends Application{
 		super.onTerminate();
 	}
 	
-	public Usuario usrGetUsuarioLogueado(){
-		return usrUsuarioLogueado;
+	protected void initSingletons()
+	{
+		SingletonFulbitoDB.initInstance(getApplicationContext());
+		SingletonUsuarioLogueado.initInstance();
 	}
-
 }

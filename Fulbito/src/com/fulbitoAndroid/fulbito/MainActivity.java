@@ -11,6 +11,10 @@ Fecha		Autor		Descripción
 
 package com.fulbitoAndroid.fulbito;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.gestionDB.UsuarioDB;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +31,24 @@ public class MainActivity extends Activity {
 		Log.d(TAG,"En el OnCreate");
 		//la aplicación espera 3 segundos antes de comenzar, mostrando un splash
 		//En este activity se debería lanzar la inicialización de la aplicación
+		
+		//Consultamos si hay un usuario de aplicación logueado
+		UsuarioDB usrDB = new UsuarioDB();
+		
+		int iExisteUsuarioLogueado = usrDB.iGetUsuarioCount();		
+		
+		if(iExisteUsuarioLogueado != 0)
+		{
+			Usuario usr = usrDB.usrSelectUsuario();
+			Usuario usrLogueado = SingletonUsuarioLogueado.getInstance();
+			usrLogueado.setId(usr.getId());
+			usrLogueado.setAlias(usr.getAlias());
+			usrLogueado.setEmail(usr.getEmail());
+			usrLogueado.setPassword(usr.getPassword());
+		}
+		
+		//Si no hay usuario logueado lanzamos InicioActivity
+		//Si lo hay deberiamos ir al Home directamente
 		final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
