@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		//En este activity se debería lanzar la inicialización de la aplicación
 		
 		//Consultamos si hay un usuario de aplicación logueado
-		UsuarioDB usrDB = new UsuarioDB();
+		/*UsuarioDB usrDB = new UsuarioDB();
 		
 		int iExisteUsuarioLogueado = usrDB.iGetUsuarioCount();		
 		
@@ -46,16 +46,56 @@ public class MainActivity extends Activity {
 			usrLogueado.setEmail(usr.getEmail());
 			usrLogueado.setPassword(usr.getPassword());
 		}
+		*/
 		
-		//Si no hay usuario logueado lanzamos InicioActivity
-		//Si lo hay deberiamos ir al Home directamente
-		final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                	Intent intent = new Intent(getApplicationContext(), InicioActivity.class);
-                    startActivity(intent);
-                    finish();
-            }
-        }, 3000);		
+		if(bExisteUsuarioLogueado() == false)
+		{
+			//Si no hay usuario logueado lanzamos InicioActivity  		
+	  		final Handler handler = new Handler();
+	          handler.postDelayed(new Runnable() {
+	              public void run() {
+	                  	Intent intent = new Intent(getApplicationContext(), InicioActivity.class);
+	                      startActivity(intent);
+	                      finish();
+	              }
+	          }, 3000);
+	    }						
+	    else
+	    {
+	    	//Si hay usuario logueado lanzamos HomeActivity  		
+	  		final Handler handler = new Handler();
+	          handler.postDelayed(new Runnable() {
+	              public void run() {
+	                  	Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+	                      startActivity(intent);
+	                      finish();
+	              }
+	          }, 3000);
+	    }		
 	}
+	
+	private boolean bExisteUsuarioLogueado(){
+    //Consultamos si hay un usuario de aplicación logueado
+		UsuarioDB usrDB = new UsuarioDB();
+		
+		int iExisteUsuarioLogueado = usrDB.iGetUsuarioCount();		
+		boolean bExiste = false;
+		if(iExisteUsuarioLogueado != 0)
+		{
+			Usuario usr = usrDB.usrSelectUsuario();
+			Usuario usrLogueado = SingletonUsuarioLogueado.getInstance();
+			usrLogueado.setId(usr.getId());
+			usrLogueado.setAlias(usr.getAlias());
+			usrLogueado.setEmail(usr.getEmail());
+			usrLogueado.setPassword(usr.getPassword());
+			
+			bExiste = true;
+		}
+		else
+		{
+		  bExiste = false;
+		}
+    
+    return bExiste;
+  }
 }

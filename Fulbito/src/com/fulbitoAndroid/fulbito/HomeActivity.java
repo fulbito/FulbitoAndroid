@@ -16,6 +16,7 @@ package com.fulbitoAndroid.fulbito;
 import java.util.ArrayList;
 
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.gestionDB.UsuarioDB;
 import com.fulbitoAndroid.herramientas.ItemMenuLateral;
 import com.fulbitoAndroid.herramientas.ListMenuAdapter;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
@@ -46,6 +47,8 @@ public class HomeActivity extends ActionBarActivity {
 	ActionBarDrawerToggle mDrawerToggle;	
 	LinearLayout lloMenuLateral;
 	
+	Usuario usrUsuario;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +62,7 @@ public class HomeActivity extends ActionBarActivity {
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
-		Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
+		usrUsuario = SingletonUsuarioLogueado.getInstance();
 		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
@@ -113,7 +116,8 @@ public class HomeActivity extends ActionBarActivity {
 	}
 	
 	private void vAgregarActionBar(){
-		getSupportActionBar().setTitle(R.string.app_name);
+		//getSupportActionBar().setTitle(R.string.app_name);
+		getSupportActionBar().setTitle(usrUsuario.getAlias());
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -176,6 +180,14 @@ public class HomeActivity extends ActionBarActivity {
 			case 3:
 				Intent intent = new Intent(getApplicationContext(), ModUsuarioActivity.class);
                 startActivity(intent);
+				break;
+			case 4:
+			    UsuarioDB usrDB = new UsuarioDB();
+			    usrDB.bDeleteUsuario();
+			    
+			    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);           
+			    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			    startActivity(intent2);
 				break;
 		}
 	}
