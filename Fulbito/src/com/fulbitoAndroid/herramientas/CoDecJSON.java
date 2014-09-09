@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.fulbitoAndroid.clases.Usuario;
 
-//TEST GIT - 09/09/2014 15:27:36
 public class CoDecJSON {
 	
 	//constructor
