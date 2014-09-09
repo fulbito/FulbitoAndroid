@@ -130,7 +130,8 @@ public class HomeActivity extends ActionBarActivity {
 		{		 
 			public void onDrawerClosed(View view) 
 			{
-				getSupportActionBar().setTitle(R.string.app_name);
+				//getSupportActionBar().setTitle(R.string.app_name);
+				getSupportActionBar().setTitle(usrUsuario.getAlias());
 				//invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 			 
@@ -186,8 +187,9 @@ public class HomeActivity extends ActionBarActivity {
 			    usrDB.bDeleteUsuario();
 			    
 			    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);           
-			    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			    //intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			    startActivity(intent2);
+			    finish();
 				break;
 		}
 	}

@@ -3,7 +3,9 @@ package com.fulbitoAndroid.gestionDB;
 import com.fulbitoAndroid.clases.Usuario;
 
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class UsuarioDB {
 	
@@ -40,10 +42,15 @@ public class UsuarioDB {
         //Si hemos abierto correctamente la base de datos
         if(db != null)
         {
-        	db.execSQL("DELETE usuario");
-        	
-            //Cerramos la base de datos
-            db.close();
+        	//try{
+        		db.execSQL("DELETE FROM usuario");
+            	
+                //Cerramos la base de datos
+                db.close();
+        	/*}
+        	catch(SQLException e){
+        		Log.e("UsuarioDB::bDeleteUsuario", e.getMessage());
+        	}   */     	
         }
 
         return true;
