@@ -33,6 +33,7 @@ import com.fulbitoAndroid.herramientas.WebService;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -239,9 +240,11 @@ public class FragmentLogin extends Fragment {
 		{
 			//El webservice envio una respuesta valida con los datos del usuario logueado    		    	
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
-
-			//Seteamos los datos al objeto global declarado en FulbitoApp
-			Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
+			usrJSON.setPassword(edtTextContrasena.getText().toString());
+			//Seteamos los datos del usuario logueado
+			SingletonUsuarioLogueado.registrarUsuarioLogueado(usrJSON, getActivity().getApplicationContext());
+			
+			/*Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
 			usrUsuario.setId(usrJSON.getId());
 			usrUsuario.setAlias(usrJSON.getAlias());
 			usrUsuario.setEmail(usrJSON.getEmail());
@@ -249,7 +252,7 @@ public class FragmentLogin extends Fragment {
 			
 			UsuarioDB usrDB = new UsuarioDB();
 			
-			usrDB.bInsertarUsuario(usrUsuario);
+			usrDB.bInsertarUsuario(usrUsuario);		*/							
 		}    	
 
     	return true;    	

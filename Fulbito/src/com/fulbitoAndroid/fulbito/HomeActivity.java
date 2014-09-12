@@ -183,8 +183,9 @@ public class HomeActivity extends ActionBarActivity {
                 startActivity(intent);
 				break;
 			case 4:
-			    UsuarioDB usrDB = new UsuarioDB();
-			    usrDB.bDeleteUsuario();
+			    /*UsuarioDB usrDB = new UsuarioDB();
+			    usrDB.bDeleteUsuario();*/
+			    SingletonUsuarioLogueado.eliminarUsuarioLogueado(getApplicationContext());
 			    
 			    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);           
 			    //intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

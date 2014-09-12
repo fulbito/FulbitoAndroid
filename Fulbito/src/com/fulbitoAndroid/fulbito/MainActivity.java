@@ -47,8 +47,8 @@ public class MainActivity extends Activity {
 			usrLogueado.setPassword(usr.getPassword());
 		}
 		*/
-		
-		if(bExisteUsuarioLogueado() == false)
+		Usuario usrLogueado = SingletonUsuarioLogueado.getUsuarioLogueado(getApplicationContext());
+		if(usrLogueado == null)
 		{
 			//Si no hay usuario logueado lanzamos InicioActivity  		
 	  		final Handler handler = new Handler();
