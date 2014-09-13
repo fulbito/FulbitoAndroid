@@ -180,7 +180,8 @@ public class FragmentRegistrar extends Fragment {
 	            	{
 						//El login fue correcto, se ingresa al home
 	            		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-						    startActivity(intent);      
+						    startActivity(intent); 
+						getActivity().finish();
 	            	}
 	            }
 	            else
