@@ -209,52 +209,25 @@ public class FragmentLogin extends Fragment {
     	Usuario cUsrLogin = new Usuario();
     	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
     	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
-		
-    	//Generamos el parametro JSON a mandar en el WebService
-    	CoDecJSON cCodJSON = new CoDecJSON();
-    	//JSONObject cJsonLogin = cCodJSON.jsonCodificarJSON_Login(cUsrLogin);*/
     	
-    	CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
-    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Login(cUsrLogin);
-		
-		//Invocamos el WebService en modo POST   	
-    	WebService webService = new WebService(getString(R.string.webservice_name));
-    	String sRespuesta = webService.sWebPost(getString(R.string.webservice_login), listaParametros);
-
-		//Invocamos el WebService en modo GET
-		//String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), listaParametros);		
-		
-		//Procesamos la respuesta del WebService
-    	String sError = cCodJSON.sDecodificarRespuesta(sRespuesta);
-    	String sData = cCodJSON.sDecodificarData(sRespuesta);
+    	//Invocamos el Web Service de Login
+    	String sMsjError = "";
+    	WebServiceLogin wsLogin = new WebServiceLogin();
     	
-    	if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
-		{
-			//El webservice envio una respuesta con error
+    	if(wsLogin.bLoguearUsuario(cUsrLogin, sMsjError) == true)
+    	{
+    		//Seteamos los datos del usuario logueado
+			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin, getActivity().getApplicationContext());
+    	}
+    	else
+    	{
+    		//El webservice envio una respuesta con error
 			Toast.makeText(getActivity().getApplicationContext(), 
- 	               sData, Toast.LENGTH_LONG).show();
+					sMsjError, Toast.LENGTH_LONG).show();
 			
 			return false;
-		}
-    	else
-		{
-			//El webservice envio una respuesta valida con los datos del usuario logueado    		    	
-			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
-			usrJSON.setPassword(edtTextContrasena.getText().toString());
-			//Seteamos los datos del usuario logueado
-			SingletonUsuarioLogueado.registrarUsuarioLogueado(usrJSON, getActivity().getApplicationContext());
-			
-			/*Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
-			usrUsuario.setId(usrJSON.getId());
-			usrUsuario.setAlias(usrJSON.getAlias());
-			usrUsuario.setEmail(usrJSON.getEmail());
-			usrUsuario.setPassword(edtTextContrasena.getText().toString());
-			
-			UsuarioDB usrDB = new UsuarioDB();
-			
-			usrDB.bInsertarUsuario(usrUsuario);		*/							
-		}    	
-
+    	}
+		
     	return true;    	
     }
     

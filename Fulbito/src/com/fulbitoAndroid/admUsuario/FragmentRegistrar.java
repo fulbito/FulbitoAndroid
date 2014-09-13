@@ -13,22 +13,8 @@ package com.fulbitoAndroid.admUsuario;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.herramientas.CoDecJSON;
-import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
-import com.fulbitoAndroid.herramientas.WebService;
-
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -47,7 +33,6 @@ import android.widget.Toast;
 public class FragmentRegistrar extends Fragment {
  
 	//Atributos privados de la clase
-	private static final String URL_REGISTRAR_USR = "http://www.fulbitoweb.com.ar/procesaRegistracion.php?alias=%1$s&email=%2$s&password=%3$s&registrar=true";
 	private EditText 	edtTextAlias;
 	private EditText 	edtTextCorreo;
 	private EditText 	edtTextContrasena;
@@ -236,48 +221,25 @@ public class FragmentRegistrar extends Fragment {
 		cUsrRegistrar.setAlias(edtTextAlias.getText().toString());
 		cUsrRegistrar.setEmail(edtTextCorreo.getText().toString());
 		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
-				
-		//Generamos el parametro JSON a mandar en el WebService
-		CoDecJSON cCodJSON = new CoDecJSON();
-		//JSONObject cJsonLogin = cCodJSON.jsonCodificarJSON_Login(cUsrLogin);*/
 		
-		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
-		List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Registrar(cUsrRegistrar);
-		
-		//Invocamos el WebService en modo POST   	
-		WebService webService = new WebService(getString(R.string.webservice_name));
-		String sRespuesta = webService.sWebPost(getString(R.string.webservice_registrar), listaParametros);
-	
-		//Invocamos el WebService en modo GET
-		//String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), listaParametros);		
-		
-		//Procesamos la respuesta del WebService
-		String sError = cCodJSON.sDecodificarRespuesta(sRespuesta);
-		String sData = cCodJSON.sDecodificarData(sRespuesta);
-		
-		if(sError.equalsIgnoreCase(getString(R.string.ws_resp_erronea)))
-		{
-			//El webservice envio una respuesta con error
+		//Invocamos el Web Service de Login
+    	String sMsjError = "";
+    	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario();
+    	
+    	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, sMsjError) == true)
+    	{
+    		//Seteamos los datos del usuario logueado
+			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar, getActivity().getApplicationContext());
+    	}
+    	else
+    	{
+    		//El webservice envio una respuesta con error
 			Toast.makeText(getActivity().getApplicationContext(), 
-		               sData, Toast.LENGTH_LONG).show();
+					sMsjError, Toast.LENGTH_LONG).show();
 			
 			return false;
-		}
-		else
-		{
-			//El webservice envio una respuesta valida con los datos del usuario logueado    		    	
-			//Usuario usrJSON = cCodJSON.usrDecodificarJSON_Registrar(sData);
-			Toast.makeText(getActivity().getApplicationContext(), 
-		               sData, Toast.LENGTH_LONG).show();
-			
-			//Seteamos los datos al objeto global declarado en FulbitoApp
-			Usuario usrUsuario = SingletonUsuarioLogueado.getInstance();
-			usrUsuario.setId(cUsrRegistrar.getId());
-			usrUsuario.setAlias(cUsrRegistrar.getAlias());
-			usrUsuario.setEmail(cUsrRegistrar.getEmail());
-			usrUsuario.setPassword(cUsrRegistrar.getPassword());
-		}    	
-	
+    	}
+		
 		return true;    	
 	}
 

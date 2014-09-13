@@ -27,30 +27,33 @@ public class Usuario
 	//Constructor por defecto
 	public Usuario()
 	{
-		this.sAlias    = "";
-		this.sEmail    = "";
-		this.sFoto     = "";
-		this.sPassword = "";
-		this.iEstado   = 0;
+		this.iId 		= 0;
+		this.sAlias 	= "";
+		this.sEmail 	= "";
+		this.sFoto 		= "";
+		this.sPassword 	= "";
+		this.iEstado 	= 0;
 		this.sUbicacion = "";
 	}
 	//Constructor con datos de usuario
-	public Usuario(String sAlias, String sEmail, String sFoto, String sPassword, int iEstado)
+	public Usuario(int iId, String sAlias, String sEmail, String sFoto, String sPassword, int iEstado)
     {
-		this.sAlias    = sAlias;
-	    this.sEmail    = sEmail;
-	    this.sFoto     = sFoto;
-	    this.sPassword = sPassword;
-	    this.iEstado   = iEstado;		
+		this.iId 		= iId;
+		this.sAlias 	= sAlias;
+	    this.sEmail 	= sEmail;
+	    this.sFoto 		= sFoto;
+	    this.sPassword	= sPassword;
+	    this.iEstado	= iEstado;		
     }
 	//Constructor de copia
 	public Usuario(Usuario cUsuarioOrigen)
     {
-		this.sAlias    = cUsuarioOrigen.sAlias;
-	    this.sEmail    = cUsuarioOrigen.sEmail;
-	    this.sFoto     = cUsuarioOrigen.sFoto;
-	    this.sPassword = cUsuarioOrigen.sPassword;
-	    this.iEstado   = cUsuarioOrigen.iEstado;		
+		this.iId 		= cUsuarioOrigen.getId();
+		this.sAlias 	= cUsuarioOrigen.getAlias();
+	    this.sEmail 	= cUsuarioOrigen.getEmail();
+	    this.sFoto 		= cUsuarioOrigen.getFoto();
+	    this.sPassword 	= cUsuarioOrigen.getPassword();
+	    this.iEstado 	= cUsuarioOrigen.getEstado();		
     }
     
     //Setters 
@@ -112,5 +115,16 @@ public class Usuario
     {
     	return this.sUbicacion;
     }
+    
+    //Constructor de copia
+  	public void vCopiar(Usuario cUsuarioOrigen)
+  	{
+		this.iId 		= cUsuarioOrigen.getId();
+		this.sAlias 	= cUsuarioOrigen.getAlias();
+	    this.sEmail 	= cUsuarioOrigen.getEmail();
+	    this.sFoto 		= cUsuarioOrigen.getFoto();
+	    this.sPassword 	= cUsuarioOrigen.getPassword();
+	    this.iEstado 	= cUsuarioOrigen.getEstado();	
+  	}
     
 }//Fin Usuario
