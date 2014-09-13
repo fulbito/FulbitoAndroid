@@ -14,7 +14,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 	//WebService Registrar
 	private static final String S_WEBSERVICE_REGISTRAR		= "login/registrar_usuario";
 	public static final String S_WS_REGISTRAR_PAR_ALIAS		= "alias";
-	public static final String S_WS_REGISTRAR_PAR_CORREO 	= "correo";
+	public static final String S_WS_REGISTRAR_PAR_CORREO 	= "email";
 	public static final String S_WS_REGISTRAR_PAR_CLAVE 	= "password";
 	
 	public WebServiceRegistrarUsuario(){}
