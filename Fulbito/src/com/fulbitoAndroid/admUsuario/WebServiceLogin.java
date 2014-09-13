@@ -19,9 +19,8 @@ public class WebServiceLogin extends WebServiceFulbito{
 		
 	public WebServiceLogin(){}
 	
-	public boolean bLoguearUsuario(Usuario cUsrLogin, String sMsjError){
+	public boolean bLoguearUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
 		
-		RespuestaWebService cRespWS = new RespuestaWebService();
 		String sError = "";
 		String sData = "";
 		
@@ -38,7 +37,6 @@ public class WebServiceLogin extends WebServiceFulbito{
     	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
     		//El webservice envio una respuesta con error
-    		sMsjError = sData;
 			return false;
 		}
     	else
@@ -49,7 +47,6 @@ public class WebServiceLogin extends WebServiceFulbito{
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
 			usrJSON.setPassword(cUsrLogin.getPassword());
 			
-			sMsjError = "";
 			cUsrLogin.vCopiar(usrJSON);
 			
 			return true;

@@ -19,9 +19,8 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 	
 	public WebServiceRegistrarUsuario(){}
 		
-	public boolean bRegistrarUsuario(Usuario cUsrLogin, String sMsjError){
+	public boolean bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
 		
-		RespuestaWebService cRespWS = new RespuestaWebService();
 		String sError = "";
 		String sData = "";
 		
@@ -38,7 +37,6 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
     	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
     		//El webservice envio una respuesta con error
-    		sMsjError = sData;
 			return false;
 		}
     	else
@@ -48,8 +46,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
     		
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
 			usrJSON.setPassword(cUsrLogin.getPassword());
-			
-			sMsjError = "";
+
 			cUsrLogin = usrJSON;
 			
 			return true;

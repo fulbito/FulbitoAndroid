@@ -28,6 +28,7 @@ import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.gestionDB.UsuarioDB;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
+import com.fulbitoAndroid.herramientas.RespuestaWebService;
 import com.fulbitoAndroid.herramientas.WebService;
 
 import android.app.ProgressDialog;
@@ -211,10 +212,9 @@ public class FragmentLogin extends Fragment {
     	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
     	
     	//Invocamos el Web Service de Login
-    	String sMsjError = "";
     	WebServiceLogin wsLogin = new WebServiceLogin();
-    	
-    	if(wsLogin.bLoguearUsuario(cUsrLogin, sMsjError) == true)
+    	RespuestaWebService cRespWS = new RespuestaWebService();
+    	if(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS) == true)
     	{
     		//Seteamos los datos del usuario logueado
 			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin, getActivity().getApplicationContext());
@@ -223,7 +223,7 @@ public class FragmentLogin extends Fragment {
     	{
     		//El webservice envio una respuesta con error
 			Toast.makeText(getActivity().getApplicationContext(), 
-					sMsjError, Toast.LENGTH_LONG).show();
+					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
 			
 			return false;
     	}

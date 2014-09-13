@@ -15,6 +15,7 @@ import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -223,10 +224,9 @@ public class FragmentRegistrar extends Fragment {
 		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
 		
 		//Invocamos el Web Service de Login
-    	String sMsjError = "";
     	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario();
-    	
-    	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, sMsjError) == true)
+    	RespuestaWebService cRespWS = new RespuestaWebService();
+    	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS) == true)
     	{
     		//Seteamos los datos del usuario logueado
 			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar, getActivity().getApplicationContext());
@@ -235,7 +235,7 @@ public class FragmentRegistrar extends Fragment {
     	{
     		//El webservice envio una respuesta con error
 			Toast.makeText(getActivity().getApplicationContext(), 
-					sMsjError, Toast.LENGTH_LONG).show();
+					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
 			
 			return false;
     	}

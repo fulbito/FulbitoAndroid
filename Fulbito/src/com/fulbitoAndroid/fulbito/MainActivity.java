@@ -15,6 +15,7 @@ import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.gestionDB.UsuarioDB;
+import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -52,12 +53,12 @@ public class MainActivity extends Activity {
 	    	//Si hay usuario logueado hacemos el logueo automatico
 	    	//deberiamos testear la conexion a internet, si no hay conexión permiter logueo offline
 	    	//Invocamos el Web Service de Login
-	    	String sMsjError = "";
+	    	
 	    	WebServiceLogin wsLogin = new WebServiceLogin();
 	    	
 	    	Usuario usrLogin = new Usuario(usrLogueado);
-	    	
-	    	if(wsLogin.bLoguearUsuario(usrLogin, sMsjError) == true)
+	    	RespuestaWebService cRespWS = new RespuestaWebService();
+	    	if(wsLogin.bLoguearUsuario(usrLogin, cRespWS) == true)
 	    	{
 	    		//lanzamos HomeActivity  		
 		  		final Handler handler = new Handler();
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
 	    	{
 	    		//El webservice envio una respuesta con error
 				Toast.makeText(getApplicationContext(), 
-						sMsjError, Toast.LENGTH_LONG).show();
+						cRespWS.sGetData(), Toast.LENGTH_LONG).show();
 				
 				//aca deberian lanzarse una interfaz q permita el login manual, recuperar contraseña o cambiar de usuario				
 	    	}	    	
