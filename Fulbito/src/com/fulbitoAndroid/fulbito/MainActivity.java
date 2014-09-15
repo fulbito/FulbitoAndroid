@@ -14,7 +14,6 @@ package com.fulbitoAndroid.fulbito;
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.gestionDB.UsuarioDB;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
 import android.app.Activity;

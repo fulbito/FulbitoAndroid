@@ -145,4 +145,58 @@ public class SingletonUsuarioLogueado {
 		editor.putString(KEY_UBICACION_DESC, sUbicacionDesc);
 		editor.commit();		
 	}
+	
+	public static void modificarUbicacionLatitud(String sUbicacionLatitud, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_UBICACION_LAT, sUbicacionLatitud);
+		editor.commit();		
+	}
+	
+	public static void modificarUbicacionLongitud(String sUbicacionLongitud, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_UBICACION_LONG, sUbicacionLongitud);
+		editor.commit();		
+	}
+	
+	public static void modificarFechaNacimiento(String sFechaNacimiento, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_FECHA_NACIMIENTO, sFechaNacimiento);
+		editor.commit();		
+	}
+	
+	public static void modificarRadioBusqueda(float fRadioBusqueda, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putFloat(KEY_RADIO_BUSQUEDA, fRadioBusqueda);
+		editor.commit();		
+	}
+
+	public static void modificarSexo(String sSexo, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_SEXO, sSexo);
+		editor.commit();		
+	}
+	
+	public static void modificarTelefono(String sTelefono, Context context)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_TELEFONO, sTelefono);
+		editor.commit();		
+	}
 }

@@ -73,9 +73,13 @@ public class WebService {
 				ret = EntityUtils.toString(response.getEntity());
 			}			
 		} 
-		catch (Exception e) 
+		/*catch (Exception e) 
 		{
 			Log.e("WebService::sWebPost", e.getMessage());
+		}*/
+		catch (IOException ex)
+		{
+			Log.e("WebService::sWebPost", ex.getMessage());
 		}
 		
 		return ret;

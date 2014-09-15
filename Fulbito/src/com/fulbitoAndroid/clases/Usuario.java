@@ -63,32 +63,80 @@ public class Usuario
     }
     
     //Setters 
-	public void setId(int iId) 									{this.iId = iId;}	
-    public void setAlias(String sAlias) 						{this.sAlias = sAlias;}
-    public void setEmail(String sEmail) 						{this.sEmail = sEmail;}    
-    public void setFoto(String sFoto) 							{this.sFoto = sFoto;}    
-    public void setPassword(String sPassword) 					{this.sPassword = sPassword;}    
-    public void setUbicacion(String sUbicacion) 				{this.sUbicacion = sUbicacion;}        
-    public void setUbicacionLatitud(String sUbicacionLatitud) 	{this.sUbicacionLatitud = sUbicacionLatitud;}
-    public void setUbicacionLongitud(String sUbicacionLongitud) {this.sUbicacionLongitud = sUbicacionLongitud;}
-    public void setFechaNacimiento(String sFechaNacimiento) 	{this.sFechaNacimiento = sFechaNacimiento;}
-    public void setSexo(String sSexo) 							{this.sSexo = sSexo;}
-    public void setTelefono(String sTelefono) 					{this.sTelefono = sTelefono;}
-    public void setRadioBusqueda(float fRadioBusqueda) 			{this.fRadioBusqueda = fRadioBusqueda;}
+	public void setId(int iId){
+		this.iId = iId;
+	}	
+    public void setAlias(String sAlias){
+    	this.sAlias = sAlias;
+    }
+    public void setEmail(String sEmail){
+    	this.sEmail = sEmail;
+    }    
+    public void setFoto(String sFoto){
+    	this.sFoto = sFoto;
+    }    
+    public void setPassword(String sPassword){
+    	this.sPassword = sPassword;
+    }    
+    public void setUbicacion(String sUbicacion){
+    	this.sUbicacion = sUbicacion;
+    }        
+    public void setUbicacionLatitud(String sUbicacionLatitud){
+    	this.sUbicacionLatitud = sUbicacionLatitud;
+    }
+    public void setUbicacionLongitud(String sUbicacionLongitud){
+    	this.sUbicacionLongitud = sUbicacionLongitud;
+    }
+    public void setFechaNacimiento(String sFechaNacimiento){
+    	this.sFechaNacimiento = sFechaNacimiento;
+    }
+    public void setSexo(String sSexo){
+    	this.sSexo = sSexo;
+    }
+    public void setTelefono(String sTelefono){
+    	this.sTelefono = sTelefono;
+    }
+    public void setRadioBusqueda(float fRadioBusqueda){
+    	this.fRadioBusqueda = fRadioBusqueda;
+    }
     
     //Getters 
-    public int getId() 											{return this.iId;}
-    public String getAlias()									{return this.sAlias;}
-    public String getEmail()									{return this.sEmail;}
-    public String getFoto()										{return this.sFoto;}
-    public String getPassword()									{return this.sPassword;}
-    public String getUbicacion()								{return this.sUbicacion;}    
-    public String getUbicacionLatitud()							{return this.sUbicacionLatitud;}
-    public String getUbicacionLongitud()						{return this.sUbicacionLongitud;}
-    public String getFechaNacimiento()							{return this.sFechaNacimiento;}
-    public String getSexo()										{return this.sSexo;}
-    public String getTelefono()									{return this.sTelefono;}	
-    public float getRadioBusqueda()								{return this.fRadioBusqueda;}
+    public int getId(){
+    	return this.iId;
+    }
+    public String getAlias(){
+    	return this.sAlias;
+    }
+    public String getEmail(){
+    	return this.sEmail;
+    }
+    public String getFoto(){
+    	return this.sFoto;
+    }
+    public String getPassword(){
+    	return this.sPassword;
+    }
+    public String getUbicacion(){
+    	return this.sUbicacion;
+    }    
+    public String getUbicacionLatitud(){
+    	return this.sUbicacionLatitud;
+    }
+    public String getUbicacionLongitud(){
+    	return this.sUbicacionLongitud;
+    }
+    public String getFechaNacimiento(){
+    	return this.sFechaNacimiento;
+    }
+    public String getSexo(){
+    	return this.sSexo;
+    }
+    public String getTelefono(){
+    	return this.sTelefono;
+    }	
+    public float getRadioBusqueda(){
+    	return this.fRadioBusqueda;
+    }
     
     //Constructor de copia
   	public void vCopiar(Usuario cUsuarioOrigen)

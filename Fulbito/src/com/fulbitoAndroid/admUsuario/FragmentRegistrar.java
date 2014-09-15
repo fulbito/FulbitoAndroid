@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------- 
-Nombre: 		FragmentInicio
+Nombre: 		FragmentRegistrar
 Descripción:	Clase que controla la interfaz de regitración de usuario 
 				implementada mediante Fragment y que es invocada a través
 				del FragmentInicio.java

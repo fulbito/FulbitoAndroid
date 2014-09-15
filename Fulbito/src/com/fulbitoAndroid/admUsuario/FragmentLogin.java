@@ -11,35 +11,16 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.admUsuario;
 
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.fulbito.FulbitoApp;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.gestionDB.UsuarioDB;
-import com.fulbitoAndroid.herramientas.CoDecJSON;
-import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
-import com.fulbitoAndroid.herramientas.WebService;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
