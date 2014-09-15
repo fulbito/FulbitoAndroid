@@ -62,7 +62,7 @@ public class HomeActivity extends ActionBarActivity {
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
-		usrUsuario = SingletonUsuarioLogueado.getInstance();
+		usrUsuario = SingletonUsuarioLogueado.getUsuarioLogueado(getApplicationContext());
 		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
