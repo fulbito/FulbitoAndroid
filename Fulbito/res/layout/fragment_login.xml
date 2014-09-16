@@ -13,6 +13,7 @@
 	    android:id="@+id/edtTxtEmailLogin"
 	    style="@style/EdtTxtLogin"
 	    android:ems="10"
+	    android:text="mac_android@gmail.com"
 	    android:inputType="textEmailAddress"
 	    android:hint="@string/txtCampoCorreoElectronico" >
 	</EditText>
@@ -20,7 +21,8 @@
     <EditText
         android:id="@+id/edtTxtContrasenaLogin"
         style="@style/EdtTxtLogin"
-        android:ems="10"                
+        android:ems="10"  
+        android:text="123456"              
         android:inputType="textPassword"
         android:hint="@string/txtCampoContrasena" />
 
