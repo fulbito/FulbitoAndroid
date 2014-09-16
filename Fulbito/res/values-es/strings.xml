@@ -25,4 +25,7 @@
 	<string name="txtMenuLateral">Menú</string>    
 	<string name="txtOlvidoContrasena">¿Olvidó su contraseña?</string>
 	<string name="txtRecuperarContrasena">Recuperar contraseña</string>
+	<string name="txtBotonBuscarFoto">Buscar Foto</string>
+	<string name="txtBotonSacarFoto">Sacar Foto</string>
+	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>	
 </resources>
