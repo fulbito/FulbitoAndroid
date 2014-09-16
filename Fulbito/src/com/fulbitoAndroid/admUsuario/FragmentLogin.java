@@ -65,7 +65,10 @@ public class FragmentLogin extends Fragment {
         
         //Obtenemos los controles EditText
     	edtTextCorreo = (EditText) getView().findViewById(R.id.edtTxtEmailLogin);		
-    	edtTextContrasena = (EditText) getView().findViewById(R.id.edtTxtContrasenaLogin);   
+    	edtTextContrasena = (EditText) getView().findViewById(R.id.edtTxtContrasenaLogin); 
+    	
+    	edtTextCorreo.setText("mac_android@gmail.com");
+    	edtTextContrasena.setText("123456");
     	
     	//Obtenemos el control del botón Registrar y RecuperarContrasena
     	btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
