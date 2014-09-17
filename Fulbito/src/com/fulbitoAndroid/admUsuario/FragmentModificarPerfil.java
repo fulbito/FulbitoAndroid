@@ -14,10 +14,14 @@ Fecha		Autor		Descripción
 package com.fulbitoAndroid.admUsuario;
 
 
+import java.util.List;
+
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.TabContentVacio;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,7 +54,21 @@ public class FragmentModificarPerfil extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_mod_perfil, container, false);                     
     }
- 
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+	   //Si este fragement no llamo a un StartActivityForResult, lo tira a hacia los otros fragments
+	   List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+	}
+	
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);

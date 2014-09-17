@@ -32,4 +32,7 @@
     <string name="title_activity_inicio">InicioActivity</string>
 	<string name="txtOlvidoContrasena">Forgot your password?</string>
     <string name="txtRecuperarContrasena">Recover password</string>
+    <string name="txtBotonBuscarFoto">Search image</string>
+	<string name="txtBotonSacarFoto">Take a pic</string>
+	<string name="txtImgFotoPerfilDesc">Profile picture</string>
 </resources>
