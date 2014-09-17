@@ -218,6 +218,7 @@ public class FragmentRegistrar extends Fragment {
 		LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
 		loginTask.execute();
 		*/    					
+		boolean bResult = false;
 		//Instanciamos un objeto Usuario
 		Usuario cUsrRegistrar = new Usuario();
 		cUsrRegistrar.setAlias(edtTextAlias.getText().toString());
@@ -225,8 +226,32 @@ public class FragmentRegistrar extends Fragment {
 		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
 		
 		//Invocamos el Web Service de Login
-    	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario();
+    	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario(getActivity().getApplicationContext());
     	RespuestaWebService cRespWS = new RespuestaWebService();
+    	
+    	switch(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS))
+    	{
+    		case OK:
+    			//Seteamos los datos del usuario logueado
+    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar, getActivity().getApplicationContext());
+    			bResult = true;
+    			break;
+    		case NO_CONNECTION:
+    			//no hay conexión a internet
+    			Toast.makeText(getActivity().getApplicationContext(), 
+    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+    			bResult = false;
+    			break;
+    		case ERROR:
+    			//el logueo automatico no fue exitoso
+    			//El webservice envio una respuesta con error
+    			Toast.makeText(getActivity().getApplicationContext(), 
+    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
+    			bResult = false;
+    			break;		    		
+    	}
+    	
+    	/*
     	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS) == true)
     	{
     		//Seteamos los datos del usuario logueado
@@ -239,9 +264,9 @@ public class FragmentRegistrar extends Fragment {
 					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
 			
 			return false;
-    	}
+    	}*/
 		
-		return true;    	
+		return bResult;    	
 	}
 
     private void vValidarCampoAlias(){

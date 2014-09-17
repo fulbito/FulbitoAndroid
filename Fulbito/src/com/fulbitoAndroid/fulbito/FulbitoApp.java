@@ -2,7 +2,6 @@ package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.gestionDB.FulbitoSQLiteHelper;
 import com.fulbitoAndroid.gestionDB.SingletonFulbitoDB;
 
 import android.app.Application;
@@ -38,5 +37,5 @@ public class FulbitoApp extends Application{
 	{
 		SingletonFulbitoDB.initInstance(getApplicationContext());
 		SingletonUsuarioLogueado.initInstance();
-	}
+	}	
 }

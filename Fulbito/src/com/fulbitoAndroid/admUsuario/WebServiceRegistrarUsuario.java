@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 
+import android.content.Context;
+
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
+import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -17,12 +20,21 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 	public static final String S_WS_REGISTRAR_PAR_CORREO 	= "email";
 	public static final String S_WS_REGISTRAR_PAR_CLAVE 	= "password";
 	
-	public WebServiceRegistrarUsuario(){}
+	public WebServiceRegistrarUsuario(Context context){
+		super(context);
+	}
 		
-	public boolean bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
+	public Result bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
 		
 		String sError = "";
 		String sData = "";
+		
+		boolean bConexion = isOnline();
+		if(bConexion == false)
+		{
+			//No hay conexión a internet
+			return Result.NO_CONNECTION;
+		}
 		
 		//Generamos el parametro a enviar al WebService
 		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
@@ -37,7 +49,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
     	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
     		//El webservice envio una respuesta con error
-			return false;
+    		return Result.ERROR;
 		}
     	else
 		{
@@ -49,7 +61,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 
 			cUsrLogin = usrJSON;
 			
-			return true;
+			return Result.OK;
 		}
 	}	
 }

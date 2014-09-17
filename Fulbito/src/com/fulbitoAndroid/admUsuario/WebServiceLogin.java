@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 
+import android.content.Context;
+
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
@@ -16,13 +18,22 @@ public class WebServiceLogin extends WebServiceFulbito{
 	protected static final String S_WEBSERVICE_LOGIN 		= "login/ingresar";
 	public static final String S_WS_LOGIN_PAR_CORREO 		= "correo";
 	public static final String S_WS_LOGIN_PAR_CLAVE 		= "clave";
-		
-	public WebServiceLogin(){}
+			
+	public WebServiceLogin(Context context){
+		super(context);
+	}
 	
-	public boolean bLoguearUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
+	public Result bLoguearUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
 		
 		String sError = "";
 		String sData = "";
+		
+		boolean bConexion = isOnline();
+		if(bConexion == false)
+		{
+			//No hay conexión a internet
+			return Result.NO_CONNECTION;
+		}
 		
 		//Generamos el parametro a enviar al WebService
 		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
@@ -37,7 +48,7 @@ public class WebServiceLogin extends WebServiceFulbito{
     	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
     		//El webservice envio una respuesta con error
-			return false;
+			return Result.ERROR;
 		}
     	else
 		{
@@ -49,7 +60,7 @@ public class WebServiceLogin extends WebServiceFulbito{
 			
 			cUsrLogin.vCopiar(usrJSON);
 			
-			return true;
+			return Result.OK;
 		}
 	}	
 }

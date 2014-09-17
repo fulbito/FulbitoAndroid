@@ -14,6 +14,7 @@ package com.fulbitoAndroid.fulbito;
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
 import android.app.Activity;
@@ -72,20 +73,25 @@ public class MainActivity extends Activity {
 	    	else
 	    	{
 	    		//Hay usuario logueado
-	    		WebServiceLogin wsLogin = new WebServiceLogin();
+	    		WebServiceLogin wsLogin = new WebServiceLogin(getApplicationContext());
 		    	//Se realiza el logueo automatico
 		    	Usuario usrLogin = new Usuario(usrLogueado);
 		    	RespuestaWebService cRespWS = new RespuestaWebService();
-		    	if(wsLogin.bLoguearUsuario(usrLogin, cRespWS) == true)
+		    	
+		    	switch(wsLogin.bLoguearUsuario(usrLogin, cRespWS))
 		    	{
-		    		//el logueo automatico fue exitoso
-		    		iAccionSiguiente = I_INICIAR_HOME;
-		    	}
-		    	else
-		    	{
-		    		//el logueo automatico no fue exitoso
-		    		sError = cRespWS.sGetData();
-		    		iAccionSiguiente = I_INICIAR_RELOGIN;
+		    		case OK:
+		    			//el logueo automatico fue exitoso
+			    		iAccionSiguiente = I_INICIAR_HOME;
+		    			break;
+		    		case NO_CONNECTION:
+		    			//logueo offline
+		    			break;
+		    		case ERROR:
+		    			//el logueo automatico no fue exitoso
+			    		sError = cRespWS.sGetData();
+			    		iAccionSiguiente = I_INICIAR_RELOGIN;
+		    			break;		    		
 		    	}
 	    	}	    			    	    
 

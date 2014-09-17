@@ -190,14 +190,40 @@ public class FragmentLogin extends Fragment {
     	LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
     	loginTask.execute();
     	*/
+    	boolean bResult = false;
     	//Instanciamos un objeto Usuario
     	Usuario cUsrLogin = new Usuario();
     	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
     	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
     	
     	//Invocamos el Web Service de Login
-    	WebServiceLogin wsLogin = new WebServiceLogin();
+    	WebServiceLogin wsLogin = new WebServiceLogin(getActivity().getApplicationContext());
     	RespuestaWebService cRespWS = new RespuestaWebService();
+    	
+    	switch(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS))
+    	{
+    		case OK:
+    			//el logueo automatico fue exitoso
+    			//Seteamos los datos del usuario logueado
+    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin, getActivity().getApplicationContext());
+    			bResult = true;
+    			break;
+    		case NO_CONNECTION:
+    			//no hay conexión a internet
+    			Toast.makeText(getActivity().getApplicationContext(), 
+    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+    			bResult = false;
+    			break;
+    		case ERROR:
+    			//el logueo automatico no fue exitoso
+    			//El webservice envio una respuesta con error
+    			Toast.makeText(getActivity().getApplicationContext(), 
+    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
+    			bResult = false;
+    			break;	    		
+    	}
+    	
+    	/*
     	if(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS) == true)
     	{
     		//Seteamos los datos del usuario logueado
@@ -211,8 +237,8 @@ public class FragmentLogin extends Fragment {
 			
 			return false;
     	}
-		
-    	return true;    	
+		*/
+    	return bResult;    	
     }
     
     private void vValidarCampoCorreo(){
