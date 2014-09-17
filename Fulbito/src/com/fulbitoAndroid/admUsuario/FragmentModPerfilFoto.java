@@ -19,6 +19,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	// no se puede traer la constante desde import android.app.Activity;
 	private static final int RESULT_OK = -1; 
 	ImageView imProfilePic;
+	static int iLastAction=-1;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater,
@@ -39,6 +40,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	        public void onClick(View v) {
 	        	Intent pickPhoto = new Intent(Intent.ACTION_PICK,
 	        	           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	        	iLastAction=1;
 	        	startActivityForResult(pickPhoto , 1);	
 	        }
 	    }); 
@@ -47,7 +49,9 @@ public class FragmentModPerfilFoto extends Fragment {
 		btnTomarFoto.setOnClickListener(new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
+	        	
 	        	Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	        	iLastAction=0;
 	        	startActivityForResult(takePicture, 0);
 	        }
 	    });
@@ -58,7 +62,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		switch(requestCode) 
+		switch(iLastAction) 
 		{
 		case 0:
 		    if(resultCode == RESULT_OK){  

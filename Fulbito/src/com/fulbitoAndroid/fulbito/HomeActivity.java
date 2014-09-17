@@ -14,6 +14,7 @@ package com.fulbitoAndroid.fulbito;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.gestionDB.UsuarioDB;
@@ -25,8 +26,10 @@ import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -35,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.content.Intent;
@@ -67,7 +71,23 @@ public class HomeActivity extends ActionBarActivity {
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
 		
+		//Si el resultado de ejecutar un intent es distinto de 0, hago un notify a todos 
+		//los fragments por su metodo onActivityResult
+		if(resultCode!=0)
+		{
+		   List<Fragment> fragments = getSupportFragmentManager().getFragments();
+	        if (fragments != null) {
+	            for (Fragment fragment : fragments) {
+	                fragment.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+	            }
+	        }
+		}
 	}
 	
 	//Completa los items del menú lateral del home
@@ -194,6 +214,7 @@ public class HomeActivity extends ActionBarActivity {
 				break;
 		}
 	}
+	
 	
 	//Sobrecargas de metodos para que funcione el ActionBar
 	@Override
