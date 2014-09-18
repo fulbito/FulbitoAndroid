@@ -66,7 +66,7 @@ public class HomeActivity extends ActionBarActivity {
 		//Completamos los elementos del menu lateral
 		vCrearMenuLateral(lvOpcionesMenuLateral);
 		
-		usrUsuario = SingletonUsuarioLogueado.getUsuarioLogueado(getApplicationContext());
+		usrUsuario = SingletonUsuarioLogueado.getUsuarioLogueado();
 		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
@@ -205,7 +205,7 @@ public class HomeActivity extends ActionBarActivity {
 			case 4:
 			    /*UsuarioDB usrDB = new UsuarioDB();
 			    usrDB.bDeleteUsuario();*/
-			    SingletonUsuarioLogueado.eliminarUsuarioLogueado(getApplicationContext());
+			    SingletonUsuarioLogueado.eliminarUsuarioLogueado();
 			    
 			    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);           
 			    //intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

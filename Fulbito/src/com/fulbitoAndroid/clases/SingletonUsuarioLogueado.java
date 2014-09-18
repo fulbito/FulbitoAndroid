@@ -4,7 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SingletonUsuarioLogueado {
-	private static Usuario usrLogueado;     
+	private static Usuario usrLogueado;
+	private static Context context;
+
+	public static enum ModoConexion {
+		   ONLINE,
+		   OFFLINE
+	}
+	
+	private static ModoConexion mModoConexion = ModoConexion.OFFLINE;
 	
 	private static final String SH_PREF_NOMBRE 			= "InfoUsuario";
 	private static final String KEY_ID 					= "ID";
@@ -20,16 +28,26 @@ public class SingletonUsuarioLogueado {
 	private static final String KEY_TELEFONO 			= "TELEFONO";
 	private static final String KEY_RADIO_BUSQUEDA 		= "RADIO_BUSQUEDA";	
 	   
-	public static void initInstance()
+	public static ModoConexion getModoConexion(){
+		return mModoConexion;
+	}
+	
+	public static void setModoConexion(ModoConexion modoConexion){
+		mModoConexion = modoConexion;		
+	}
+	
+	public static void initInstance(Context pContext)
 	{
 		if (usrLogueado == null)
 		{
 			//Creamos la instancia
-			usrLogueado = new Usuario();		
+			context = pContext;
+			usrLogueado = new Usuario();
+			setModoConexion(SingletonUsuarioLogueado.ModoConexion.OFFLINE);
 		}
 	}
 
-	public static Usuario getUsuarioLogueado(Context context)
+	public static Usuario getUsuarioLogueado()
 	{
 		SharedPreferences prefs =
 			     context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
@@ -59,7 +77,7 @@ public class SingletonUsuarioLogueado {
 		}
 	}
 	
-	public static void registrarUsuarioLogueado(Usuario usrUsuario, Context context)
+	public static void registrarUsuarioLogueado(Usuario usrUsuario)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -80,7 +98,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void eliminarUsuarioLogueado(Context context)
+	public static void eliminarUsuarioLogueado()
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -101,7 +119,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarAlias(String sAlias, Context context)
+	public static void modificarAlias(String sAlias)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -110,7 +128,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarEmail(String sEmail, Context context)
+	public static void modificarEmail(String sEmail)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -119,7 +137,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarPassword(String sPassword, Context context)
+	public static void modificarPassword(String sPassword)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -128,7 +146,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarPathFoto(String sPathFoto, Context context)
+	public static void modificarPathFoto(String sPathFoto)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -137,7 +155,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 
-	public static void modificarUbicacionDesc(String sUbicacionDesc, Context context)
+	public static void modificarUbicacionDesc(String sUbicacionDesc)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -146,7 +164,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarUbicacionLatitud(String sUbicacionLatitud, Context context)
+	public static void modificarUbicacionLatitud(String sUbicacionLatitud)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -155,7 +173,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarUbicacionLongitud(String sUbicacionLongitud, Context context)
+	public static void modificarUbicacionLongitud(String sUbicacionLongitud)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -164,7 +182,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarFechaNacimiento(String sFechaNacimiento, Context context)
+	public static void modificarFechaNacimiento(String sFechaNacimiento)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -173,7 +191,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarRadioBusqueda(float fRadioBusqueda, Context context)
+	public static void modificarRadioBusqueda(float fRadioBusqueda)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -182,7 +200,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 
-	public static void modificarSexo(String sSexo, Context context)
+	public static void modificarSexo(String sSexo)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
@@ -191,7 +209,7 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarTelefono(String sTelefono, Context context)
+	public static void modificarTelefono(String sTelefono)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		

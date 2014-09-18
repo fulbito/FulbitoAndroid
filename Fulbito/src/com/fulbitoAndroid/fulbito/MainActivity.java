@@ -13,6 +13,7 @@ package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado.ModoConexion;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
 	    	//Obtenemos el tiempo al inicio de la tarea de inicializacion
 	    	lMilisegundosInicio = System.currentTimeMillis();
 	    	//Obtenemos los datos del usuario logueado
-	    	usrLogueado = SingletonUsuarioLogueado.getUsuarioLogueado(getApplicationContext());
+	    	usrLogueado = SingletonUsuarioLogueado.getUsuarioLogueado();
 	    	
 	    	if(usrLogueado == null)
 	    	{
@@ -81,11 +82,13 @@ public class MainActivity extends Activity {
 		    	switch(wsLogin.bLoguearUsuario(usrLogin, cRespWS))
 		    	{
 		    		case OK:
-		    			//el logueo automatico fue exitoso
+		    			//el logueo automatico fue exitoso		    
+		    			//Seteamos los datos del usuario logueado
+		    			SingletonUsuarioLogueado.registrarUsuarioLogueado(usrLogin);
 			    		iAccionSiguiente = I_INICIAR_HOME;
 		    			break;
 		    		case NO_CONNECTION:
-		    			//logueo offline
+		    			//logueo offline		    			
 		    			break;
 		    		case ERROR:
 		    			//el logueo automatico no fue exitoso

@@ -3,6 +3,7 @@ package com.fulbitoAndroid.admUsuario;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -63,9 +64,11 @@ public class FragmentModPerfilFoto extends Fragment {
 		{
 		case 0:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = data.getData();
+		    	Bitmap photo = (Bitmap) data.getExtras().get("data");
+		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
+		        /*Uri selectedImage = data.getData();
 		        imProfilePic = (ImageView) getView().findViewById(R.id.imageView1);;
-		        imProfilePic.setImageURI(selectedImage);
+		        imProfilePic.setImageURI(selectedImage);*/
 		    }
 
 		break; 

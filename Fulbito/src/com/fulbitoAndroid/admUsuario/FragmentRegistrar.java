@@ -233,7 +233,7 @@ public class FragmentRegistrar extends Fragment {
     	{
     		case OK:
     			//Seteamos los datos del usuario logueado
-    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar, getActivity().getApplicationContext());
+    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar);
     			bResult = true;
     			break;
     		case NO_CONNECTION:

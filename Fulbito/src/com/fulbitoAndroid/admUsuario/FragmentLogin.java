@@ -205,7 +205,7 @@ public class FragmentLogin extends Fragment {
     		case OK:
     			//el logueo automatico fue exitoso
     			//Seteamos los datos del usuario logueado
-    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin, getActivity().getApplicationContext());
+    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
     			bResult = true;
     			break;
     		case NO_CONNECTION:
