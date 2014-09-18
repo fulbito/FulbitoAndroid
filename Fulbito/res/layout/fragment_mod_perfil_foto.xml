@@ -15,6 +15,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" 
+                android:src="@drawable/no_icon_default"
                 android:contentDescription="@string/txtImgFotoPerfilDesc"/>
 
         </LinearLayout>
@@ -23,17 +24,23 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="4" >
-            <Button
+            <ImageButton 
                 android:id="@+id/btnBuscarFoto"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="2"
+                android:background="@null"
+                android:contentDescription="@string/txtBotonBuscarFoto"
+                android:src="@drawable/ic_action_picture_light"
                 android:text="@string/txtBotonBuscarFoto"/>
-            <Button
+            <ImageButton 
                 android:id="@+id/btnTomarFoto"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="2"
-                android:text="@string/txtBotonSacarFoto" />
+                android:background="@null"
+                android:contentDescription="@string/txtBotonSacarFoto"
+                android:src="@drawable/ic_action_camera"
+                android:text="@string/txtBotonSacarFoto"/>            
         </LinearLayout>
 </LinearLayout>

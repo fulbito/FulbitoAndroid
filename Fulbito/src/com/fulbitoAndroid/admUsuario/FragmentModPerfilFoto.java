@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import eu.janmuller.android.simplecropimage.CropImage;
 
@@ -36,7 +37,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	//Solo para cuando se saca una foto
 	private File     mFileTemp;
 	public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
-	private boolean bSacaFoto=false; 
+	//private boolean bSacaFoto=false; 
 	//ImageView imProfilePic;
 	
 	@Override
@@ -55,11 +56,11 @@ public class FragmentModPerfilFoto extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		if(bSacaFoto)
+		/*if(bSacaFoto)
 		{
-			startCropImage();
+			//startCropImage();
 			bSacaFoto=false;
-		}
+		}*/
 	}
 
 
@@ -69,9 +70,11 @@ public class FragmentModPerfilFoto extends Fragment {
 		Intent intent = new Intent(getActivity().getApplicationContext(), CropImage.class);
     	 
         intent.putExtra(CropImage.IMAGE_PATH, mFileTemp.getPath());
+        intent.putExtra(CropImage.OUTPUT_X,200);
+        intent.putExtra(CropImage.OUTPUT_Y,200);
         intent.putExtra(CropImage.SCALE, true);
         intent.putExtra(CropImage.ASPECT_X, 3);
-        intent.putExtra(CropImage.ASPECT_Y, 2);
+        intent.putExtra(CropImage.ASPECT_Y, 3);
 		try{
         getActivity().startActivityForResult(intent, CROP_INTENT_REQUEST);
 		}catch(ActivityNotFoundException anfe)
@@ -84,7 +87,7 @@ public class FragmentModPerfilFoto extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
         
-		Button btnBuscarFoto = (Button) getView().findViewById(R.id.btnBuscarFoto);
+		ImageButton btnBuscarFoto = (ImageButton) getView().findViewById(R.id.btnBuscarFoto);
 		btnBuscarFoto.setOnClickListener(new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
@@ -100,7 +103,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	        }
 	    }); 
 		
-		Button btnTomarFoto = (Button) getView().findViewById(R.id.btnTomarFoto);
+		ImageButton btnTomarFoto = (ImageButton) getView().findViewById(R.id.btnTomarFoto);
 		btnTomarFoto.setOnClickListener(new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
@@ -160,7 +163,8 @@ public class FragmentModPerfilFoto extends Fragment {
 		            	result += "\n" + key + extras.get(key);
 		            }
 		        }*/
-		    	bSacaFoto=true;
+		    	//bSacaFoto=true;
+		    	startCropImage();
 		    }
 
 		break; 
