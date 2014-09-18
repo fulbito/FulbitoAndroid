@@ -22,11 +22,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 		
+	Intent intent = new Intent();
 	
 	static final String TAG="MainActivity";
 	@Override
@@ -52,6 +54,7 @@ public class MainActivity extends Activity {
 		private static final int I_INICIAR_LOGIN = 1;
 		private static final int I_INICIAR_HOME = 2;
 		private static final int I_INICIAR_RELOGIN = 3;
+		private static final int I_INICIAR_HOME_OFFLINE = 4;		
 
 	    @Override
 	    protected void onPreExecute() {
@@ -88,7 +91,9 @@ public class MainActivity extends Activity {
 			    		iAccionSiguiente = I_INICIAR_HOME;
 		    			break;
 		    		case NO_CONNECTION:
-		    			//logueo offline		    			
+		    			//logueo offline
+		    			sError = "No hay conexion a internet. Se inicia la aplicación en modo OFFLINE";
+		    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
 		    			break;
 		    		case ERROR:
 		    			//el logueo automatico no fue exitoso
@@ -105,7 +110,7 @@ public class MainActivity extends Activity {
 	    protected void onPostExecute(Void result) {
 	        super.onPostExecute(result);
 	        
-	        Intent intent = new Intent();
+	        //Intent intent = new Intent();
 			
 	        switch(iAccionSiguiente)
 	        {
@@ -123,28 +128,30 @@ public class MainActivity extends Activity {
 							sError, Toast.LENGTH_LONG).show();
 					intent = new Intent(getApplicationContext(), InicioActivity.class);		        		        	
 		        	break;
+	        	case I_INICIAR_HOME_OFFLINE:
+	        		//No hay conexion a internet
+	        		Toast.makeText(getApplicationContext(), 
+							sError, Toast.LENGTH_LONG).show();
+	        		intent = new Intent(getApplicationContext(), HomeActivity.class);				
+					break;
 	        }
 	        
 	        lMilisegundosFin = System.currentTimeMillis();
 	        
 	        long lTotalMilisegundos = lMilisegundosFin - lMilisegundosInicio;
 	        
-	        //Bloque de codigo para asegurar que el tiempo minimo del splash activo se de 3000 milisegundos
-	        if(lTotalMilisegundos < 3000)
-	        {
-	        	try 
-	        	{
-					Thread.sleep(3000 - lTotalMilisegundos);					
-				} 
-	        	catch (InterruptedException e) 
-	        	{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	        }	        
-	        	        
-	        startActivity(intent);
-	        finish();	        	           
+	        //Bloque de codigo para asegurar que el tiempo minimo del splash activo sea de 3000 milisegundos
+	        Handler handler = new Handler();
+	        
+	        handler.postDelayed(new Runnable(){
+				            @Override
+				            public void run(){
+				            	startActivity(intent);	    	        	       	     	        	
+				    	        finish();	
+				            }
+				        }, 
+				        3000 - lTotalMilisegundos
+	        		);
 	    }
 
 	}
