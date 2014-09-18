@@ -1,25 +1,43 @@
 package com.fulbitoAndroid.admUsuario;
 
+import java.io.File;
+
 import com.fulbitoAndroid.fulbito.R;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-//import android.app.Activity;
+import eu.janmuller.android.simplecropimage.CropImage;
 
 public class FragmentModPerfilFoto extends Fragment {
+	
+	private static final String TAG="FragmentModPerfilFoto"; 
 	// no se puede traer la constante desde import android.app.Activity;
-	private static final int RESULT_OK = -1; 
-	ImageView imProfilePic;
+	private static final int RESULT_OK = -1;
+	
+	//Request codes
+	private static final int CAMERA_INTENT_REQUEST = 2000;
+	private static final int GALLERY_INTENT_REQUEST = 2001;
+	private static final int CROP_INTENT_REQUEST = 2002;
+	
+	//Solo para cuando se saca una foto
+	private File     mFileTemp;
+	public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
+	private boolean bSacaFoto=false; 
+	//ImageView imProfilePic;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater,
@@ -30,6 +48,38 @@ public class FragmentModPerfilFoto extends Fragment {
         
     }
  
+	
+	//Solo utilizado para el crop de la foto tomada por camara
+    @Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		if(bSacaFoto)
+		{
+			startCropImage();
+			bSacaFoto=false;
+		}
+	}
+
+
+
+	private void startCropImage() {
+       
+		Intent intent = new Intent(getActivity().getApplicationContext(), CropImage.class);
+    	 
+        intent.putExtra(CropImage.IMAGE_PATH, mFileTemp.getPath());
+        intent.putExtra(CropImage.SCALE, true);
+        intent.putExtra(CropImage.ASPECT_X, 3);
+        intent.putExtra(CropImage.ASPECT_Y, 2);
+		try{
+        getActivity().startActivityForResult(intent, CROP_INTENT_REQUEST);
+		}catch(ActivityNotFoundException anfe)
+		{
+			Log.d(TAG,anfe.getMessage());			
+		}
+    }
+	
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
@@ -40,7 +90,13 @@ public class FragmentModPerfilFoto extends Fragment {
 	        public void onClick(View v) {
 	        	Intent pickPhoto = new Intent(Intent.ACTION_PICK,
 	        	           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	        	getActivity().startActivityForResult(pickPhoto , 1);	
+	        	pickPhoto.putExtra("crop", "true");
+	        	pickPhoto.putExtra("outputX", 200);
+	        	pickPhoto.putExtra("outputY", 200);
+	        	pickPhoto.putExtra("aspectX", 1);
+	        	pickPhoto.putExtra("aspectY", 1);
+	        	pickPhoto.putExtra("scale", true);
+	        	getActivity().startActivityForResult(pickPhoto , GALLERY_INTENT_REQUEST);	
 	        }
 	    }); 
 		
@@ -48,11 +104,39 @@ public class FragmentModPerfilFoto extends Fragment {
 		btnTomarFoto.setOnClickListener(new OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
+        	
+	            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+	            try {
+	            	Uri mImageCaptureUri = null;
+	            	String state = Environment.getExternalStorageState();
+	            	if (Environment.MEDIA_MOUNTED.equals(state)) {
+	            		mImageCaptureUri = Uri.fromFile(mFileTemp);
+	            	}
+	            	else 
+	            	{
+	    	        	//The solution is taken from here: http://stackoverflow.com/questions/10042695/how-to-get-camera-result-as-a-uri-in-data-folder
+	    	        	mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
+	            	}	
+	                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+	                intent.putExtra("return-data", true);
+	                getActivity().startActivityForResult(intent, CAMERA_INTENT_REQUEST);
+	            } catch (ActivityNotFoundException e) {
+
+	                Log.d(TAG, "No se puede tomar una foto", e);
+	            }	        	
+
 	        	
-	        	Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	        	getActivity().startActivityForResult(takePicture, 0);
 	        }
 	    });
+		
+    	String estado = Environment.getExternalStorageState();
+    	if (Environment.MEDIA_MOUNTED.equals(estado)) {
+    		mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
+    	}
+    	/*else {
+    		mFileTemp = new File(getFilesDir(), TEMP_PHOTO_FILE_NAME);
+    	}*///ver por que no se implementa el getFilesDir
       
     }
 
@@ -62,23 +146,41 @@ public class FragmentModPerfilFoto extends Fragment {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch(requestCode) 
 		{
-		case 0:
+		//Camara
+		case CAMERA_INTENT_REQUEST:
 		    if(resultCode == RESULT_OK){  
-		    	Bitmap photo = (Bitmap) data.getExtras().get("data");
-		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
-		        /*Uri selectedImage = data.getData();
-		        imProfilePic = (ImageView) getView().findViewById(R.id.imageView1);;
-		        imProfilePic.setImageURI(selectedImage);*/
+		    	//Para ver los extras de un intent
+		    	/*Bundle extras = data.getExtras();
+		    	String result="";
+		        if (extras != null)
+		        {
+		        	result += "key count: " + extras.keySet().size();
+		            for (String key : extras.keySet())
+		            {
+		            	result += "\n" + key + extras.get(key);
+		            }
+		        }*/
+		    	bSacaFoto=true;
 		    }
 
 		break; 
-		case 1:
+		//Galeria
+		case GALLERY_INTENT_REQUEST:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = data.getData();
-		        imProfilePic = (ImageView) getView().findViewById(R.id.imageView1);;
-		        imProfilePic.setImageURI(selectedImage);
+		    	Bitmap photo = (Bitmap) data.getExtras().get("data");
+		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
 		    }
 		break;
+        case CROP_INTENT_REQUEST:
+
+            String path = data.getStringExtra(CropImage.IMAGE_PATH);
+            if (path == null) 
+            {
+                return;
+            }
+            Bitmap photo = BitmapFactory.decodeFile(mFileTemp.getPath());
+            ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
+            break;		
 	   }
 	}	
 	

@@ -59,12 +59,15 @@ public class FragmentModificarPerfil extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
+	
 	   //Si este fragement no llamo a un StartActivityForResult, lo tira a hacia los otros fragments
 	   List<Fragment> fragments = getChildFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                fragment.onActivityResult(requestCode, resultCode, data);
+            	//if(String.valueOf(requestCode).substring(0,1)=="2" && fragment.get() == "FOTO")
+            	//{
+            		fragment.onActivityResult(requestCode, resultCode, data);
+            	//}
             }
         }
 	}
