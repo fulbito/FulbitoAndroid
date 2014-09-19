@@ -147,7 +147,8 @@ public class MainActivity extends Activity {
 				            @Override
 				            public void run(){
 				            	startActivity(intent);	    	        	       	     	        	
-				    	        finish();	
+				    	        finish();
+				    	        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				            }
 				        }, 
 				        3000 - lTotalMilisegundos
