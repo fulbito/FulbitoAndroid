@@ -35,7 +35,7 @@ public class WebServiceFulbito {
 		this.sWebService = sWebService;
 	}
 	
-	protected void vEjecutarWebservice(List<NameValuePair> listaParametros, RespuestaWebService cRespWS){
+	protected void vEjecutarWebservice(List<NameValuePair> listaParametros, RespuestaWebService cRespWS) throws FulbitoException{
 		//Invocamos el WebService en modo POST   	
     	WebService webService = new WebService(S_WEBSERVICE_URL);
     	String sRespuesta = webService.sWebPost(this.sWebService, listaParametros);

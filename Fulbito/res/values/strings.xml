@@ -35,4 +35,7 @@
     <string name="txtBotonBuscarFoto">Search image</string>
 	<string name="txtBotonSacarFoto">Take a pic</string>
 	<string name="txtImgFotoPerfilDesc">Profile picture</string>
+	<!-- Mensajes de error -->
+	<string name="errMsjLogin">Failed to login.</string>
+	<string name="errMsjRegistrarUsuario">Failed to register user.</string>
 </resources>

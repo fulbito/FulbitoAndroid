@@ -13,6 +13,7 @@ package com.fulbitoAndroid.admUsuario;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -199,45 +200,38 @@ public class FragmentLogin extends Fragment {
     	//Invocamos el Web Service de Login
     	WebServiceLogin wsLogin = new WebServiceLogin(getActivity().getApplicationContext());
     	RespuestaWebService cRespWS = new RespuestaWebService();
-    	
-    	switch(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS))
+    	try
     	{
-    		case OK:
-    			//el logueo automatico fue exitoso
-    			//Seteamos los datos del usuario logueado
-    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
-    			bResult = true;
-    			break;
-    		case NO_CONNECTION:
-    			//no hay conexión a internet
-    			Toast.makeText(getActivity().getApplicationContext(), 
-    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
-    			bResult = false;
-    			break;
-    		case ERROR:
-    			//el logueo automatico no fue exitoso
-    			//El webservice envio una respuesta con error
-    			Toast.makeText(getActivity().getApplicationContext(), 
-    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-    			bResult = false;
-    			break;	    		
+    		switch(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS))
+        	{
+        		case OK:
+        			//el logueo automatico fue exitoso
+        			//Seteamos los datos del usuario logueado
+        			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
+        			bResult = true;
+        			break;
+        		case NO_CONNECTION:
+        			//no hay conexión a internet
+        			Toast.makeText(getActivity().getApplicationContext(), 
+        					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+        			bResult = false;
+        			break;
+        		case ERROR:
+        			//el logueo automatico no fue exitoso
+        			//El webservice envio una respuesta con error
+        			Toast.makeText(getActivity().getApplicationContext(), 
+        					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
+        			bResult = false;
+        			break;	    		
+        	}
+    	}
+    	catch(FulbitoException feException)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+					R.string.errMsjLogin, Toast.LENGTH_LONG).show();
+    		bResult = false;
     	}
     	
-    	/*
-    	if(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS) == true)
-    	{
-    		//Seteamos los datos del usuario logueado
-			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin, getActivity().getApplicationContext());
-    	}
-    	else
-    	{
-    		//El webservice envio una respuesta con error
-			Toast.makeText(getActivity().getApplicationContext(), 
-					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-			
-			return false;
-    	}
-		*/
     	return bResult;    	
     }
     

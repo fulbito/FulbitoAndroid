@@ -20,7 +20,6 @@ import org.apache.http.message.BasicNameValuePair;
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.admUsuario.WebServiceRegistrarUsuario;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.fulbito.WebServiceFulbito;
 
 public class CodificadorNameValuePair {
 	//constructor

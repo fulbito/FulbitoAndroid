@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
@@ -24,11 +25,10 @@ public class WebServiceLogin extends WebServiceFulbito{
 		super(context);
 	}
 	
-	public Result bLoguearUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
+	public Result bLoguearUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS) throws FulbitoException{
 		
 		String sError = "";
 		String sData = "";
-		
 		boolean bConexion = isOnline();
 		if(bConexion == false)
 		{
@@ -38,24 +38,24 @@ public class WebServiceLogin extends WebServiceFulbito{
 		
 		//Generamos el parametro a enviar al WebService
 		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
-    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Login(cUsrLogin);
-    	//Invocamos el WebService
-    	vSetWebservice(S_WEBSERVICE_LOGIN);
-    	vEjecutarWebservice(listaParametros, cRespWS);
-    	//Procesamos la respuesta
-    	sError = cRespWS.sGetError();
-    	sData = cRespWS.sGetData();
-    	
-    	if(sError.equalsIgnoreCase(S_RESP_ERROR))
+		List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Login(cUsrLogin);
+		//Invocamos el WebService
+		vSetWebservice(S_WEBSERVICE_LOGIN);
+		vEjecutarWebservice(listaParametros, cRespWS);
+		//Procesamos la respuesta
+		sError = cRespWS.sGetError();
+		sData = cRespWS.sGetData();
+		
+		if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
-    		//El webservice envio una respuesta con error
+			//El webservice envio una respuesta con error
 			return Result.ERROR;
 		}
-    	else
+		else
 		{
 			//El webservice envio una respuesta valida con los datos del usuario logueado  
-    		CoDecJSON cCodJSON = new CoDecJSON();
-    		
+			CoDecJSON cCodJSON = new CoDecJSON();
+			
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
 			usrJSON.setPassword(cUsrLogin.getPassword());
 			
@@ -65,5 +65,6 @@ public class WebServiceLogin extends WebServiceFulbito{
 			
 			return Result.OK;
 		}
+		
 	}	
 }

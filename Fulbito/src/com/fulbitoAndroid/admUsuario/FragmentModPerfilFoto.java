@@ -171,8 +171,10 @@ public class FragmentModPerfilFoto extends Fragment {
 		//Galeria
 		case GALLERY_INTENT_REQUEST:
 		    if(resultCode == RESULT_OK){  
-		    	Bitmap photo = (Bitmap) data.getExtras().get("data");
-		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
+		    	/*Bitmap photo = (Bitmap) data.getExtras().get("data");
+		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);*/
+		    	Uri uri = data.getData();
+		    	((ImageView) getView().findViewById(R.id.imageView1)).setImageURI(uri);
 		    }
 		break;
         case CROP_INTENT_REQUEST:

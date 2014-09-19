@@ -28,4 +28,8 @@
 	<string name="txtBotonBuscarFoto">Buscar Foto</string>
 	<string name="txtBotonSacarFoto">Sacar Foto</string>
 	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>	
+	
+	<!-- Mensajes de error -->
+	<string name="errMsjLogin">Error al iniciar sesión.</string>
+	<string name="errMsjRegistrarUsuario">Error al registrar usuario.</string>
 </resources>

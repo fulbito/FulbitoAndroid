@@ -82,24 +82,32 @@ public class MainActivity extends Activity {
 		    	Usuario usrLogin = new Usuario(usrLogueado);
 		    	RespuestaWebService cRespWS = new RespuestaWebService();
 		    	
-		    	switch(wsLogin.bLoguearUsuario(usrLogin, cRespWS))
+		    	try{
+			    	switch(wsLogin.bLoguearUsuario(usrLogin, cRespWS))
+			    	{
+			    		case OK:
+			    			//el logueo automatico fue exitoso		    
+			    			//Seteamos los datos del usuario logueado
+			    			SingletonUsuarioLogueado.registrarUsuarioLogueado(usrLogin);
+				    		iAccionSiguiente = I_INICIAR_HOME;
+			    			break;
+			    		case NO_CONNECTION:
+			    			//logueo offline
+			    			sError = "No hay conexion a internet. Se inicia la aplicación en modo OFFLINE";
+			    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
+			    			break;
+			    		case ERROR:
+			    			//el logueo automatico no fue exitoso
+				    		sError = cRespWS.sGetData();
+				    		iAccionSiguiente = I_INICIAR_RELOGIN;
+			    			break;		    		
+			    	}
+		    	}
+		    	catch(FulbitoException feException)
 		    	{
-		    		case OK:
-		    			//el logueo automatico fue exitoso		    
-		    			//Seteamos los datos del usuario logueado
-		    			SingletonUsuarioLogueado.registrarUsuarioLogueado(usrLogin);
-			    		iAccionSiguiente = I_INICIAR_HOME;
-		    			break;
-		    		case NO_CONNECTION:
-		    			//logueo offline
-		    			sError = "No hay conexion a internet. Se inicia la aplicación en modo OFFLINE";
-		    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
-		    			break;
-		    		case ERROR:
-		    			//el logueo automatico no fue exitoso
-			    		sError = cRespWS.sGetData();
-			    		iAccionSiguiente = I_INICIAR_RELOGIN;
-		    			break;		    		
+		    		Toast.makeText(getApplicationContext(), 
+							"No se pudo realizar el login correctamente", Toast.LENGTH_LONG).show();
+		    		iAccionSiguiente = I_INICIAR_RELOGIN;
 		    	}
 	    	}	    			    	    
 

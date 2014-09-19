@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 
 public class CoDecJSON {
 	
@@ -13,7 +14,7 @@ public class CoDecJSON {
 	public CoDecJSON(){}
 	
 	//Obtiene la respuesta del webservice
-	public String sDecodificarRespuesta(String sRespuestaJSON)
+	public String sDecodificarRespuesta(String sRespuestaJSON) throws FulbitoException
 	{
 		JSONObject jsonRespuesta;
 		String sError = "";
@@ -26,15 +27,15 @@ public class CoDecJSON {
 		} 
 		catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
-			Log.e("CoDecJSON::vDecodificarRespuesta", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("CoDecJSON::sDecodificarRespuesta", e.getMessage());
 		}
 		
 		return sError;
 	}
 	
 	//Obtiene la data del webservice
-	public String sDecodificarData(String sRespuestaJSON)
+	public String sDecodificarData(String sRespuestaJSON) throws FulbitoException
 	{
 		JSONObject jsonRespuesta;
 		String sData = "";
@@ -47,15 +48,15 @@ public class CoDecJSON {
 		} 
 		catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
-			Log.e("CoDecJSON::sDecodificarData", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("CoDecJSON::sDecodificarData", e.getMessage());
 		}
 		
 		return sData;
 	}
 	
 	//Recibe un objeto Usuario y codifica el JSON que necesita el WebService de Login
-	public JSONObject jsonCodificarJSON_Login(Usuario cUsrLogin)
+	public JSONObject jsonCodificarJSON_Login(Usuario cUsrLogin) throws FulbitoException
 	{
 		JSONObject cJSON_UsrLogin = new JSONObject();
 		try
@@ -63,15 +64,17 @@ public class CoDecJSON {
 			cJSON_UsrLogin.put("correo", cUsrLogin.getEmail());
 			cJSON_UsrLogin.put("clave", cUsrLogin.getPassword());
 		}
-		catch(JSONException e){
-			Log.e("CoDecJSON::CodificarJSON_Login", e.getMessage());
+		catch (JSONException e) 
+		{
+			//Lanzamos una excepcion
+			throw new FulbitoException("CoDecJSON::jsonCodificarJSON_Login", e.getMessage());
 		}		
 							
 		return cJSON_UsrLogin;
 	}
 	
 	//Decodifica los datos de usuario que recibimos del WebService de Login
-	public Usuario usrDecodificarJSON_Login(String sData)
+	public Usuario usrDecodificarJSON_Login(String sData) throws FulbitoException
 	{
 		JSONObject usuarioJSON;
 		String sId;
@@ -93,9 +96,9 @@ public class CoDecJSON {
 		} 
 		catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}			
+			//Lanzamos una excepcion
+			throw new FulbitoException("CoDecJSON::jsonCodificarJSON_Login", e.getMessage());
+		}	
 		
 		return usrUsuarioLogin;
 	}

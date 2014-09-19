@@ -13,6 +13,7 @@ package com.fulbitoAndroid.admUsuario;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -229,28 +230,36 @@ public class FragmentRegistrar extends Fragment {
     	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario(getActivity().getApplicationContext());
     	RespuestaWebService cRespWS = new RespuestaWebService();
     	
-    	switch(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS))
+    	try
     	{
-    		case OK:
-    			//Seteamos los datos del usuario logueado
-    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar);
-    			bResult = true;
-    			break;
-    		case NO_CONNECTION:
-    			//no hay conexión a internet
-    			Toast.makeText(getActivity().getApplicationContext(), 
-    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
-    			bResult = false;
-    			break;
-    		case ERROR:
-    			//el logueo automatico no fue exitoso
-    			//El webservice envio una respuesta con error
-    			Toast.makeText(getActivity().getApplicationContext(), 
-    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-    			bResult = false;
-    			break;		    		
+	    	switch(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS))
+	    	{
+	    		case OK:
+	    			//Seteamos los datos del usuario logueado
+	    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar);
+	    			bResult = true;
+	    			break;
+	    		case NO_CONNECTION:
+	    			//no hay conexión a internet
+	    			Toast.makeText(getActivity().getApplicationContext(), 
+	    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+	    			bResult = false;
+	    			break;
+	    		case ERROR:
+	    			//el logueo automatico no fue exitoso
+	    			//El webservice envio una respuesta con error
+	    			Toast.makeText(getActivity().getApplicationContext(), 
+	    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
+	    			bResult = false;
+	    			break;		    		
+	    	}
+		}
+    	catch(FulbitoException feException)
+    	{
+    		Toast.makeText(getActivity().getApplicationContext(), 
+    				R.string.errMsjRegistrarUsuario, Toast.LENGTH_LONG).show();
+    		bResult = false;
     	}
-    	
     	/*
     	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS) == true)
     	{

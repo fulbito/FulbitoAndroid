@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import android.content.Context;
 
 import com.fulbitoAndroid.clases.Usuario;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
@@ -24,7 +25,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 		super(context);
 	}
 		
-	public Result bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS){
+	public Result bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS) throws FulbitoException{
 		
 		String sError = "";
 		String sData = "";

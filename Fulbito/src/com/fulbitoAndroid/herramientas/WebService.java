@@ -20,7 +20,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import android.util.Log;
+import com.fulbitoAndroid.fulbito.FulbitoException;
 
 public class WebService {
 	DefaultHttpClient httpClient;
@@ -42,7 +42,7 @@ public class WebService {
 	}
 	
 	//metodo para invocar a un WebService POST con parametros JSON
-	public String sWebPost(String sNombreMetodo, JSONObject jsonParametro)
+	public String sWebPost(String sNombreMetodo, JSONObject jsonParametro) throws FulbitoException
 	{	
 		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
 		response = null;
@@ -59,7 +59,8 @@ public class WebService {
 		} 
 		catch (UnsupportedEncodingException e) 
 		{
-			Log.e("WebService::sWebPost", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebPost", e.getMessage());
 		}
 		
         httpPost.setHeader("Accept", "application/json");
@@ -75,14 +76,15 @@ public class WebService {
 		} 
 		catch (Exception e) 
 		{
-			Log.e("WebService::sWebPost", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebPost", e.getMessage());
 		}
 		
 		return ret;
 	}
 	
 	//metodo para invocar a un WebService POST con parametros NameValuePair
-	public String sWebPost(String sNombreMetodo, List<NameValuePair> nvpParametros)
+	public String sWebPost(String sNombreMetodo, List<NameValuePair> nvpParametros) throws FulbitoException
 	{	
 		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
 		response = null;		
@@ -93,7 +95,8 @@ public class WebService {
 		} 
 		catch(UnsupportedEncodingException e) 
 		{
-			Log.e("WebService::sWebPost", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebPost", e.getMessage());
 		}
 		
 		try 
@@ -107,14 +110,15 @@ public class WebService {
 		}
 		catch (Exception e) 
 		{
-			Log.e("WebService::sWebPost", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebPost", e.getMessage());
 		}
 		
 		return ret;
 	}
 
 	//metodo para invocar a un WebService GET con parametros almacenados en un
-	public String sWebGet(String sNombreMetodo, List<NameValuePair> nvpParametros)
+	public String sWebGet(String sNombreMetodo, List<NameValuePair> nvpParametros) throws FulbitoException
 	{
 		String getUrl = sWebServiceUrl + sNombreMetodo;
 		
@@ -135,7 +139,8 @@ public class WebService {
 			} 
 			catch (UnsupportedEncodingException e)
 			{
-				Log.e("WebService::sWebGet", e.getMessage());
+				//Lanzamos una excepcion
+				throw new FulbitoException("WebService::sWebGet", e.getMessage());
 			}
 		}
 		
@@ -147,7 +152,8 @@ public class WebService {
 		} 
 		catch (Exception e) 
 		{
-			Log.e("WebService::sWebGet", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebGet", e.getMessage());
 		}
 		 
 		try 
@@ -156,7 +162,8 @@ public class WebService {
 		} 
 		catch (IOException e) 
 		{
-			Log.e("WebService::sWebGet", e.getMessage());
+			//Lanzamos una excepcion
+			throw new FulbitoException("WebService::sWebGet", e.getMessage());
 		}
 
 		return ret;
