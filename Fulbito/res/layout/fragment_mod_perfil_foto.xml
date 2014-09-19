@@ -15,7 +15,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" 
-                android:src="@drawable/ic_action_place_light"
+                android:src="@drawable/no_avatar"
                 android:contentDescription="@string/txtImgFotoPerfilDesc"/>
 
         </LinearLayout>
@@ -40,7 +40,7 @@
                 android:layout_weight="2"
                 android:background="@null"
                 android:contentDescription="@string/txtBotonSacarFoto"
-                android:src="@drawable/ic_action_person_light"
+                android:src="@drawable/ic_action_camera"
                 android:text="@string/txtBotonSacarFoto"/>            
         </LinearLayout>
 </LinearLayout>
