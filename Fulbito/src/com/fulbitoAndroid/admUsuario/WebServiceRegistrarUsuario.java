@@ -6,10 +6,10 @@ import org.apache.http.NameValuePair;
 
 import android.content.Context;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
-import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -60,7 +60,9 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
 			usrJSON.setPassword(cUsrLogin.getPassword());
 
-			cUsrLogin = usrJSON;
+			cUsrLogin.vCopiar(usrJSON);
+			//Se activa el modo de conexión ONLINE
+			SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
 			
 			return Result.OK;
 		}

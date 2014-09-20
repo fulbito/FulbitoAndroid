@@ -213,7 +213,7 @@ public class FragmentLogin extends Fragment {
         		case NO_CONNECTION:
         			//no hay conexión a internet
         			Toast.makeText(getActivity().getApplicationContext(), 
-        					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+        					R.string.errMsjSinConexion, Toast.LENGTH_LONG).show();
         			bResult = false;
         			break;
         		case ERROR:

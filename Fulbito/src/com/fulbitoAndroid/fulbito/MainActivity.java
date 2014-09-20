@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
 			    			break;
 			    		case NO_CONNECTION:
 			    			//logueo offline
-			    			sError = getString(R.string.errMsjSinConexion);
+			    			sError = getString(R.string.errMsjLoginOffline);
 			    			SingletonUsuarioLogueado.setModoConexion(ModoConexion.OFFLINE);
 			    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
 			    			break;

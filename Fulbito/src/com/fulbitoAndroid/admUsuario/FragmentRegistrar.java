@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------- 
 Nombre: 		FragmentRegistrar
-Descripción:	Clase que controla la interfaz de regitración de usuario 
+Descripción:	Clase que controla la interfaz de registración de usuario 
 				implementada mediante Fragment y que es invocada a través
 				del FragmentInicio.java
 
@@ -242,7 +242,7 @@ public class FragmentRegistrar extends Fragment {
 	    		case NO_CONNECTION:
 	    			//no hay conexión a internet
 	    			Toast.makeText(getActivity().getApplicationContext(), 
-	    					"No hay conexión a internet", Toast.LENGTH_LONG).show();
+	    					R.string.errMsjSinConexion, Toast.LENGTH_LONG).show();
 	    			bResult = false;
 	    			break;
 	    		case ERROR:
@@ -361,6 +361,7 @@ public class FragmentRegistrar extends Fragment {
     		Toast.makeText(getActivity().getApplicationContext(), 
     	               R.string.txtContrasenaConfirmadaVacia, Toast.LENGTH_LONG).show();
     		bContrasenaConfirmadaCorrecto = false;
+    		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
     		return;
     	}
 

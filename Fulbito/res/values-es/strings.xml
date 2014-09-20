@@ -30,7 +30,8 @@
 	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>	
 	
 	<!-- Mensajes de error -->
-	<string name="errMsjSinConexion">No hay conexion a internet. Se inicia la aplicación en modo desconectado.</string>
+	<string name="errMsjSinConexion">No hay conexion a internet. Por favor revise su conexion.</string>
+	<string name="errMsjLoginOffline">No hay conexion a internet. Se inicia la aplicación en modo desconectado.</string>
 	<string name="errMsjLogin">Error al iniciar sesión.</string>
 	<string name="errMsjRegistrarUsuario">Error al registrar usuario.</string>
 </resources>
