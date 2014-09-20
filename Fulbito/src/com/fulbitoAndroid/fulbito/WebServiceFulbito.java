@@ -43,6 +43,9 @@ public class WebServiceFulbito {
 		//Invocamos el WebService en modo GET
 		//String sRespuesta = webService.sWebGet(getString(R.string.webservice_login), listaParametros);
     	
+    	//Sacar cuando arreglen WebService de Login (MAC)
+    	sRespuesta = sRespuesta.substring(sRespuesta.indexOf("{"));
+    	
     	//Obtenemos la respueta JSON del WebService
     	CoDecJSON cCodJSON = new CoDecJSON();
     	

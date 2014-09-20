@@ -68,6 +68,8 @@ public class HomeActivity extends ActionBarActivity {
 		
 		usrUsuario = SingletonUsuarioLogueado.getUsuarioLogueado();
 		
+		SingletonUsuarioLogueado.ModoConexion mModo = SingletonUsuarioLogueado.getModoConexion();
+		
 		//Activamos el ActionBar y lo vinculamos al DrawerLayout (menu lateral)	
 		vAgregarActionBar();
 		

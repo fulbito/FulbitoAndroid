@@ -13,6 +13,7 @@ package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado.ModoConexion;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
@@ -93,6 +94,7 @@ public class MainActivity extends Activity {
 			    		case NO_CONNECTION:
 			    			//logueo offline
 			    			sError = getString(R.string.errMsjSinConexion);
+			    			SingletonUsuarioLogueado.setModoConexion(ModoConexion.OFFLINE);
 			    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
 			    			break;
 			    		case ERROR:
