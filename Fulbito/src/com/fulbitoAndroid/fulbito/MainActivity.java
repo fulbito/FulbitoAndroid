@@ -13,9 +13,7 @@ package com.fulbitoAndroid.fulbito;
 
 import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
-import com.fulbitoAndroid.clases.SingletonUsuarioLogueado.ModoConexion;
 import com.fulbitoAndroid.clases.Usuario;
-import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
 import android.app.Activity;
@@ -46,20 +44,21 @@ public class MainActivity extends Activity {
 	
 	private class InitFulbito extends AsyncTask<Void, Void, Void> {
 
-		private Usuario usrLogueado;
-		private int iAccionSiguiente = 0;
-		private String sError = "";		
-		Long lMilisegundosInicio;
-		Long lMilisegundosFin;
-		private static final int I_INICIAR_LOGIN = 1;
-		private static final int I_INICIAR_HOME = 2;
-		private static final int I_INICIAR_RELOGIN = 3;
+		private Usuario usrLogueado 	= null;
+		private int iAccionSiguiente 	= 0;
+		private String sError 			= "";		
+		Long lMilisegundosInicio 		= 0l;
+		Long lMilisegundosFin 			= 0l;
+		private static final int I_INICIAR_LOGIN 		= 1;
+		private static final int I_INICIAR_HOME 		= 2;
+		private static final int I_INICIAR_RELOGIN 		= 3;
 		private static final int I_INICIAR_HOME_OFFLINE = 4;		
 
 	    @Override
 	    protected void onPreExecute() {
 	        super.onPreExecute();
-	        // before making http calls         
+	        //Aca debemos poner el bloque de codigo a ejecutar antes de lanzar 
+	        //el hilo que realiza la inicialización de Fulbito (Se ejecuta en el hilo principal)       
 	    }
 
 	    @Override
@@ -93,7 +92,7 @@ public class MainActivity extends Activity {
 			    			break;
 			    		case NO_CONNECTION:
 			    			//logueo offline
-			    			sError = "No hay conexion a internet. Se inicia la aplicación en modo OFFLINE";
+			    			sError = getString(R.string.errMsjSinConexion);
 			    			iAccionSiguiente = I_INICIAR_HOME_OFFLINE;
 			    			break;
 			    		case ERROR:
@@ -105,8 +104,8 @@ public class MainActivity extends Activity {
 		    	}
 		    	catch(FulbitoException feException)
 		    	{
-		    		Toast.makeText(getApplicationContext(), 
-							"No se pudo realizar el login correctamente", Toast.LENGTH_LONG).show();
+		    		//Hubo error al invocar el WebService de Login
+		    		sError = getString(R.string.errMsjLogin);		    		
 		    		iAccionSiguiente = I_INICIAR_RELOGIN;
 		    	}
 	    	}	    			    	    
@@ -117,9 +116,9 @@ public class MainActivity extends Activity {
 	    @Override
 	    protected void onPostExecute(Void result) {
 	        super.onPostExecute(result);
-	        
-	        //Intent intent = new Intent();
 			
+	        //Aca se ubica el bloque de codigo a ejecutar luego de que finaliza 
+	        //el hilo que realiza la inicialización de Fulbito (Se ejecuta en el hilo principal)
 	        switch(iAccionSiguiente)
 	        {
 	        	case I_INICIAR_LOGIN:
@@ -144,6 +143,7 @@ public class MainActivity extends Activity {
 					break;
 	        }
 	        
+	        //Obtenemos el tiempo al final de la tarea de inicializacion
 	        lMilisegundosFin = System.currentTimeMillis();
 	        
 	        long lTotalMilisegundos = lMilisegundosFin - lMilisegundosInicio;

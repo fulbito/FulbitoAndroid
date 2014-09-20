@@ -60,7 +60,7 @@ public class WebServiceLogin extends WebServiceFulbito{
 			usrJSON.setPassword(cUsrLogin.getPassword());
 			
 			cUsrLogin.vCopiar(usrJSON);
-			
+			//Se activa el modo de conexión ONLINE
 			SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
 			
 			return Result.OK;

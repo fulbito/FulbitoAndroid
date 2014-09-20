@@ -27,13 +27,47 @@ public class SingletonUsuarioLogueado {
 	private static final String KEY_SEXO 				= "SEXO";
 	private static final String KEY_TELEFONO 			= "TELEFONO";
 	private static final String KEY_RADIO_BUSQUEDA 		= "RADIO_BUSQUEDA";	
+	private static final String KEY_MODO_CONEXION 		= "MODO_CONEXION";	
 	   
 	public static ModoConexion getModoConexion(){
+		SharedPreferences prefs =
+			     context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+			 
+		int iModoConexion = prefs.getInt(KEY_MODO_CONEXION, -1);
+		
+		switch(iModoConexion)
+		{
+			case 0:
+				mModoConexion = ModoConexion.OFFLINE;
+				break;
+			case 1:
+				mModoConexion = ModoConexion.ONLINE;
+				break;
+		}
+		
 		return mModoConexion;
 	}
 	
 	public static void setModoConexion(ModoConexion modoConexion){
-		mModoConexion = modoConexion;		
+		int iModoConexion = 0;
+		
+		mModoConexion = modoConexion;	
+		
+		switch(modoConexion)
+		{
+			case OFFLINE:
+				iModoConexion = 0;
+				break;
+			case ONLINE:
+				iModoConexion = 1;
+				break;
+		}
+		
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt(KEY_MODO_CONEXION, iModoConexion);
+		editor.commit();
 	}
 	
 	public static void initInstance(Context pContext)
