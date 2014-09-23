@@ -20,7 +20,7 @@ public class SingletonAppSettings {
 	static final String KEY_FIRST_RUN = "FirstRun";
 	static final String NO_MEDIA = ".nomedia";
 	
-	public static void initInstance(Context pContext)
+	public static void getInstance(Context pContext)
 	{
 		if (appSettings == null)
 		{

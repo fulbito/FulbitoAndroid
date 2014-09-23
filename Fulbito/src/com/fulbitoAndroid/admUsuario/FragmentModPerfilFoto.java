@@ -58,11 +58,9 @@ public class FragmentModPerfilFoto extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		Usuario usr = SingletonUsuarioLogueado.getUsuarioLogueado();
 		ImageView imgAvatar = (ImageView)getView().findViewById(R.id.imageView1);
-		String sLocalPath;
-		sLocalPath = usr.getsLocalAvatarPath();
-		
+		String sLocalPath="";
+	
 		if(sLocalPath.equals(""))
 		{
 			imgAvatar.setImageResource(R.drawable.no_avatar);
@@ -199,7 +197,6 @@ public class FragmentModPerfilFoto extends Fragment {
                 return;
             }
             Bitmap photo = BitmapFactory.decodeFile(mFileTemp.getPath());
-            SingletonUsuarioLogueado.modificarLocalAvatar(mFileTemp.getPath());
             ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
             break;		
 	   }

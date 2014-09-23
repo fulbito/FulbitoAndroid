@@ -38,7 +38,7 @@ public class FulbitoApp extends Application{
 	
 	protected void initSingletons()
 	{
-		SingletonAppSettings.initInstance(getApplicationContext());
+		SingletonAppSettings.getInstance(getApplicationContext());
 		SingletonFulbitoDB.initInstance(getApplicationContext());
 		SingletonUsuarioLogueado.initInstance(getApplicationContext());		
 	}

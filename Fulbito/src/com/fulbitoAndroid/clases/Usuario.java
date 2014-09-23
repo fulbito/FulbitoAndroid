@@ -26,9 +26,6 @@ public class Usuario
 	private String 	sSexo;
 	private String 	sTelefono;
 	private float	fRadioBusqueda;
-	//Datos de imagen de perfil
-	private String sLocalAvatarPath;
-	private String sRemoteAvaterPath;
 
 	//Métodos públicos
 	
@@ -47,8 +44,6 @@ public class Usuario
 		this.sSexo 				= "";
 		this.sTelefono 			= "";
 		this.fRadioBusqueda 	= 0;
-		this.sLocalAvatarPath   = "";
-		this.sRemoteAvaterPath  = "";
 	}
 	//Constructor de copia
 	public Usuario(Usuario cUsuarioOrigen)
@@ -65,8 +60,6 @@ public class Usuario
 		this.sSexo 				= cUsuarioOrigen.getSexo();
 		this.sTelefono 			= cUsuarioOrigen.getTelefono();
 		this.fRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
-		this.sLocalAvatarPath	= cUsuarioOrigen.getsLocalAvatarPath();
-		this.sRemoteAvaterPath	= cUsuarioOrigen.getsRemoteAvaterPath();
     }
     
     //Setters 
@@ -106,12 +99,6 @@ public class Usuario
     public void setRadioBusqueda(float fRadioBusqueda){
     	this.fRadioBusqueda = fRadioBusqueda;
     }
-	public void setsLocalAvatarPath(String sLocalAvatarPath) {
-		this.sLocalAvatarPath = sLocalAvatarPath;
-	}
-	public void setsRemoteAvaterPath(String sRemoteAvaterPath) {
-		this.sRemoteAvaterPath = sRemoteAvaterPath;
-	}
 
 	//Getters 
     public int getId(){
@@ -150,13 +137,6 @@ public class Usuario
     public float getRadioBusqueda(){
     	return this.fRadioBusqueda;
     }
-    public String getsLocalAvatarPath() {
-		return sLocalAvatarPath;
-	}
-
-	public String getsRemoteAvaterPath() {
-		return sRemoteAvaterPath;
-	}
     
     //Constructor de copia
   	public void vCopiar(Usuario cUsuarioOrigen)
@@ -173,8 +153,6 @@ public class Usuario
 	    this.sSexo 				= cUsuarioOrigen.getSexo();
 	    this.sTelefono 			= cUsuarioOrigen.getTelefono();
 	    this.fRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
-	    this.sLocalAvatarPath 	= cUsuarioOrigen.getsLocalAvatarPath();
-	    this.sRemoteAvaterPath	= cUsuarioOrigen.getsRemoteAvaterPath();
 	}
     
 }//Fin Usuario
