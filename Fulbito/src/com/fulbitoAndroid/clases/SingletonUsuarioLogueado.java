@@ -27,7 +27,9 @@ public class SingletonUsuarioLogueado {
 	private static final String KEY_SEXO 				= "SEXO";
 	private static final String KEY_TELEFONO 			= "TELEFONO";
 	private static final String KEY_RADIO_BUSQUEDA 		= "RADIO_BUSQUEDA";	
-	private static final String KEY_MODO_CONEXION 		= "MODO_CONEXION";	
+	private static final String KEY_MODO_CONEXION 		= "MODO_CONEXION";
+	private static final String KEY_LOCAL_AVATAR 		= "LOCAL_AVATAR_PATH";
+	private static final String KEY_REMOTE_AVATAR 		= "REMOTE_AVATAR_PATH";
 	   
 	public static ModoConexion getModoConexion(){
 		SharedPreferences prefs =
@@ -102,6 +104,9 @@ public class SingletonUsuarioLogueado {
 			usrLogueado.setRadioBusqueda(prefs.getFloat(KEY_RADIO_BUSQUEDA, 0));
 			usrLogueado.setSexo(prefs.getString(KEY_SEXO, ""));
 			usrLogueado.setTelefono(prefs.getString(KEY_TELEFONO, ""));
+			//Avatar
+			usrLogueado.setsLocalAvatarPath(prefs.getString(KEY_LOCAL_AVATAR, "NO_AVATAR"));
+			usrLogueado.setsRemoteAvaterPath(prefs.getString(KEY_REMOTE_AVATAR, "NO_AVATAR"));
 
 			return usrLogueado;			
 		}
@@ -128,6 +133,9 @@ public class SingletonUsuarioLogueado {
 		editor.putFloat(KEY_RADIO_BUSQUEDA, usrUsuario.getRadioBusqueda());
 		editor.putString(KEY_SEXO, usrUsuario.getSexo());
 		editor.putString(KEY_TELEFONO, usrUsuario.getTelefono());
+		//Avatar
+		editor.putString(KEY_LOCAL_AVATAR, usrUsuario.getsLocalAvatarPath());
+		editor.putString(KEY_REMOTE_AVATAR, usrUsuario.getsRemoteAvaterPath());
 
 		editor.commit();		
 	}
@@ -149,6 +157,10 @@ public class SingletonUsuarioLogueado {
 		editor.putFloat(KEY_RADIO_BUSQUEDA, 0);
 		editor.putString(KEY_SEXO, "");
 		editor.putString(KEY_TELEFONO, "");
+		
+		//Avatar
+		editor.putString(KEY_LOCAL_AVATAR, "NO_AVATAR");
+		editor.putString(KEY_REMOTE_AVATAR, "NO_AVATAR");
 		
 		editor.commit();		
 	}
@@ -249,6 +261,24 @@ public class SingletonUsuarioLogueado {
 		
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(KEY_TELEFONO, sTelefono);
+		editor.commit();		
+	}
+	//Avatar
+	public static void modificarLocalAvatar(String sLocalAvatar)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_LOCAL_AVATAR, sLocalAvatar);
+		editor.commit();		
+	}
+	
+	public static void modificarRemoteAvatar(String sRemoteAvatar)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(KEY_REMOTE_AVATAR, sRemoteAvatar);
 		editor.commit();		
 	}
 }

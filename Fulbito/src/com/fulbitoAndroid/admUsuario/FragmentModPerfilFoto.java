@@ -3,6 +3,8 @@ package com.fulbitoAndroid.admUsuario;
 import java.io.File;
 
 import com.fulbitoAndroid.clases.SingletonAppSettings;
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.content.ActivityNotFoundException;
@@ -44,6 +46,7 @@ public class FragmentModPerfilFoto extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 			
+
 		return inflater.inflate(R.layout.fragment_mod_perfil_foto, container, false);
         
     }
@@ -54,6 +57,21 @@ public class FragmentModPerfilFoto extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		
+		Usuario usr = SingletonUsuarioLogueado.getUsuarioLogueado();
+		ImageView imgAvatar = (ImageView)getView().findViewById(R.id.imageView1);
+		String sLocalPath;
+		sLocalPath = usr.getsLocalAvatarPath();
+		
+		if(sLocalPath.equals(""))
+		{
+			imgAvatar.setImageResource(R.drawable.no_avatar);
+		}
+		else
+		{
+			Bitmap photo = BitmapFactory.decodeFile(sLocalPath);
+			imgAvatar.setImageBitmap(photo);
+		}
 	}
 
 
@@ -181,6 +199,7 @@ public class FragmentModPerfilFoto extends Fragment {
                 return;
             }
             Bitmap photo = BitmapFactory.decodeFile(mFileTemp.getPath());
+            SingletonUsuarioLogueado.modificarLocalAvatar(mFileTemp.getPath());
             ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
             break;		
 	   }
