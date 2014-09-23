@@ -1,5 +1,6 @@
 package com.fulbitoAndroid.fulbito;
 
+import com.fulbitoAndroid.clases.SingletonAppSettings;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.gestionDB.SingletonFulbitoDB;
@@ -11,6 +12,7 @@ import android.util.Log;
 public class FulbitoApp extends Application{
 	public Usuario usrUsuarioLogueado;
 	static final String TAG="FulbitoApp";
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// TODO Auto-generated method stub
@@ -25,6 +27,7 @@ public class FulbitoApp extends Application{
 		
 		//usrUsuarioLogueado = new Usuario();
 		initSingletons();
+		
 	}
 
 	@Override
@@ -35,7 +38,10 @@ public class FulbitoApp extends Application{
 	
 	protected void initSingletons()
 	{
+		SingletonAppSettings.initInstance(getApplicationContext());
 		SingletonFulbitoDB.initInstance(getApplicationContext());
-		SingletonUsuarioLogueado.initInstance(getApplicationContext());
-	}	
+		SingletonUsuarioLogueado.initInstance(getApplicationContext());		
+	}
+	
+	
 }
