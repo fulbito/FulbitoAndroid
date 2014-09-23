@@ -2,7 +2,6 @@ package com.fulbitoAndroid.clases;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.content.Context;
@@ -18,27 +17,52 @@ public class SingletonAppSettings {
 	//KEYS para sharedPreferences
 	static final String SH_APP_PREF ="InfoApp";
 	static final String KEY_FIRST_RUN = "FirstRun";
+	static final String KEY_LOCAL_AVATAR = "LocalAvatarPath";
+	static final String KEY_REMOTE_AVATAR = "RemoteAvatarPath";
 	static final String NO_MEDIA = ".nomedia";
 	
-	public static void getInstance(Context pContext)
+	public static AppSettings getInstance(Context pContext)
 	{
 		if (appSettings == null)
 		{
 			//Creamos la instancia
 			context = pContext;
 			appSettings = new AppSettings();
+			//Obtenemos los datos persistidos
+			SharedPreferences sp = context.getSharedPreferences(SH_APP_PREF, Context.MODE_PRIVATE);
+			appSettings.setsLocalAvatarPath(sp.getString(KEY_LOCAL_AVATAR, ""));
+			appSettings.setsRemoteAvatarPath(sp.getString(KEY_REMOTE_AVATAR, ""));
 			verifyDirectoryTree();
+			
 		}
+		return appSettings;
 	}
-	
+	//Para cuando se llama de un fragment hay que validar el null pointer
 	public static AppSettings getAppSettings()
 	{
-		return appSettings;	
+		return appSettings;		
 	}
-	
 	public static File getFilesDir()
 	{
 		return context.getFilesDir();
+	}
+	
+	public static void setLocalAvatarPath(String sLocalAvatarPath)
+	{
+		SharedPreferences sp = context.getSharedPreferences(SH_APP_PREF, Context.MODE_PRIVATE);
+		SharedPreferences.Editor spEditor = sp.edit();
+		spEditor.putString(KEY_LOCAL_AVATAR, sLocalAvatarPath);
+		spEditor.commit();
+		appSettings.setsLocalAvatarPath(sLocalAvatarPath);
+	}
+	
+	public static void setRemoteAvatarPath(String sRemoteAvatarPath)
+	{
+		SharedPreferences sp = context.getSharedPreferences(SH_APP_PREF, Context.MODE_PRIVATE);
+		SharedPreferences.Editor spEditor = sp.edit();
+		spEditor.putString(KEY_REMOTE_AVATAR, sRemoteAvatarPath);
+		spEditor.commit();
+		appSettings.setsRemoteAvatarPath(sRemoteAvatarPath);
 	}
 	
 	private static void verifyDirectoryTree()

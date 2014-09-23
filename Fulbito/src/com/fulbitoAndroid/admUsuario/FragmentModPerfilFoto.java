@@ -1,7 +1,11 @@
 package com.fulbitoAndroid.admUsuario;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import com.fulbitoAndroid.clases.AppSettings;
 import com.fulbitoAndroid.clases.SingletonAppSettings;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
@@ -38,7 +42,9 @@ public class FragmentModPerfilFoto extends Fragment {
 	private static final int CROP_INTENT_REQUEST = 2002;
 	
 	//Solo para cuando se saca una foto
-	private File     mFileTemp;
+	private File     	mFileTemp;
+	private String 		sLocalPath;
+	private boolean		bFirstLoad;
 	public static final String TEMP_PHOTO_FILE_NAME = "PrfPic.jpg";
 	
 	@Override
@@ -46,7 +52,7 @@ public class FragmentModPerfilFoto extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 			
-
+		bFirstLoad = true;//Primera carga
 		return inflater.inflate(R.layout.fragment_mod_perfil_foto, container, false);
         
     }
@@ -58,17 +64,21 @@ public class FragmentModPerfilFoto extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		ImageView imgAvatar = (ImageView)getView().findViewById(R.id.imageView1);
-		String sLocalPath="";
-	
-		if(sLocalPath.equals(""))
+		if(bFirstLoad)
 		{
-			imgAvatar.setImageResource(R.drawable.no_avatar);
-		}
-		else
-		{
-			Bitmap photo = BitmapFactory.decodeFile(sLocalPath);
-			imgAvatar.setImageBitmap(photo);
+			ImageView imgAvatar = (ImageView)getView().findViewById(R.id.imageView1);
+			AppSettings aps = SingletonAppSettings.getAppSettings();
+			sLocalPath = aps.getsLocalAvatarPath();
+			if(sLocalPath.equals(""))
+			{
+				imgAvatar.setImageResource(R.drawable.no_avatar);
+			}
+			else
+			{
+				Bitmap photo = BitmapFactory.decodeFile(sLocalPath);
+				imgAvatar.setImageBitmap(photo);
+			}
+			bFirstLoad = false;//ya paso la primer carga
 		}
 	}
 
@@ -79,14 +89,16 @@ public class FragmentModPerfilFoto extends Fragment {
 		Intent intent = new Intent(getActivity().getApplicationContext(), CropImage.class);
     	 
         intent.putExtra(CropImage.IMAGE_PATH, mFileTemp.getPath());
-        intent.putExtra(CropImage.OUTPUT_X,200);
-        intent.putExtra(CropImage.OUTPUT_Y,200);
+        intent.putExtra(CropImage.OUTPUT_X,400);
+        intent.putExtra(CropImage.OUTPUT_Y,400);
         intent.putExtra(CropImage.SCALE, true);
-        intent.putExtra(CropImage.ASPECT_X, 3);
-        intent.putExtra(CropImage.ASPECT_Y, 3);
-		try{
+        intent.putExtra(CropImage.ASPECT_X, 1);
+        intent.putExtra(CropImage.ASPECT_Y, 1);
+		try
+		{
         getActivity().startActivityForResult(intent, CROP_INTENT_REQUEST);
-		}catch(ActivityNotFoundException anfe)
+		}
+		catch(ActivityNotFoundException anfe)
 		{
 			Log.d(TAG,anfe.getMessage());			
 		}
@@ -116,8 +128,8 @@ public class FragmentModPerfilFoto extends Fragment {
 	        	Intent pickPhoto = new Intent(Intent.ACTION_PICK,
 	        	           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 	        	pickPhoto.putExtra("crop", "true");
-	        	pickPhoto.putExtra("outputX", 200);
-	        	pickPhoto.putExtra("outputY", 200);
+	        	pickPhoto.putExtra("outputX", 400);
+	        	pickPhoto.putExtra("outputY", 400);
 	        	pickPhoto.putExtra("aspectX", 1);
 	        	pickPhoto.putExtra("aspectY", 1);
 	        	pickPhoto.putExtra("scale", true);
@@ -150,7 +162,6 @@ public class FragmentModPerfilFoto extends Fragment {
 
 	                Log.d(TAG, "No se puede tomar una foto", e);
 	            }	        	
-
 	        	
 	        }
 	    });
@@ -185,19 +196,53 @@ public class FragmentModPerfilFoto extends Fragment {
 		//Galeria
 		case GALLERY_INTENT_REQUEST:
 		    if(resultCode == RESULT_OK){  
-		    	Uri uri = data.getData();
-		    	((ImageView) getView().findViewById(R.id.imageView1)).setImageURI(uri);
+		    	//Uri uri = (Uri)data.getExtras().get("data");
+		    	//sLocalPath = (String)data.getExtras().get("data");
+		    	//((ImageView) getView().findViewById(R.id.imageView1)).setImageURI(uri);
+	            
+		    	/*Bundle extras = data.getExtras();
+		    	String result="";
+		        if (extras != null)
+		        {
+		        	result += "key count: " + extras.keySet().size();
+		            for (String key : extras.keySet())
+		            {
+		            	result += "\n" + key +":"+ extras.get(key);
+		            }
+		            Log.d(TAG,result);
+		        }*/
+		    	Bitmap photo = (Bitmap)data.getExtras().get("data");
+	            ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
+	            //Escribir el bitmap a la SD
+	            try {
+					FileOutputStream fOut = new FileOutputStream(mFileTemp);
+					photo.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+					fOut.flush();
+					fOut.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					Log.d(TAG,e.getMessage());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					Log.d(TAG,e.getMessage());
+				}
+	            SingletonAppSettings.setLocalAvatarPath(mFileTemp.getPath());
+		    	
 		    }
 		break;
         case CROP_INTENT_REQUEST:
 
-            String path = data.getStringExtra(CropImage.IMAGE_PATH);
+            /*String path = data.getStringExtra(CropImage.IMAGE_PATH);
             if (path == null) 
             {
                 return;
-            }
-            Bitmap photo = BitmapFactory.decodeFile(mFileTemp.getPath());
+            }*/
+        	sLocalPath = mFileTemp.getPath();
+            Bitmap photo = BitmapFactory.decodeFile(sLocalPath);
             ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);
+            SingletonAppSettings.setLocalAvatarPath(sLocalPath);
             break;		
 	   }
 	}	
