@@ -2,6 +2,7 @@ package com.fulbitoAndroid.admUsuario;
 
 import java.io.File;
 
+import com.fulbitoAndroid.clases.SingletonAppSettings;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.content.ActivityNotFoundException;
@@ -36,9 +37,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	
 	//Solo para cuando se saca una foto
 	private File     mFileTemp;
-	public static final String TEMP_PHOTO_FILE_NAME = "temp_photo.jpg";
-	//private boolean bSacaFoto=false; 
-	//ImageView imProfilePic;
+	public static final String TEMP_PHOTO_FILE_NAME = "PrfPic.jpg";
 	
 	@Override
     public View onCreateView(LayoutInflater inflater,
@@ -55,12 +54,6 @@ public class FragmentModPerfilFoto extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
-		/*if(bSacaFoto)
-		{
-			//startCropImage();
-			bSacaFoto=false;
-		}*/
 	}
 
 
@@ -86,6 +79,19 @@ public class FragmentModPerfilFoto extends Fragment {
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
+        
+		
+    	String estado = Environment.getExternalStorageState();
+    	if (Environment.MEDIA_MOUNTED.equals(estado)) {
+    		String sPath = SingletonAppSettings.getAppSettings().getsBasePath();
+    		sPath = sPath + SingletonAppSettings.getAppSettings().getsMediaPerfilPath();
+    		mFileTemp = new File(sPath, TEMP_PHOTO_FILE_NAME);
+    	}
+    	else 
+    	{
+    		//Me traigo el getfilesDir desde el singleton, ya que desde ahi puedo tener el conexto de la aplicacion
+    		mFileTemp = new File(SingletonAppSettings.getFilesDir(), TEMP_PHOTO_FILE_NAME);
+    	}
         
 		ImageButton btnBuscarFoto = (ImageButton) getView().findViewById(R.id.btnBuscarFoto);
 		btnBuscarFoto.setOnClickListener(new OnClickListener() {
@@ -132,14 +138,7 @@ public class FragmentModPerfilFoto extends Fragment {
 	        	
 	        }
 	    });
-		
-    	String estado = Environment.getExternalStorageState();
-    	if (Environment.MEDIA_MOUNTED.equals(estado)) {
-    		mFileTemp = new File(Environment.getExternalStorageDirectory(), TEMP_PHOTO_FILE_NAME);
-    	}
-    	/*else {
-    		mFileTemp = new File(getFilesDir(), TEMP_PHOTO_FILE_NAME);
-    	}*///ver por que no se implementa el getFilesDir
+
       
     }
 
@@ -163,7 +162,6 @@ public class FragmentModPerfilFoto extends Fragment {
 		            	result += "\n" + key + extras.get(key);
 		            }
 		        }*/
-		    	//bSacaFoto=true;
 		    	startCropImage();
 		    }
 
@@ -171,8 +169,6 @@ public class FragmentModPerfilFoto extends Fragment {
 		//Galeria
 		case GALLERY_INTENT_REQUEST:
 		    if(resultCode == RESULT_OK){  
-		    	/*Bitmap photo = (Bitmap) data.getExtras().get("data");
-		        ((ImageView) getView().findViewById(R.id.imageView1)).setImageBitmap(photo);*/
 		    	Uri uri = data.getData();
 		    	((ImageView) getView().findViewById(R.id.imageView1)).setImageURI(uri);
 		    }
