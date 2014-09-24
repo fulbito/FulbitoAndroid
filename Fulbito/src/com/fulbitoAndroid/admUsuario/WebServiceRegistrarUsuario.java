@@ -1,15 +1,19 @@
 package com.fulbitoAndroid.admUsuario;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.conn.ConnectTimeoutException;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
+import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -42,7 +46,17 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
     	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Registrar(cUsrLogin);
     	//Invocamos el WebService
     	vSetWebservice(S_WEBSERVICE_REGISTRAR);
-    	vEjecutarWebservice(listaParametros, cRespWS);
+    	
+    	try {
+			vEjecutarWebservice(listaParametros, cRespWS);
+		} catch (SocketTimeoutException e) {
+			Log.e("WebServiceLogin::bRegistrarUsuario", e.getMessage());
+			return Result.NO_CONNECTION;
+		} catch (ConnectTimeoutException e) {
+			Log.e("WebServiceLogin::bRegistrarUsuario", e.getMessage());
+			return Result.NO_CONNECTION;
+		}
+    	
     	//Procesamos la respuesta
     	sError = cRespWS.sGetError();
     	sData = cRespWS.sGetData();

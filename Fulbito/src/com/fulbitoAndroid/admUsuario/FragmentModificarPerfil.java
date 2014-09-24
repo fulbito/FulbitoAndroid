@@ -123,25 +123,29 @@ public class FragmentModificarPerfil extends Fragment {
             	if(sTagTabAnterior == "DATOS")
             	{
             		datosFragment = (FragmentModPerfilDatos) fm.findFragmentByTag("DATOS");
-            		ft.detach(datosFragment);
+            		ft.hide(datosFragment);
+            		//ft.detach(datosFragment);
             	}
             	
             	if(sTagTabAnterior == "FOTO")
             	{
             		fotoFragment = (FragmentModPerfilFoto) fm.findFragmentByTag("FOTO");
-            		ft.detach(fotoFragment);
+            		ft.hide(fotoFragment);
+            		//ft.detach(fotoFragment);
             	}
             	
             	if(sTagTabAnterior == "UBICACION")
             	{
             		ubicacionFragment = (FragmentModPerfilUbicacion) fm.findFragmentByTag("UBICACION");
-            		ft.detach(ubicacionFragment);
+            		ft.hide(ubicacionFragment);
+            		//ft.detach(ubicacionFragment);
             	}
             	
             	if(sTagTabAnterior == "NOTIFICACION")
             	{
             		notificacionesFragment = (FragmentModPerfilNotificaciones) fm.findFragmentByTag("NOTIFICACION");
-            		ft.detach(notificacionesFragment);
+            		ft.hide(notificacionesFragment);
+            		//ft.detach(notificacionesFragment);
             	}
             	
             	//hacemos visible el fragment correspondiente a la pestaña seleccionada
@@ -154,7 +158,8 @@ public class FragmentModificarPerfil extends Fragment {
             			ft.add(R.id.realtabcontent, new FragmentModPerfilDatos(), "DATOS");
             		else  
             			//el fragment está dentro del FragmentManager, solo se lo hace visible con attach
-            			ft.attach(datosFragment);
+            			//ft.attach(datosFragment);
+            			ft.show(datosFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("FOTO"))
@@ -163,7 +168,8 @@ public class FragmentModificarPerfil extends Fragment {
             		if(fotoFragment == null)
             			ft.add(R.id.realtabcontent, new FragmentModPerfilFoto(), "FOTO");
             		else            			
-            			ft.attach(fotoFragment);
+            			//ft.attach(fotoFragment);
+            			ft.show(fotoFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("UBICACION"))
@@ -172,7 +178,8 @@ public class FragmentModificarPerfil extends Fragment {
             		if(ubicacionFragment == null)
             			ft.add(R.id.realtabcontent, new FragmentModPerfilUbicacion(), "UBICACION");
             		else            			
-            			ft.attach(ubicacionFragment);
+            			//ft.attach(ubicacionFragment);
+            			ft.show(ubicacionFragment);
             	}
             	
             	if(tabId.equalsIgnoreCase("NOTIFICACION"))
@@ -181,7 +188,8 @@ public class FragmentModificarPerfil extends Fragment {
             		if(notificacionesFragment == null)
             			ft.add(R.id.realtabcontent, new FragmentModPerfilNotificaciones(), "NOTIFICACION");
             		else            			
-            			ft.attach(notificacionesFragment);
+            			//ft.attach(notificacionesFragment);
+            			ft.show(notificacionesFragment);
             	}
             	
                 ft.commit();

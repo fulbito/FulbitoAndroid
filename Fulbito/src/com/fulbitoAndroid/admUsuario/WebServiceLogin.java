@@ -1,10 +1,13 @@
 package com.fulbitoAndroid.admUsuario;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.conn.ConnectTimeoutException;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
@@ -41,7 +44,17 @@ public class WebServiceLogin extends WebServiceFulbito{
 		List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Login(cUsrLogin);
 		//Invocamos el WebService
 		vSetWebservice(S_WEBSERVICE_LOGIN);
-		vEjecutarWebservice(listaParametros, cRespWS);
+		
+		try {
+			vEjecutarWebservice(listaParametros, cRespWS);
+		} catch (SocketTimeoutException e) {
+			Log.e("WebServiceLogin::bLoguearUsuario", e.getMessage());
+			return Result.NO_CONNECTION;
+		} catch (ConnectTimeoutException e) {
+			Log.e("WebServiceLogin::bLoguearUsuario", e.getMessage());
+			return Result.NO_CONNECTION;
+		}
+		
 		//Procesamos la respuesta
 		sError = cRespWS.sGetError();
 		sData = cRespWS.sGetData();

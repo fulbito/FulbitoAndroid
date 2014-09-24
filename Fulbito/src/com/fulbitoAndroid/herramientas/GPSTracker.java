@@ -1,5 +1,8 @@
 package com.fulbitoAndroid.herramientas;
 
+import com.fulbitoAndroid.fulbito.FulbitoException;
+import com.fulbitoAndroid.fulbito.R;
+
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -39,12 +42,12 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
  
-    public GPSTracker(Context context) {
+    public GPSTracker(Context context) throws FulbitoException {
         this.mContext = context;
         getLocation();
     }
  
-    public Location getLocation() {
+    public Location getLocation() throws FulbitoException {
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
@@ -98,7 +101,7 @@ public class GPSTracker extends Service implements LocationListener {
             }
  
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new FulbitoException("GPSTracker::getLocation", e.getMessage());
         }
  
         return location;
@@ -154,21 +157,21 @@ public class GPSTracker extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
       
         // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
+        alertDialog.setTitle(R.string.GpsTrackerDialogTitle);
   
         // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        alertDialog.setMessage(R.string.GpsTrackerDialogMsj);
   
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(R.string.GpsTrackerDialogSettings, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
         });
-  
+
         // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.GpsTrackerDialogCancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             dialog.cancel();
             }

@@ -1,8 +1,10 @@
 package com.fulbitoAndroid.fulbito;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.conn.ConnectTimeoutException;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -35,7 +37,8 @@ public class WebServiceFulbito {
 		this.sWebService = sWebService;
 	}
 	
-	protected void vEjecutarWebservice(List<NameValuePair> listaParametros, RespuestaWebService cRespWS) throws FulbitoException{
+	protected void vEjecutarWebservice(List<NameValuePair> listaParametros, RespuestaWebService cRespWS) 
+			throws FulbitoException, SocketTimeoutException, ConnectTimeoutException{
 		//Invocamos el WebService en modo POST   	
     	WebService webService = new WebService(S_WEBSERVICE_URL);
     	String sRespuesta = webService.sWebPost(this.sWebService, listaParametros);

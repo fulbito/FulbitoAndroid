@@ -34,4 +34,12 @@
 	<string name="errMsjLoginOffline">No hay conexion a internet. Se inicia la aplicación en modo desconectado.</string>
 	<string name="errMsjLogin">Error al iniciar sesión.</string>
 	<string name="errMsjRegistrarUsuario">Error al registrar usuario.</string>
+	<string name="errMsjUbicacionActual">Error al obtener ubicación actual.</string>
+	
+	<!-- GPS Tracker -->
+	<string name="GpsTrackerDialogTitle">Configuración de GPS.</string>
+	<string name="GpsTrackerDialogMsj">El GPS no está activado. ¿Quieres ir al menú de configuración?</string>
+	<string name="GpsTrackerDialogSettings">Configuración</string>
+	<string name="GpsTrackerDialogCancel">Cancelar</string>
+	
 </resources>

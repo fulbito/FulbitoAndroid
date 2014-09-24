@@ -41,4 +41,11 @@
 	<string name="errMsjLoginOffline">No internet connection. The application starts in offline mode.</string>
 	<string name="errMsjLogin">Failed to login.</string>
 	<string name="errMsjRegistrarUsuario">Failed to register user.</string>
+	<string name="errMsjUbicacionActual">Failed to get current location.</string>
+	
+	<!-- GPS Tracker -->
+	<string name="GpsTrackerDialogTitle">GPS settings.</string>
+	<string name="GpsTrackerDialogMsj">GPS is not enabled. Do you want to go to settings menu?</string>
+	<string name="GpsTrackerDialogSettings">Settings</string>
+	<string name="GpsTrackerDialogCancel">Cancel</string>
 </resources>

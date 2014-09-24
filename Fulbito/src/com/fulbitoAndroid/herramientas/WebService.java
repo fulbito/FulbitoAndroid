@@ -2,6 +2,7 @@ package com.fulbitoAndroid.herramientas;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -42,7 +44,8 @@ public class WebService {
 	}
 	
 	//metodo para invocar a un WebService POST con parametros JSON
-	public String sWebPost(String sNombreMetodo, JSONObject jsonParametro) throws FulbitoException
+	public String sWebPost(String sNombreMetodo, JSONObject jsonParametro) 
+			throws FulbitoException, SocketTimeoutException, ConnectTimeoutException
 	{	
 		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
 		response = null;
@@ -74,6 +77,18 @@ public class WebService {
 				ret = EntityUtils.toString(response.getEntity());
 			}			
 		} 
+		catch(SocketTimeoutException eSocketTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eSocketTimeOut.getMessage());
+			throw eSocketTimeOut;
+		}
+		catch(ConnectTimeoutException eConnectTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eConnectTimeOut.getMessage());
+			throw eConnectTimeOut;
+		}
 		catch (Exception e) 
 		{
 			//Lanzamos una excepcion
@@ -84,7 +99,8 @@ public class WebService {
 	}
 	
 	//metodo para invocar a un WebService POST con parametros NameValuePair
-	public String sWebPost(String sNombreMetodo, List<NameValuePair> nvpParametros) throws FulbitoException
+	public String sWebPost(String sNombreMetodo, List<NameValuePair> nvpParametros) 
+			throws FulbitoException, SocketTimeoutException, ConnectTimeoutException
 	{	
 		httpPost = new HttpPost(sWebServiceUrl + sNombreMetodo);
 		response = null;		
@@ -108,6 +124,18 @@ public class WebService {
 				ret = EntityUtils.toString(response.getEntity());
 			}
 		}
+		catch(SocketTimeoutException eSocketTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eSocketTimeOut.getMessage());
+			throw eSocketTimeOut;
+		}
+		catch(ConnectTimeoutException eConnectTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eConnectTimeOut.getMessage());
+			throw eConnectTimeOut;
+		}
 		catch (Exception e) 
 		{
 			//Lanzamos una excepcion
@@ -118,7 +146,8 @@ public class WebService {
 	}
 
 	//metodo para invocar a un WebService GET con parametros almacenados en un
-	public String sWebGet(String sNombreMetodo, List<NameValuePair> nvpParametros) throws FulbitoException
+	public String sWebGet(String sNombreMetodo, List<NameValuePair> nvpParametros) 
+			throws FulbitoException, ConnectTimeoutException, SocketTimeoutException
 	{
 		String getUrl = sWebServiceUrl + sNombreMetodo;
 		
@@ -150,10 +179,22 @@ public class WebService {
 		{
 			response = httpClient.execute(httpGet);
 		} 
+		catch(SocketTimeoutException eSocketTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eSocketTimeOut.getMessage());
+			throw eSocketTimeOut;
+		}
+		catch(ConnectTimeoutException eConnectTimeOut)
+		{
+			//Lanzamos una excepcion
+			//throw new FulbitoException("WebService::sWebPost", eConnectTimeOut.getMessage());
+			throw eConnectTimeOut;
+		}
 		catch (Exception e) 
 		{
 			//Lanzamos una excepcion
-			throw new FulbitoException("WebService::sWebGet", e.getMessage());
+			throw new FulbitoException("WebService::sWebPost", e.getMessage());
 		}
 		 
 		try 
