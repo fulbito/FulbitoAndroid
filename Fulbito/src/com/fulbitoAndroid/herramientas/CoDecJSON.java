@@ -102,4 +102,29 @@ public class CoDecJSON {
 		
 		return usrUsuarioLogin;
 	}
+	
+	//Decodifica los datos de usuario que recibimos del WebService de Login
+	public Usuario usrDecodificarJSON_Registrar(String sData) throws FulbitoException
+	{
+		JSONObject usuarioJSON;
+		String sId;
+		
+		Usuario usrUsuarioLogin = new Usuario();
+		
+		try 
+		{
+			usuarioJSON = new JSONObject(sData);
+			//Parseamos los datos del usuario
+			sId = usuarioJSON.getString("id");
+
+			usrUsuarioLogin.setId(Integer.parseInt(sId));
+		} 
+		catch (JSONException e) 
+		{
+			//Lanzamos una excepcion
+			throw new FulbitoException("CoDecJSON::jsonCodificarJSON_Login", e.getMessage());
+		}	
+		
+		return usrUsuarioLogin;
+	}
 }

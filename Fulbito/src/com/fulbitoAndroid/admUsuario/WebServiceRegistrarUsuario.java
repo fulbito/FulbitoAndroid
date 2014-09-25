@@ -29,7 +29,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 		super(context);
 	}
 		
-	public Result bRegistrarUsuario(Usuario cUsrLogin, RespuestaWebService cRespWS) throws FulbitoException{
+	public Result bRegistrarUsuario(Usuario cUsrRegistrar, RespuestaWebService cRespWS) throws FulbitoException{
 		
 		String sError = "";
 		String sData = "";
@@ -43,7 +43,7 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 		
 		//Generamos el parametro a enviar al WebService
 		CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
-    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Registrar(cUsrLogin);
+    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_Registrar(cUsrRegistrar);
     	//Invocamos el WebService
     	vSetWebservice(S_WEBSERVICE_REGISTRAR);
     	
@@ -71,10 +71,10 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
 			//El webservice envio una respuesta valida con los datos del usuario logueado  
     		CoDecJSON cCodJSON = new CoDecJSON();
     		
-			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Login(sData);
-			usrJSON.setPassword(cUsrLogin.getPassword());
-
-			cUsrLogin.vCopiar(usrJSON);
+			Usuario usrJSON = cCodJSON.usrDecodificarJSON_Registrar(sData);
+			
+			cUsrRegistrar.setId(usrJSON.getId());
+			
 			//Se activa el modo de conexión ONLINE
 			SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
 			

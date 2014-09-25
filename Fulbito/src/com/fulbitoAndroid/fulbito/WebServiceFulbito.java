@@ -16,7 +16,7 @@ import com.fulbitoAndroid.herramientas.WebService;
 
 public class WebServiceFulbito {
 	//Definicion de constantes de los webservices de fulbito
-	protected static final String S_WEBSERVICE_URL 			= "http://www.fulbitoweb.com.ar/index.php/";
+	protected static final String S_WEBSERVICE_URL 			= "http://www.fulbitoweb.com/index.php/";
 	protected static final String S_RESP_ERROR 				= "true";
 	protected static final String S_RESP_OK 				= "false";		
 	
