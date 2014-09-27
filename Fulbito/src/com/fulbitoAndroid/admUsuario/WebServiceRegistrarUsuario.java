@@ -13,7 +13,6 @@ import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.WebServiceFulbito;
-import com.fulbitoAndroid.fulbito.WebServiceFulbito.Result;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.CodificadorNameValuePair;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
@@ -64,6 +63,8 @@ public class WebServiceRegistrarUsuario extends WebServiceFulbito{
     	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
     		//El webservice envio una respuesta con error
+			String sMsjError = sObtenerMsjError(Integer.parseInt(sData));
+			cRespWS.vSetData(sMsjError);
     		return Result.ERROR;
 		}
     	else

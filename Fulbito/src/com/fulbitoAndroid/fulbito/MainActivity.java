@@ -99,6 +99,8 @@ public class MainActivity extends Activity {
 			    			break;
 			    		case ERROR:
 			    			//el logueo automatico no fue exitoso
+			    			//eliminamos la información de usuario logueado
+			    			SingletonUsuarioLogueado.eliminarUsuarioLogueado();
 				    		sError = cRespWS.sGetData();
 				    		iAccionSiguiente = I_INICIAR_RELOGIN;
 			    			break;		    		

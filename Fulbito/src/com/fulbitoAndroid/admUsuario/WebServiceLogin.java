@@ -62,6 +62,8 @@ public class WebServiceLogin extends WebServiceFulbito{
 		if(sError.equalsIgnoreCase(S_RESP_ERROR))
 		{
 			//El webservice envio una respuesta con error
+			String sMsjError = sObtenerMsjError(Integer.parseInt(sData));
+			cRespWS.vSetData(sMsjError);
 			return Result.ERROR;
 		}
 		else

@@ -13,4 +13,16 @@
         <item>@drawable/ic_action_search</item>
         <item>@drawable/ic_action_search</item>
     </array>
+    <string-array
+        name="msjs_error_webservices">
+        <item>Debe ingresar su usuario y contraseña.</item>
+        <item>Email o Contraseña incorrecto, intente nuevamente.</item>
+        <item>Debe completar todos los campos obligatorios.</item>
+        <item>Email duplicado, ya existe un usuario con ese email registrado.</item>        
+        <item>No se ha podido registrar al usuario, intente nuevamente mas tarde.</item>
+        <item>Debe ingresar su email registrado para recuperar su contraseña.</item>
+        <item>Ocurrió un error al actualizar su clave, intente mas tarde.</item>
+        <item>Debe enviar los datos a modificar.</item>
+        <item>No se ha podido modificar los datos, intente mas tarde.</item>        
+    </string-array>
 </resources>
