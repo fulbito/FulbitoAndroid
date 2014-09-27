@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.FulbitoException;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -43,23 +45,22 @@ public class FragmentModPerfilUbicacion extends Fragment{
 	//Elementos de la interfaz grafica
 	EditText edtTxtDireccion;
 	ImageButton btnBuscar;
+	//Elementos para manejar el fragment de Google Maps
+	FragmentManager fmFragmentManager;	
+	SupportMapFragment mfMapFragment;
+	//Mapa de Google Maps
+	GoogleMap gmGoogleMap;
 	
-	FragmentManager fmFragmentManager;
-	SupportMapFragment mMapFragment;
-	GoogleMap map;
 	Handler handler;
-	LocationListener locationListener;
-
-    Usuario usrUsuario;
-    //Geocoder myLocation;
-    
-    Location mCurrentLocation;
-    
+	LocationListener locationListener;    
+    Location mCurrentLocation;    
     Circle mCircle;
     SeekBar seekBar;
     TextView seekBarValue;
     
     static final String TAG="FragmentModPerfilUbicacion";
+    
+    Usuario usrLogueado = null;
     	
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -70,86 +71,67 @@ public class FragmentModPerfilUbicacion extends Fragment{
     
     @Override
     public void onActivityCreated(Bundle state) {
-        super.onActivityCreated(state);                
+        super.onActivityCreated(state); 
+        //Obtenemos el usuario logueado
+        usrLogueado = SingletonUsuarioLogueado.getUsuarioLogueado();
         //Obtenemos los elementos de la interfaz grafica
         edtTxtDireccion = (EditText) getView().findViewById(R.id.edtTxtDireccion);                    
         btnBuscar = (ImageButton) getView().findViewById(R.id.button1);
-        
+                    
         btnBuscar.setOnClickListener(new OnClickListener() 
         {   public void onClick(View v) 
 	        {   				
 	        	String sDireccion = edtTxtDireccion.getText().toString();
-	        	vBuscarDireccion(sDireccion);						
+	        	//vBuscarDireccion(sDireccion);	        	
 	        }
         });                
         
         //Agregamos el google map fragment        
       	fmFragmentManager = getChildFragmentManager();        
-        mMapFragment = SupportMapFragment.newInstance();
+      	mfMapFragment = SupportMapFragment.newInstance();
         FragmentTransaction fragmentTransaction = fmFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.loMapContainerModPerfilUbicacion, mMapFragment);
+        fragmentTransaction.add(R.id.loMapContainerModPerfilUbicacion, mfMapFragment);
         fragmentTransaction.commit();        
         
-        //Se lanza la inicialización de la aplicación				
-        //new InitMapa().execute();
+        //Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null y terminar la aplicación con excepcion        
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+        	@Override
+        	public void run() 
+        	{
+        		gmGoogleMap = mfMapFragment.getMap();
+        		if(gmGoogleMap != null) 
+        		{
+        			//habilitamos en el mapa el botón que marca nuestra ubicacion actual
+        			gmGoogleMap.setMyLocationEnabled(true);
+        			//seteamos la accion al hacer click en el boton "mi ubicacion actual"
+        			gmGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+        		        @Override
+        		        public boolean onMyLocationButtonClick() {
+        		        	//Obtenemos la ubicacion actual
+        		        	vObtenerUbicacionActual();
+        		            return true;
+        		        }
+        		    });
+        			
+        			//Obtenemos la ubicacion actual al iniciar la interfaz de modificar ubicacion
+        			
+        			if(usrLogueado.getUbicacion().length() == 0)
+        				vObtenerUbicacionActual();        			
+        			/*else
+        				vBuscarDireccion(usrLogueado.getUbicacion());
+        			*/
+        		}
+        		else 
+        		{
+        			handler.postDelayed(this, 100);
+        		}
+        	}
+        }, 100);       
 
         vSetearSeekBar();
     }    
     
-    private class InitMapa extends AsyncTask<Void, Void, Void> {		
-
-	    @Override
-	    protected void onPreExecute() {
-	        super.onPreExecute();
-	        //Aca debemos poner el bloque de codigo a ejecutar antes de lanzar 
-	        //el hilo que realiza la inicialización de Fulbito (Se ejecuta en el hilo principal)       
-	    }
-
-	    @Override
-	    protected Void doInBackground(Void... arg0) {
-	    	while(mMapFragment == null)
-	    	{
-	    		//Bloque de codigo para esperar hasta que se cargue el mMapFragment
-		        Handler handler = new Handler();
-		        
-		        handler.postDelayed(new Runnable(){
-					            @Override
-					            public void run(){
-					            	Log.d("InitMapa", "Esperando por mMapFragment");
-					            }
-					        }, 
-					        100
-		        		);
-	    	}
-	    	
-	    	map = mMapFragment.getMap();
-	    	
-	    	//habilitamos en el mapa el botón que marca nuestra ubicacion actual
-			map.setMyLocationEnabled(true);
-			/*
-			//seteamos la accion al hacer click en el boton "mi ubicacion actual"
-			map.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
-		        @Override
-		        public boolean onMyLocationButtonClick() {
-		        	//Obtenemos la ubicacion actual
-		        	vObtenerUbicacionActual();
-		            return true;
-		        }
-		    });
-			*/
-			//Obtenemos la ubicacion actual al iniciar la interfaz de modificar ubicacion
-        	//vObtenerUbicacionActual(); 
-	    	
-	        return null;
-	    }
-
-	    @Override
-	    protected void onPostExecute(Void result) {
-	        super.onPostExecute(result);
-	    }
-
-	}
-
     public void vSetearSeekBar(){
         seekBar = (SeekBar)getView().findViewById(R.id.seekBarRadioUbicacion);
         seekBarValue = (TextView)getView().findViewById(R.id.txtKmRadios);
@@ -157,7 +139,15 @@ public class FragmentModPerfilUbicacion extends Fragment{
         seekBar.incrementProgressBy(1000);
         seekBar.setMax(30000);        
         
-        seekBar.setProgress(3000);        
+        if(usrLogueado.getRadioBusqueda() == 0)
+        {
+        	seekBar.setProgress(3000);                    
+        }
+        else
+        {
+        	seekBar.setProgress((int) usrLogueado.getRadioBusqueda());        
+        }
+        
         seekBarValue.setText(Integer.toString(seekBar.getProgress()/1000) + " km");
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -165,6 +155,10 @@ public class FragmentModPerfilUbicacion extends Fragment{
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             	mCircle.setRadius(progress);
             	seekBarValue.setText(Integer.toString(progress/1000) + " Km");
+            	
+            	usrLogueado.setRadioBusqueda(progress);
+                SingletonUsuarioLogueado.modificarRadioBusqueda(progress);
+            	
             }
 
             @Override
@@ -178,8 +172,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
     }
     
     public void vObtenerUbicacionActual(){
-    	try
-    	{
+    	try{
     		GPSTracker gps = new GPSTracker(getActivity());
 
     		//Verificamos que se pudo obtener la ubicación actual    
@@ -200,7 +193,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
     			// preguntamos si el usuario quiere habilitar el GPS
     			gps.showSettingsAlert();
     		}		
-    	}
+    	} 
     	catch(FulbitoException feException)
     	{
     		Toast.makeText(getActivity().getApplicationContext(), 
@@ -211,7 +204,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
     }
     
     private void vDibujarMarcador(double latitude, double longitude){
-    	map.clear();
+    	gmGoogleMap.clear();
     	LatLng currentPosition = new LatLng(latitude, longitude);    	
     	
     	double radiusInMeters = 3000.0;
@@ -219,16 +212,16 @@ public class FragmentModPerfilUbicacion extends Fragment{
         int shadeColor = 0x44ff0000; //opaque red fill        
         
         CircleOptions circleOptions = new CircleOptions().center(currentPosition).radius(radiusInMeters).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(8);
-        mCircle = map.addCircle(circleOptions);
+        mCircle = gmGoogleMap.addCircle(circleOptions);
         
         seekBar.setProgress(3000);
     	
-    	map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition,15));
+        gmGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition,15));
         // Zoom in, animating the camera.
-    	map.animateCamera(CameraUpdateFactory.zoomIn());
+        gmGoogleMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-    	map.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);    
-    	map.addMarker(new MarkerOptions().position(currentPosition));    	
+        gmGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);    
+        gmGoogleMap.addMarker(new MarkerOptions().position(currentPosition));    	
 	}
     
     public void vObtenerDireccion(Location location) {
@@ -427,6 +420,12 @@ public class FragmentModPerfilUbicacion extends Fragment{
                         vDibujarMarcador(address.getLatitude(), address.getLongitude());
                   
                   edtTxtDireccion.setText(addressText);
+                  usrLogueado.setUbicacion(addressText);
+                  usrLogueado.setUbicacionLatitud(Double.toString(address.getLatitude()));
+                  usrLogueado.setUbicacionLongitud(Double.toString(address.getLongitude()));
+                  SingletonUsuarioLogueado.modificarUbicacionDesc(usrLogueado.getUbicacion());
+                  SingletonUsuarioLogueado.modificarUbicacionLatitud(usrLogueado.getUbicacionLatitud());
+                  SingletonUsuarioLogueado.modificarUbicacionLongitud(usrLogueado.getUbicacionLongitud());
          	}         	
           }
       }
