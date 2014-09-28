@@ -18,8 +18,10 @@ import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ public class FragmentLogin extends Fragment {
 	private EditText edtTextContrasena;
 	private Button btnIngresar;
 	private Button btnRecuperarContrasena;
+	private ProgressDialog pDialog;
 	
 	int iLargoCorreo = 0;
 	int iLargoContrasena = 0;
@@ -112,6 +115,7 @@ public class FragmentLogin extends Fragment {
             }
         });
     }    
+    
     private void vAgregarValidacionContrasenaEnCambioDeFoco(){
     	edtTextContrasena.setOnFocusChangeListener(new OnFocusChangeListener() {    		    		
             @Override
@@ -140,41 +144,21 @@ public class FragmentLogin extends Fragment {
         		
         		if(bCorreoCorrecto == true && bContrasenaCorrecto == true)
 	        	{
-	        		//La validación fue correcta
-        			boolean bLoginCorrecto = false;
+        			//La validación fue correcta        			      	             	        
         			//Se llama al WebService de Login
-	            	bLoginCorrecto =  bInvocaWebServiceLogin();
-	            	
-	            	if(bLoginCorrecto == true)
-	            	{
-						//El login fue correcto, se ingresa al home
-	            		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-						startActivity(intent);
-						getActivity().finish();
-	            	}	
+	            	LoginAsyncTask loginTask = new LoginAsyncTask();
+	            	loginTask.execute();	            		
 	        	}
 	        	else
 	        	{
 	        		//Hay campos incorrectos
-	        		/*if(iLargoCorreo == 0 || iLargoContrasena == 0)
-	        		{
-	        			if(iLargoCorreo == 0)
-	        				edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
-	        			if(iLargoContrasena == 0)
-	        				edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-	
-	        			Toast.makeText(getActivity().getApplicationContext(), 
-	        					R.string.txtCamposVacios, Toast.LENGTH_LONG).show();
-	        		}
-	        		else
-	        		{*/
-	        			Toast.makeText(getActivity().getApplicationContext(), 
-	        					R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
-	        		//}
+        			Toast.makeText(getActivity().getApplicationContext(), 
+        				R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
 	        	}  
             }
         }); 
     }
+    
     private void vAgregarEventoBotónRecuperarContrasena(){
     	//Falta agregar el llamado al WebService para recuperar contraseña
     	btnRecuperarContrasena.setOnClickListener(new OnClickListener() 
@@ -183,56 +167,6 @@ public class FragmentLogin extends Fragment {
 				
             }
         }); 
-    }
-    //Invoca el WebService para ingresar un usuario al sistema
-    private boolean bInvocaWebServiceLogin(){    	    	
-    	/*
-    	 * Ver la posibilidad de invocar al WebService en segundo plano con LoginAsyncTask
-    	LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
-    	loginTask.execute();
-    	*/
-    	boolean bResult = false;
-    	//Instanciamos un objeto Usuario
-    	Usuario cUsrLogin = new Usuario();
-    	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
-    	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
-    	
-    	//Invocamos el Web Service de Login
-    	WebServiceLogin wsLogin = new WebServiceLogin(getActivity().getApplicationContext());
-    	RespuestaWebService cRespWS = new RespuestaWebService();
-    	try
-    	{
-    		switch(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS))
-        	{
-        		case OK:
-        			//el logueo automatico fue exitoso
-        			//Seteamos los datos del usuario logueado
-        			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
-        			bResult = true;
-        			break;
-        		case NO_CONNECTION:
-        			//no hay conexión a internet
-        			Toast.makeText(getActivity().getApplicationContext(), 
-        					R.string.errMsjSinConexion, Toast.LENGTH_LONG).show();
-        			bResult = false;
-        			break;
-        		case ERROR:
-        			//el logueo automatico no fue exitoso
-        			//El webservice envio una respuesta con error
-        			Toast.makeText(getActivity().getApplicationContext(), 
-        					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-        			bResult = false;
-        			break;	    		
-        	}
-    	}
-    	catch(FulbitoException feException)
-    	{
-    		Toast.makeText(getActivity().getApplicationContext(), 
-					R.string.errMsjLogin, Toast.LENGTH_LONG).show();
-    		bResult = false;
-    	}
-    	
-    	return bResult;    	
     }
     
     private void vValidarCampoCorreo(){
@@ -287,4 +221,91 @@ public class FragmentLogin extends Fragment {
 		bContrasenaCorrecto = true;
 		edtTextContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
     }
+    
+    class LoginAsyncTask extends AsyncTask<Void, Void, Boolean> {
+      
+    	private Usuario cUsrLogin 	= null;
+		private String sError 		= "";
+		
+        @Override 
+        protected void onPreExecute() {
+        	cUsrLogin = new Usuario();
+        	cUsrLogin.setEmail(edtTextCorreo.getText().toString());
+	    	cUsrLogin.setPassword(edtTextContrasena.getText().toString());
+	    	
+	    	pDialog = new ProgressDialog(getActivity());
+	        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	        pDialog.setTitle("Procesando...");
+	        pDialog.setMessage("Espere por favor...");
+	        pDialog.setCancelable(false);
+	        pDialog.setIndeterminate(true);  
+	    	pDialog.show();
+        }
+
+        @Override 
+        protected Boolean doInBackground(Void... par) {
+        	Boolean bResult = false;
+	    	
+	    	//Invocamos el Web Service de Login
+	    	WebServiceLogin wsLogin = new WebServiceLogin(getActivity().getApplicationContext());
+	    	RespuestaWebService cRespWS = new RespuestaWebService();
+	    	try
+	    	{
+	    		switch(wsLogin.bLoguearUsuario(cUsrLogin, cRespWS))
+	        	{
+	        		case OK:
+	        			//el logueo automatico fue exitoso
+	        			//Seteamos los datos del usuario logueado
+	        			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
+	        			bResult = true;
+	        			break;
+	        		case NO_CONNECTION:
+	        			//no hay conexión a internet
+	        			sError = getString(R.string.errMsjSinConexion);
+	        			bResult = false;
+	        			break;
+	        		case ERROR:
+	        			//el logueo automatico no fue exitoso
+	        			//El webservice envio una respuesta con error
+	        			sError = cRespWS.sGetData();
+	        			bResult = false;
+	        			break;	    		
+	        	}
+	    	}
+	    	catch(FulbitoException feException)
+	    	{
+	    		sError = getString(R.string.errMsjLogin);
+	    		bResult = false;
+	    	}
+
+	        return bResult;
+        }
+
+        @Override 
+        protected void onProgressUpdate(Void... prog) {
+        }
+
+        @Override 
+        protected void onPostExecute(Boolean bResult) {
+        	
+        	if(pDialog!=null) 
+        	{
+        		pDialog.dismiss();
+        		//pDialog.setEnabled(true);
+			}
+        	
+        	if(bResult == true)
+        	{
+				//El login fue correcto, se ingresa al home
+        		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+				startActivity(intent);
+				getActivity().finish();
+        	}
+	        else
+	        {
+	        	Toast.makeText(getActivity().getApplicationContext(), 
+	        		sError, Toast.LENGTH_LONG).show();
+	        }
+        }
+	}
 }

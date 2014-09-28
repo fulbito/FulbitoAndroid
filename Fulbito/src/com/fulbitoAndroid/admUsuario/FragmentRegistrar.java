@@ -18,8 +18,10 @@ import com.fulbitoAndroid.fulbito.HomeActivity;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ public class FragmentRegistrar extends Fragment {
 	private EditText 	edtTextContrasena;
 	private EditText 	edtTextConfirmarContrasena;
 	private Button 		btnRegistrar;
+	private ProgressDialog pDialog;
 	
 	int iLargoAlias = 0;
 	int iLargoCorreo = 0;
@@ -171,112 +174,19 @@ public class FragmentRegistrar extends Fragment {
         	
         		if(bAliasCorrecto == true && bCorreoCorrecto == true && bContrasenaCorrecto == true && bContrasenaConfirmadaCorrecto == true)
 	        	{
-        			
-        			//La validación fue correcta
-        			boolean bLoginCorrecto = false;
+        			//La validación fue correcta        			      	             	        
         			//Se llama al WebService de Login
-	            	bLoginCorrecto =  bInvocaWebServiceRegistrar();
-	            	
-	            	if(bLoginCorrecto == true)
-	            	{
-						//El login fue correcto, se ingresa al home
-	            		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-						    startActivity(intent); 
-						getActivity().finish();
-	            	}
+        			RegistrarAsyncTask registrarTask = new RegistrarAsyncTask();
+        			registrarTask.execute();
 	            }
 	            else
-	        	{
-	        		//Hay campos incorrectos
-	        		/*//Hay campos incorrectos
-	        		if(iLargoAlias == 0 || iLargoCorreo == 0 || iLargoContrasena == 0 || iLargoContrasenaConfirmada == 0)
-	        		{
-	        			if(iLargoAlias == 0)
-	        				edtTextAlias.setBackgroundResource(R.drawable.campo_editable_error);
-	        			if(iLargoCorreo == 0)
-	        				edtTextCorreo.setBackgroundResource(R.drawable.campo_editable_error);
-	        			if(iLargoContrasena == 0)
-	        				edtTextContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-	        			if(iLargoContrasenaConfirmada == 0)
-	        				edtTextConfirmarContrasena.setBackgroundResource(R.drawable.campo_editable_error);
-	        			Toast.makeText(getActivity().getApplicationContext(), 
-	        					R.string.txtCamposVacios, Toast.LENGTH_LONG).show();
-	        		}
-	        		else
-	        		{*/
-	        			Toast.makeText(getActivity().getApplicationContext(), 
-	        					R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
-	        		//}
+	        	{	    
+	        		Toast.makeText(getActivity().getApplicationContext(), 
+	        			R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
 	        	}	        	
             }
         });
     }
-
-	//Invoca el WebService para ingresar un usuario al sistema
-	private boolean bInvocaWebServiceRegistrar(){    	    	
-		/*
-		 * Ver la posibilidad de invocar al WebService en segundo plano con LoginAsyncTask
-		LoginAsyncTask loginTask = new LoginAsyncTask(getActivity());
-		loginTask.execute();
-		*/    					
-		boolean bResult = false;
-		//Instanciamos un objeto Usuario
-		Usuario cUsrRegistrar = new Usuario();
-		cUsrRegistrar.setAlias(edtTextAlias.getText().toString());
-		cUsrRegistrar.setEmail(edtTextCorreo.getText().toString());
-		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
-		
-		//Invocamos el Web Service de Login
-    	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario(getActivity().getApplicationContext());
-    	RespuestaWebService cRespWS = new RespuestaWebService();
-    	
-    	try
-    	{
-	    	switch(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS))
-	    	{
-	    		case OK:
-	    			//Seteamos los datos del usuario logueado
-	    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar);
-	    			bResult = true;
-	    			break;
-	    		case NO_CONNECTION:
-	    			//no hay conexión a internet
-	    			Toast.makeText(getActivity().getApplicationContext(), 
-	    					R.string.errMsjSinConexion, Toast.LENGTH_LONG).show();
-	    			bResult = false;
-	    			break;
-	    		case ERROR:
-	    			//el logueo automatico no fue exitoso
-	    			//El webservice envio una respuesta con error
-	    			Toast.makeText(getActivity().getApplicationContext(), 
-	    					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-	    			bResult = false;
-	    			break;		    		
-	    	}
-		}
-    	catch(FulbitoException feException)
-    	{
-    		Toast.makeText(getActivity().getApplicationContext(), 
-    				R.string.errMsjRegistrarUsuario, Toast.LENGTH_LONG).show();
-    		bResult = false;
-    	}
-    	/*
-    	if(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS) == true)
-    	{
-    		//Seteamos los datos del usuario logueado
-			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar, getActivity().getApplicationContext());
-    	}
-    	else
-    	{
-    		//El webservice envio una respuesta con error
-			Toast.makeText(getActivity().getApplicationContext(), 
-					cRespWS.sGetData(), Toast.LENGTH_LONG).show();
-			
-			return false;
-    	}*/
-		
-		return bResult;    	
-	}
 
     private void vValidarCampoAlias(){
     	iLargoAlias = edtTextAlias.getText().length();
@@ -389,4 +299,92 @@ public class FragmentRegistrar extends Fragment {
 		edtTextConfirmarContrasena.setBackgroundResource(R.drawable.resaltar_campo_on_focus);
 		bContrasenaConfirmadaCorrecto = true;
     }
+    
+    class RegistrarAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        
+    	private Usuario cUsrRegistrar 	= null;
+		private String sError 		= "";
+		
+        @Override 
+        protected void onPreExecute() {
+        	cUsrRegistrar = new Usuario();
+    		cUsrRegistrar.setAlias(edtTextAlias.getText().toString());
+    		cUsrRegistrar.setEmail(edtTextCorreo.getText().toString());
+    		cUsrRegistrar.setPassword(edtTextContrasena.getText().toString());
+	    	
+	    	pDialog = new ProgressDialog(getActivity());
+	        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	        pDialog.setTitle("Procesando...");
+	        pDialog.setMessage("Espere por favor...");
+	        pDialog.setCancelable(false);
+	        pDialog.setIndeterminate(true);  
+	    	pDialog.show();
+        }
+
+        @Override 
+        protected Boolean doInBackground(Void... par) {
+        	Boolean bResult = false;
+	    	
+        	//Invocamos el Web Service de Registrar
+        	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario(getActivity().getApplicationContext());
+        	RespuestaWebService cRespWS = new RespuestaWebService();
+        	
+        	try
+        	{
+    	    	switch(wsRegistrarUsuario.bRegistrarUsuario(cUsrRegistrar, cRespWS))
+    	    	{
+    	    		case OK:
+    	    			//Seteamos los datos del usuario logueado
+    	    			SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrRegistrar);
+    	    			bResult = true;
+    	    			break;
+    	    		case NO_CONNECTION:
+    	    			//no hay conexión a internet
+    	    			sError = getString(R.string.errMsjSinConexion);
+    	    			bResult = false;
+    	    			break;
+    	    		case ERROR:
+    	    			//el logueo automatico no fue exitoso
+    	    			//El webservice envio una respuesta con error
+    	    			sError = cRespWS.sGetData();
+    	    			bResult = false;
+    	    			break;		    		
+    	    	}
+    		}
+        	catch(FulbitoException feException)
+        	{
+        		sError = getString(R.string.errMsjRegistrarUsuario);
+        		bResult = false;
+        	}
+
+	        return bResult;
+        }
+
+        @Override 
+        protected void onProgressUpdate(Void... prog) {
+        }
+
+        @Override 
+        protected void onPostExecute(Boolean bResult) {
+        	
+        	if(pDialog!=null) 
+        	{
+        		pDialog.dismiss();
+        		//pDialog.setEnabled(true);
+			}
+        	
+        	if(bResult == true)
+        	{
+				//El login fue correcto, se ingresa al home
+        		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+				startActivity(intent);
+				getActivity().finish();
+        	}
+	        else
+	        {
+	        	Toast.makeText(getActivity().getApplicationContext(), 
+	        		sError, Toast.LENGTH_LONG).show();
+	        }
+        }
+	}
 }

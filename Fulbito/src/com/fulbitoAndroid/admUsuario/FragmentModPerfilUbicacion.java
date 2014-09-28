@@ -93,7 +93,8 @@ public class FragmentModPerfilUbicacion extends Fragment{
         fragmentTransaction.add(R.id.loMapContainerModPerfilUbicacion, mfMapFragment);
         fragmentTransaction.commit();        
         
-        //Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null y terminar la aplicación con excepcion        
+        //Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null
+        //y terminar la aplicación con excepcion        
         handler = new Handler();
         handler.postDelayed(new Runnable() {
         	@Override
