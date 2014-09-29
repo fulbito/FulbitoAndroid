@@ -1,4 +1,6 @@
-package com.fulbitoAndroid.admUsuario;
+//Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null
+        //y terminar la aplicación con excepcion        
+        package com.fulbitoAndroid.admUsuario;
 
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationListener;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -50,6 +53,8 @@ public class FragmentModPerfilUbicacion extends Fragment{
 	SupportMapFragment mfMapFragment;
 	//Mapa de Google Maps
 	GoogleMap gmGoogleMap;
+	
+	private ProgressDialog pDialog;
 	
 	Handler handler;
 	LocationListener locationListener;    
@@ -82,7 +87,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
         {   public void onClick(View v) 
 	        {   				
 	        	String sDireccion = edtTxtDireccion.getText().toString();
-	        	//vBuscarDireccion(sDireccion);	        	
+	        	vBuscarDireccion(sDireccion);	        	
 	        }
         });                
         
@@ -92,46 +97,76 @@ public class FragmentModPerfilUbicacion extends Fragment{
         FragmentTransaction fragmentTransaction = fmFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.loMapContainerModPerfilUbicacion, mfMapFragment);
         fragmentTransaction.commit();        
-        
-        //Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null
-        //y terminar la aplicación con excepcion        
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-        	@Override
-        	public void run() 
-        	{
-        		gmGoogleMap = mfMapFragment.getMap();
-        		if(gmGoogleMap != null) 
-        		{
-        			//habilitamos en el mapa el botón que marca nuestra ubicacion actual
-        			gmGoogleMap.setMyLocationEnabled(true);
-        			//seteamos la accion al hacer click en el boton "mi ubicacion actual"
-        			gmGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
-        		        @Override
-        		        public boolean onMyLocationButtonClick() {
-        		        	//Obtenemos la ubicacion actual
-        		        	vObtenerUbicacionActual();
-        		            return true;
-        		        }
-        		    });
-        			
-        			//Obtenemos la ubicacion actual al iniciar la interfaz de modificar ubicacion
-        			
-        			if(usrLogueado.getUbicacion().length() == 0)
-        				vObtenerUbicacionActual();        			
-        			/*else
-        				vBuscarDireccion(usrLogueado.getUbicacion());
-        			*/
-        		}
-        		else 
-        		{
-        			handler.postDelayed(this, 100);
-        		}
-        	}
-        }, 100);       
 
+        InitMapAsyncTask initMapTask = new InitMapAsyncTask();
+        initMapTask.execute();
+		
         vSetearSeekBar();
     }    
+    
+    class InitMapAsyncTask extends AsyncTask<Void, Void, GoogleMap> {
+		
+		private SupportMapFragment mapFragmAux;
+		
+        @Override 
+        protected void onPreExecute() {
+        	mapFragmAux = mfMapFragment;
+	    	
+	    	pDialog = new ProgressDialog(getActivity());
+	        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	        pDialog.setTitle("Procesando...");
+	        pDialog.setMessage("Espere por favor...");
+	        pDialog.setCancelable(false);
+	        pDialog.setIndeterminate(true);  
+	    	pDialog.show();
+        }
+
+        @Override 
+        protected GoogleMap doInBackground(Void... par) {
+  
+        	GoogleMap gmAux = mapFragmAux.getMap();
+    		while(gmAux == null) 
+    		{
+    			//try {Thread.sleep(50000);} catch(Exception e){};
+    			gmAux = mapFragmAux.getMap();
+    		}		
+
+	        return gmAux;
+        }
+
+        @Override 
+        protected void onProgressUpdate(Void... prog) {
+        }
+
+        @Override 
+        protected void onPostExecute(GoogleMap gmResult) {
+        	
+        	if(pDialog!=null) 
+        	{
+        		pDialog.dismiss();
+        		//pDialog.setEnabled(true);
+			}
+        	
+        	gmGoogleMap = gmResult;
+        	//habilitamos en el mapa el botón que marca nuestra ubicacion actual
+			gmGoogleMap.setMyLocationEnabled(true);
+			//seteamos la accion al hacer click en el boton "mi ubicacion actual"
+			gmGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+		        @Override
+		        public boolean onMyLocationButtonClick() {
+		        	//Obtenemos la ubicacion actual
+		        	vObtenerUbicacionActual();
+		            return true;
+		        }
+		    });
+			/*
+			if(usrLogueado.getUbicacion().length() > 0)
+				vBuscarDireccion(usrLogueado.getUbicacion());
+			else
+				vObtenerUbicacionActual();
+			*/
+        }
+	}
     
     public void vSetearSeekBar(){
         seekBar = (SeekBar)getView().findViewById(R.id.seekBarRadioUbicacion);
@@ -173,7 +208,8 @@ public class FragmentModPerfilUbicacion extends Fragment{
     }
     
     public void vObtenerUbicacionActual(){
-    	try{
+    	try
+    	{
     		GPSTracker gps = new GPSTracker(getActivity());
 
     		//Verificamos que se pudo obtener la ubicación actual    
@@ -241,17 +277,18 @@ public class FragmentModPerfilUbicacion extends Fragment{
      * Void - indica que las unidades de avance no se utilizan 
      * String - String que contiene la direccion a retornar en el OnPostExecute()
      */
-     class ObtenerDireccionTask extends
-             AsyncTask<Location, Void, String> {
+     class ObtenerDireccionTask extends AsyncTask<Location, Void, String> {
          
     	 Context mContext;
+    	 String sLatitud = "";
+    	 String sLongitud = "";
          
          public ObtenerDireccionTask(Context context) {
              super();
              mContext = context;
          }
 
-         /**
+         /*
           * Obtiene la direccion de una ubicación a partir de 
           * una latitud y longitud
           *
@@ -267,47 +304,51 @@ public class FragmentModPerfilUbicacion extends Fragment{
              Location loc = params[0];
              // Create a list to contain the result address
              List<Address> addresses = null;
-             try {
-                 /*
-                  * Return 1 address.
-                  */            	 
-            	 addresses = geocoder.getFromLocation(loc.getLatitude(),
-                         loc.getLongitude(), 1);
-             } catch (IOException e1) {
-            	 Log.e(TAG, "IO Exception in getFromLocation()");
+             try 
+             {
+                 //Return 1 address.            	 
+            	 addresses = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+            	 sLatitud = Double.toString(loc.getLatitude());
+            	 sLongitud = Double.toString(loc.getLongitude());
+             } 
+             catch (IOException e1) 
+             {
+            	 Log.e("ObtenerDireccionTask", "IO Exception in getFromLocation() - " + e1.getMessage());
             	 e1.printStackTrace();
             	 return ("IO Exception trying to get address");
-             } catch (IllegalArgumentException e2) {
-            	// Error message to post in the log
-                 String errorString = "Illegal arguments " +
-                         Double.toString(loc.getLatitude()) +
-                         " , " +
-                         Double.toString(loc.getLongitude()) +
-                         " passed to address service";
-             Log.e("LocationSampleActivity", errorString);
-             e2.printStackTrace();
-             return errorString;
+             } 
+             catch (IllegalArgumentException e2) 
+             {
+            	 // Error message to post in the log
+				 String errorString = "Illegal arguments " +
+						 Double.toString(loc.getLatitude()) +
+						 " , " +
+						 Double.toString(loc.getLongitude()) +
+						 " passed to address service";
+				 Log.e("ObtenerDireccionTask", errorString);
+				 e2.printStackTrace();
+				 return errorString;
              }
+             
              // If the reverse geocode returned an address
-             if (addresses != null && addresses.size() > 0) {
+             if (addresses != null && addresses.size() > 0) 
+             {
                  // Get the first address
                  Address address = addresses.get(0);
-                 /*
-                  * Format the first line of address (if available),
-                  * city, and country name.
-                  */
+                 //Format the first line of address (if available), city, and country name.
                  String addressText = String.format(
-                         "%s, %s, %s",
+                         "%s, %s",
                          // If there's a street address, add it
-                         address.getMaxAddressLineIndex() > 0 ?
-                                 address.getAddressLine(0) : "",
+                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                          // Locality is usually a city
-                         address.getLocality(),
+                         address.getLocality()/*,
                          // The country of the address
-                         address.getCountryName());
+                         address.getCountryName()*/);
                  // Return the text
                  return addressText;
-             } else {
+             } 
+             else 
+             {
                  return "No address found";
              }
          }
@@ -322,8 +363,14 @@ public class FragmentModPerfilUbicacion extends Fragment{
          protected void onPostExecute(String address) {
              // Display the results of the lookup.             
              edtTxtDireccion.setText(address);
+             
+             usrLogueado.setUbicacion(address);
+             usrLogueado.setUbicacionLatitud(sLatitud);
+             usrLogueado.setUbicacionLongitud(sLongitud);
+             SingletonUsuarioLogueado.modificarUbicacionDesc(usrLogueado.getUbicacion());
+             SingletonUsuarioLogueado.modificarUbicacionLatitud(usrLogueado.getUbicacionLatitud());
+             SingletonUsuarioLogueado.modificarUbicacionLongitud(usrLogueado.getUbicacionLongitud());
          }
-
      }
      
      /*
@@ -334,9 +381,10 @@ public class FragmentModPerfilUbicacion extends Fragment{
       * Void - indica que las unidades de avance no se utilizan 
       * String - String que contiene la direccion a retornar en el OnPostExecute()
       */
-      class GetLatLongTask extends
-              AsyncTask<String, Void, Address> {
+      class GetLatLongTask extends AsyncTask<String, Void, Address> {
+    	  
           Context mContext;
+          
           public GetLatLongTask(Context context) {
               super();
               mContext = context;
@@ -353,46 +401,43 @@ public class FragmentModPerfilUbicacion extends Fragment{
            */
           @Override
           protected Address doInBackground(String... params) {
-              Geocoder geocoder =
-                      new Geocoder(mContext, Locale.getDefault());
+        	  
+              Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
               // Get the current location from the input parameter list
               String sDireccion = params[0];
               // Create a list to contain the result address
               List<Address> addresses = null;
-              try {
-                  /*
-                   * Return 1 address.
-                   */
-             	 addresses = geocoder.getFromLocationName(sDireccion, 1);
-                  /*addresses = geocoder.getFromLocation(ubicacion.latitude,
-                 		 ubicacion.latitude, 1);*/
-              } catch (IOException e1) {
-              Log.e("LocationSampleActivity",
-                      "IO Exception in getFromLocation()");
-              e1.printStackTrace();
-              return null;
-              } catch (IllegalArgumentException e2) {
-             	// Error message to post in the log
-                  String errorString = "Illegal arguments " +
-                          sDireccion +
-                          " passed to address service";
-              Log.e("LocationSampleActivity", errorString);
-              e2.printStackTrace();
-              return null;
-              }
+              try 
+              {
+            	  // Return 1 address.
+            	  addresses = geocoder.getFromLocationName(sDireccion, 1);
+              } 
+              catch (IOException e1) 
+              {
+	              Log.e("GetLatLongTask", "IO Exception in getFromLocationName()");
+	              e1.printStackTrace();
+	              return null;
+              } 
+              catch (IllegalArgumentException e2) 
+              {
+            	  // Error message to post in the log
+            	  String errorString = "Illegal arguments " +
+            			  sDireccion +
+            			  " passed to address service";
+	              Log.e("GetLatLongTask", errorString);
+	              e2.printStackTrace();
+	              return null;
+              }                        
+              
               // If the reverse geocode returned an address
-              if (addresses != null && addresses.size() > 0) {
+              if (addresses != null && addresses.size() > 0) 
+              {
                   // Get the first address
-                  Address address = addresses.get(0);
-                  /*
-                   * Format the first line of address (if available),
-                   * city, and country name.
-                   */
-                  
-
-                  // Return the text
+                  Address address = addresses.get(0);                  
                   return address;
-              } else {
+              } 
+              else 
+              {
                   return null;
               }
           }
@@ -406,30 +451,36 @@ public class FragmentModPerfilUbicacion extends Fragment{
           @Override
           protected void onPostExecute(Address address) {
         	 
-              // Display the results of the lookup.
-         	if(address != null){
-         		String addressText = String.format(
-                        "%s, %s, %s",
-                        // If there's a street address, add it
-                        address.getMaxAddressLineIndex() > 0 ?
-                                address.getAddressLine(0) : "",
-                        // Locality is usually a city
-                        address.getLocality(),
-                        // The country of the address
-                        address.getCountryName());
-                        
-                        vDibujarMarcador(address.getLatitude(), address.getLongitude());
-                  
-                  edtTxtDireccion.setText(addressText);
-                  usrLogueado.setUbicacion(addressText);
-                  usrLogueado.setUbicacionLatitud(Double.toString(address.getLatitude()));
-                  usrLogueado.setUbicacionLongitud(Double.toString(address.getLongitude()));
-                  SingletonUsuarioLogueado.modificarUbicacionDesc(usrLogueado.getUbicacion());
-                  SingletonUsuarioLogueado.modificarUbicacionLatitud(usrLogueado.getUbicacionLatitud());
-                  SingletonUsuarioLogueado.modificarUbicacionLongitud(usrLogueado.getUbicacionLongitud());
-         	}         	
+        	  // Display the results of the lookup.
+        	  if(address != null)
+        	  {
+        		  String addressText = String.format(
+        				  "%s, %s",
+        				  // If there's a street address, add it
+        				  address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+        				  // Locality is usually a city
+        				  address.getLocality()/*,
+        				  // The country of the address
+        				  address.getCountryName()*/);
+			            
+        		  vDibujarMarcador(address.getLatitude(), address.getLongitude());
+			      
+        		  edtTxtDireccion.setText(addressText);
+        		  usrLogueado.setUbicacion(addressText);
+        		  usrLogueado.setUbicacionLatitud(Double.toString(address.getLatitude()));
+        		  usrLogueado.setUbicacionLongitud(Double.toString(address.getLongitude()));
+        		  SingletonUsuarioLogueado.modificarUbicacionDesc(usrLogueado.getUbicacion());
+        		  SingletonUsuarioLogueado.modificarUbicacionLatitud(usrLogueado.getUbicacionLatitud());
+        		  SingletonUsuarioLogueado.modificarUbicacionLongitud(usrLogueado.getUbicacionLongitud());
+        	  }
+        	  else
+        	  {
+        		  Toast.makeText(getActivity().getApplicationContext(), 
+  	        			"No se pudo obtener la localización de la direccion en el mapa.", Toast.LENGTH_LONG).show();
+        	  }
           }
       }
 }
 
 
+     
