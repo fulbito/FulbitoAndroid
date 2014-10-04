@@ -247,7 +247,7 @@ public class FragmentLogin extends Fragment {
         	Boolean bResult = false;
 	    	
 	    	//Invocamos el Web Service de Login
-	    	WebServiceLogin wsLogin = new WebServiceLogin(getActivity().getApplicationContext());
+        	WebServiceUsuario wsLogin = new WebServiceUsuario(getActivity().getApplicationContext());
 	    	RespuestaWebService cRespWS = new RespuestaWebService();
 	    	try
 	    	{

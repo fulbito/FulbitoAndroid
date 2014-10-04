@@ -8,7 +8,7 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:padding="20dp">
+            android:padding="10dp">
         <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="5dp" >
 	            <LinearLayout
 		            android:id="@+id/realtabcontent"
 		            android:orientation="vertical"

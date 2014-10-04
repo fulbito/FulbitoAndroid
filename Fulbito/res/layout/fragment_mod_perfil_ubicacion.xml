@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:text="¿DÓNDE JUGAS?"
         android:textColor="#FFFFFF"
         android:gravity="center" />
@@ -34,7 +34,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:orientation="vertical" >
 
         <TextView
@@ -50,7 +50,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2" >
+        android:layout_weight="1.5" >
 
         <EditText
             android:id="@+id/edtTxtDireccion"
@@ -78,7 +78,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:orientation="horizontal" >
 
         <TextView
@@ -101,7 +101,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:orientation="vertical" >
 
         <SeekBar
@@ -109,6 +109,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </LinearLayout>       
           
+    <Button
+	    android:id="@+id/btnIngresar"
+	    style="@style/ButtonLogin"
+	    android:text="Guardar Ubicación"
+      android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:background="@drawable/boton_interfaz_login"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+       android:textStyle="italic"
+       android:textColor="#000000"
+        android:textSize="@dimen/dimenTxtInicio"
+        android:padding="0dp"
+         /> 
 </LinearLayout>

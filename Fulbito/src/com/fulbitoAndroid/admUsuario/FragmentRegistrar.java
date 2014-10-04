@@ -326,7 +326,7 @@ public class FragmentRegistrar extends Fragment {
         	Boolean bResult = false;
 	    	
         	//Invocamos el Web Service de Registrar
-        	WebServiceRegistrarUsuario wsRegistrarUsuario = new WebServiceRegistrarUsuario(getActivity().getApplicationContext());
+        	WebServiceUsuario wsRegistrarUsuario = new WebServiceUsuario(getActivity().getApplicationContext());
         	RespuestaWebService cRespWS = new RespuestaWebService();
         	
         	try

@@ -17,8 +17,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.fulbitoAndroid.admUsuario.WebServiceLogin;
-import com.fulbitoAndroid.admUsuario.WebServiceRegistrarUsuario;
+import com.fulbitoAndroid.admUsuario.WebServiceUsuario;
 import com.fulbitoAndroid.clases.Usuario;
 
 public class CodificadorNameValuePair {
@@ -29,8 +28,8 @@ public class CodificadorNameValuePair {
 	public List<NameValuePair> CodificarNVP_Login(Usuario cUsrLogin)
 	{
 		List<NameValuePair> listaParametros = new ArrayList<NameValuePair>();
-		listaParametros.add(new BasicNameValuePair(WebServiceLogin.S_WS_LOGIN_PAR_CORREO, cUsrLogin.getEmail()));
-		listaParametros.add(new BasicNameValuePair(WebServiceLogin.S_WS_LOGIN_PAR_CLAVE, cUsrLogin.getPassword()));
+		listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_LOGIN_PAR_CORREO, cUsrLogin.getEmail()));
+		listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_LOGIN_PAR_CLAVE, cUsrLogin.getPassword()));
 					
 		return listaParametros;
 	}
@@ -39,9 +38,9 @@ public class CodificadorNameValuePair {
 	public List<NameValuePair> CodificarNVP_Registrar(Usuario cUsrRegistrar)
 	{
 		List<NameValuePair> listaParametros = new ArrayList<NameValuePair>();
-		listaParametros.add(new BasicNameValuePair(WebServiceRegistrarUsuario.S_WS_REGISTRAR_PAR_ALIAS, cUsrRegistrar.getAlias()));
-		listaParametros.add(new BasicNameValuePair(WebServiceRegistrarUsuario.S_WS_REGISTRAR_PAR_CORREO, cUsrRegistrar.getEmail()));
-		listaParametros.add(new BasicNameValuePair(WebServiceRegistrarUsuario.S_WS_REGISTRAR_PAR_CLAVE, cUsrRegistrar.getPassword()));
+		listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_REGISTRAR_PAR_ALIAS, cUsrRegistrar.getAlias()));
+		listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_REGISTRAR_PAR_CORREO, cUsrRegistrar.getEmail()));
+		listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_REGISTRAR_PAR_CLAVE, cUsrRegistrar.getPassword()));
 					
 		return listaParametros;
 	}

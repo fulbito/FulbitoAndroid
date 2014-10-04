@@ -1,7 +1,4 @@
-//Se utiliza el handler porque el mapa tarda un poco en cargarse y el getMap() puede tirar null
-        //y terminar la aplicación con excepcion        
-        package com.fulbitoAndroid.admUsuario;
-
+package com.fulbitoAndroid.admUsuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -123,11 +120,10 @@ public class FragmentModPerfilUbicacion extends Fragment{
 
         @Override 
         protected GoogleMap doInBackground(Void... par) {
-  
+        	try {Thread.sleep(3000);} catch(Exception e){};
         	GoogleMap gmAux = mapFragmAux.getMap();
     		while(gmAux == null) 
     		{
-    			//try {Thread.sleep(50000);} catch(Exception e){};
     			gmAux = mapFragmAux.getMap();
     		}		
 

@@ -11,7 +11,7 @@ Fecha		Autor		Descripción
 
 package com.fulbitoAndroid.fulbito;
 
-import com.fulbitoAndroid.admUsuario.WebServiceLogin;
+import com.fulbitoAndroid.admUsuario.WebServiceUsuario;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado.ModoConexion;
 import com.fulbitoAndroid.clases.Usuario;
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
 	    	else
 	    	{
 	    		//Hay usuario logueado
-	    		WebServiceLogin wsLogin = new WebServiceLogin(getApplicationContext());
+	    		WebServiceUsuario wsLogin = new WebServiceUsuario(getApplicationContext());
 		    	//Se realiza el logueo automatico
 		    	Usuario usrLogin = new Usuario(usrLogueado);
 		    	RespuestaWebService cRespWS = new RespuestaWebService();

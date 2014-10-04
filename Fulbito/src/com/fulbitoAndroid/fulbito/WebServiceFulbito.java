@@ -11,7 +11,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.fulbitoAndroid.admUsuario.WebServiceLogin;
 import com.fulbitoAndroid.herramientas.CoDecJSON;
 import com.fulbitoAndroid.herramientas.RespuestaWebService;
 import com.fulbitoAndroid.herramientas.WebService;
