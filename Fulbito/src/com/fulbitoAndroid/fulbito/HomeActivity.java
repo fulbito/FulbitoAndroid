@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.gestionDB.UsuarioDB;
 import com.fulbitoAndroid.herramientas.ItemMenuLateral;
 import com.fulbitoAndroid.herramientas.ListMenuAdapter;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;

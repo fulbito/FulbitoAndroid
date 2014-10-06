@@ -27,7 +27,20 @@ public class WebServiceUsuario extends WebServiceFulbito{
 		public static final String S_WS_REGISTRAR_PAR_ALIAS		= "alias";
 		public static final String S_WS_REGISTRAR_PAR_CORREO 	= "email";
 		public static final String S_WS_REGISTRAR_PAR_CLAVE 	= "password";
-				
+		//WebService Modificar Datos de Usuario
+		private static final String S_WEBSERVICE_MOD_DATOS		= "login/modificar_datos_perfil";
+		public static final String S_WS_MOD_DATOS_PAR_ID		= "id";
+		public static final String S_WS_MOD_DATOS_PAR_ALIAS		= "alias";
+		public static final String S_WS_MOD_DATOS_PAR_CORREO 	= "email";
+		public static final String S_WS_MOD_DATOS_PAR_CLAVE 	= "password";
+		public static final String S_WS_MOD_DATOS_PAR_NACIM 	= "datepicker";
+		public static final String S_WS_MOD_DATOS_PAR_UBIC	 	= "geocomplete";
+		public static final String S_WS_MOD_DATOS_PAR_LAT 		= "lat";
+		public static final String S_WS_MOD_DATOS_PAR_LONG 		= "lng";
+		public static final String S_WS_MOD_DATOS_PAR_SEXO 		= "sexo";
+		public static final String S_WS_MOD_DATOS_PAR_TEL 		= "telefono";
+		public static final String S_WS_MOD_DATOS_PAR_RADIO		= "radio";
+										
 		public WebServiceUsuario(Context context){
 			super(context);
 		}
@@ -52,10 +65,10 @@ public class WebServiceUsuario extends WebServiceFulbito{
 			try {
 				vEjecutarWebservice(listaParametros, cRespWS);
 			} catch (SocketTimeoutException e) {
-				Log.e("WebServiceLogin::bLoguearUsuario", e.getMessage());
+				Log.e("WebServiceUsuario::bLoguearUsuario", e.getMessage());
 				return Result.NO_CONNECTION;
 			} catch (ConnectTimeoutException e) {
-				Log.e("WebServiceLogin::bLoguearUsuario", e.getMessage());
+				Log.e("WebServiceUsuario::bLoguearUsuario", e.getMessage());
 				return Result.NO_CONNECTION;
 			}
 			
@@ -108,10 +121,10 @@ public class WebServiceUsuario extends WebServiceFulbito{
 	    	try {
 				vEjecutarWebservice(listaParametros, cRespWS);
 			} catch (SocketTimeoutException e) {
-				Log.e("WebServiceLogin::bRegistrarUsuario", e.getMessage());
+				Log.e("WebServiceUsuario::bRegistrarUsuario", e.getMessage());
 				return Result.NO_CONNECTION;
 			} catch (ConnectTimeoutException e) {
-				Log.e("WebServiceLogin::bRegistrarUsuario", e.getMessage());
+				Log.e("WebServiceUsuario::bRegistrarUsuario", e.getMessage());
 				return Result.NO_CONNECTION;
 			}
 	    	
@@ -138,6 +151,61 @@ public class WebServiceUsuario extends WebServiceFulbito{
 				//Se activa el modo de conexión ONLINE
 				SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
 				
+				return Result.OK;
+			}
+		}
+		
+		public Result bModificarDatosUsuario(Usuario cUsr, RespuestaWebService cRespWS) throws FulbitoException{
+			
+			String sError = "";
+			String sData = "";
+			
+			boolean bConexion = isOnline();
+			if(bConexion == false)
+			{
+				//No hay conexión a internet
+				return Result.NO_CONNECTION;
+			}
+			
+			//Generamos el parametro a enviar al WebService
+			CodificadorNameValuePair cCodNVP = new CodificadorNameValuePair();
+	    	List<NameValuePair> listaParametros = cCodNVP.CodificarNVP_ModDatosUsr(cUsr);
+	    	//Invocamos el WebService
+	    	vSetWebservice(S_WEBSERVICE_MOD_DATOS);
+	    	
+	    	try {
+				vEjecutarWebservice(listaParametros, cRespWS);
+			} catch (SocketTimeoutException e) {
+				Log.e("WebServiceUsuario::bModificarDatosUsuario", e.getMessage());
+				return Result.NO_CONNECTION;
+			} catch (ConnectTimeoutException e) {
+				Log.e("WebServiceUsuario::bModificarDatosUsuario", e.getMessage());
+				return Result.NO_CONNECTION;
+			}
+	    	
+	    	//Procesamos la respuesta
+	    	sError = cRespWS.sGetError();
+	    	sData = cRespWS.sGetData();
+	    	
+	    	if(sError.equalsIgnoreCase(S_RESP_ERROR))
+			{
+	    		//El webservice envio una respuesta con error
+				/*String sMsjError = sObtenerMsjError(Integer.parseInt(sData));
+				cRespWS.vSetData(sMsjError);*/
+	    		return Result.ERROR;
+			}
+	    	else
+			{
+				//El webservice envio una respuesta valida con los datos del usuario logueado  
+	    		/*CoDecJSON cCodJSON = new CoDecJSON();
+	    		
+				Usuario usrJSON = cCodJSON.usrDecodificarJSON_Registrar(sData);
+				
+				cUsrRegistrar.setId(usrJSON.getId());
+				
+				//Se activa el modo de conexión ONLINE
+				SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
+				*/
 				return Result.OK;
 			}
 		}

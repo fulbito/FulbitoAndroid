@@ -44,4 +44,23 @@ public class CodificadorNameValuePair {
 					
 		return listaParametros;
 	}
+	
+	//Recibe un objeto Usuario y codifica el JSON que necesita el WebService de Registrar
+		public List<NameValuePair> CodificarNVP_ModDatosUsr(Usuario cUsrRegistrar)
+		{
+			List<NameValuePair> listaParametros = new ArrayList<NameValuePair>();
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_ID, Integer.toString(cUsrRegistrar.getId())));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_REGISTRAR_PAR_ALIAS, cUsrRegistrar.getAlias()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_CORREO, cUsrRegistrar.getEmail()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_CLAVE, cUsrRegistrar.getPassword()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_NACIM, cUsrRegistrar.getFechaNacimiento()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_UBIC, cUsrRegistrar.getUbicacion()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_LAT, cUsrRegistrar.getUbicacionLatitud()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_LONG, cUsrRegistrar.getUbicacionLongitud()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_SEXO, cUsrRegistrar.getSexo()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_TEL, cUsrRegistrar.getTelefono()));
+			listaParametros.add(new BasicNameValuePair(WebServiceUsuario.S_WS_MOD_DATOS_PAR_RADIO, Float.toString(cUsrRegistrar.getRadioBusqueda())));
+						
+			return listaParametros;
+		}
 }

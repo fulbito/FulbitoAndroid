@@ -101,7 +101,7 @@ public class CoDecJSON {
 			sTelefono = usuarioJSON.getString("telefono");
 			sSexo = usuarioJSON.getString("sexo");
 			sLongitud = usuarioJSON.getString("longitud");
-			//sLatitud = usuarioJSON.getString("latitud");
+			sLatitud = usuarioJSON.getString("latitud");
 			sUbicacion = usuarioJSON.getString("ubicacion");
 			sFechaNacimiento = usuarioJSON.getString("fecha_nacimiento");			
 			

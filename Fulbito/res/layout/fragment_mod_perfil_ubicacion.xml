@@ -7,30 +7,29 @@
     android:background="@drawable/borde_layout_registracion" >
 
 	<TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtTituloUbicacion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.5"
         android:text="¿DÓNDE JUGAS?"
         android:textColor="#FFFFFF"
         android:gravity="center" />
-
+<!--
 	<RelativeLayout
 	    android:id="@+id/loMapContainerModPerfilUbicacion"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_weight="1" >
-	    
+	    android:layout_weight="1" >	    
 	</RelativeLayout>
-	<!-- 
-    <LinearLayout
-        android:id="@+id/loMapContainerModPerfilUbicacion"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1" >
-    </LinearLayout>
 	 -->
+	 
+	<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/map"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_weight="1"
+  class="com.google.android.gms.maps.SupportMapFragment"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,11 +60,10 @@
             android:inputType="textPostalAddress"            
             style="@style/EdtTxtLogin" >
 
-            <requestFocus />
         </EditText>
 
         <ImageButton
-            android:id="@+id/button1"
+            android:id="@+id/btnBuscarDireccion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="6"
@@ -112,7 +110,7 @@
     </LinearLayout>       
           
     <Button
-	    android:id="@+id/btnIngresar"
+	    android:id="@+id/btnGuardarUbicacion"
 	    style="@style/ButtonLogin"
 	    android:text="Guardar Ubicación"
       android:layout_width="match_parent"
