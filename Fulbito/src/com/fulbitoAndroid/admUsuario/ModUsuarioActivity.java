@@ -1,5 +1,7 @@
 package com.fulbitoAndroid.admUsuario;
 
+import java.io.ByteArrayOutputStream;
+
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.fulbito.R.layout;
 import com.fulbitoAndroid.fulbito.R.menu;
@@ -7,8 +9,11 @@ import com.fulbitoAndroid.fulbito.R.menu;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,21 +50,29 @@ public class ModUsuarioActivity extends Activity {
 		
 	}
 	
+	public Uri getImageUri(Context inContext, Bitmap inImage){
+    	ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    	inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);    	
+    	String path = Images.Media.insertImage(inContext.getContentResolver(), inImage, null, null);    	
+    	return Uri.parse(path);
+	}
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
 		switch(requestCode) {
 		case 0:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = imageReturnedIntent.getData();
-		        imgFoto = (ImageView) findViewById(R.id.imageView1);;
-		        imgFoto.setImageURI(selectedImage);
+		    	Bitmap bm = imageReturnedIntent.getExtras().getParcelable("data");
+		        //Uri selectedImage = getImageUri(getApplicationContext(), bm);
+		        imgFoto = (ImageView) findViewById(R.id.imageView1);
+		        imgFoto.setImageBitmap(bm);		        
 		    }
 
 		break; 
 		case 1:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = imageReturnedIntent.getData();
-		        imgFoto = (ImageView) findViewById(R.id.imageView1);;
+		    	Uri selectedImage = imageReturnedIntent.getData();
+		        imgFoto = (ImageView) findViewById(R.id.imageView1);
 		        imgFoto.setImageURI(selectedImage);
 		    }
 		break;

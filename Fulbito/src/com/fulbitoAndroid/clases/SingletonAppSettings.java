@@ -66,8 +66,7 @@ public class SingletonAppSettings {
 	}
 	
 	private static void verifyDirectoryTree()
-	{
-		
+	{		
 		SharedPreferences prefs = context.getSharedPreferences(SH_APP_PREF, Context.MODE_PRIVATE);
 		
 		//verifico si es la primer corrida
@@ -77,26 +76,35 @@ public class SingletonAppSettings {
 		{
 	    	try
 	    	{
+	    		//QUIZAS PREGUNTAR SI HAY O NO UNA MEMORIA EXTERNA LA PRIMER EJECUCION
 	    		String estado = Environment.getExternalStorageState();
+	    		String sBasePath = "";
 		    	if (Environment.MEDIA_MOUNTED.equals(estado)) 
 		    	{
-		    		String sExternalPath = Environment.getExternalStorageDirectory().toString();
-		    		appSettings.setsBasePath(sExternalPath);
-		    		File mPathMediaPerfil;
-		    		File mPathMediaCache;
-		    		File mNoMedia;
-		    		
-		    		mPathMediaPerfil = new File(sExternalPath+appSettings.getsMediaCachePath());
-		    		if(!mPathMediaPerfil.exists()){
-		    			mPathMediaPerfil.mkdirs();
-		    		}
-		    		mPathMediaCache = new File(sExternalPath+appSettings.getsMediaPerfilPath());
-		    		if(!mPathMediaCache.exists()){
-		    			mPathMediaCache.mkdirs();
-			    		mNoMedia = new File(sExternalPath+appSettings.getsMediaPerfilPath(),NO_MEDIA);//Excluyo la galeria
-			    		mNoMedia.createNewFile();
-		    		}		    		
-		    	}	
+		    		//SI HAY UNA MEMORIA EXTERNA MONTADA
+		    		sBasePath = Environment.getExternalStorageDirectory().toString();		    				    	
+		    	}
+		    	else
+		    	{
+		    		//NO HAY UNA MEMORIA EXTERNA MONTADA
+		    		sBasePath = getFilesDir().getAbsolutePath();
+		    	}
+		    	
+		    	appSettings.setsBasePath(sBasePath);
+	    		File mPathMediaPerfil;
+	    		File mPathMediaCache;
+	    		File mNoMedia;
+	    		
+	    		mPathMediaPerfil = new File(sBasePath+appSettings.getsMediaCachePath());
+	    		if(!mPathMediaPerfil.exists()){
+	    			mPathMediaPerfil.mkdirs();
+	    		}
+	    		mPathMediaCache = new File(sBasePath+appSettings.getsMediaPerfilPath());
+	    		if(!mPathMediaCache.exists()){
+	    			mPathMediaCache.mkdirs();
+		    		mNoMedia = new File(sBasePath+appSettings.getsMediaPerfilPath(),NO_MEDIA);//Excluyo la galeria
+		    		mNoMedia.createNewFile();
+	    		}		    	
 	    	}
 	    	catch (RuntimeException rte)
 	    	{
@@ -109,7 +117,8 @@ public class SingletonAppSettings {
 	    	catch (IOException ioe)
 	    	{
 	    		Log.d(TAG,ioe.getMessage());
-	    	}
+	    	}	    	
+	    	//Setear primer ejecución en FALSE	    	
 		}//En el else habria que checkear que los directorios esten realmente creados		
 	}
 
