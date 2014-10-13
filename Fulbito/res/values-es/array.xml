@@ -3,7 +3,7 @@
     <string-array
         name="opciones_menu_lateral">
         <item>Perfil</item>
-        <item>Amigos</item>
+        <item>Crear partido</item>
         <item>Partidos públicos</item>
         <item>Cerrar sesión</item>
     </string-array>

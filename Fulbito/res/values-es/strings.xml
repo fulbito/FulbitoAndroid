@@ -29,6 +29,15 @@
 	<string name="txtBotonSacarFoto">Sacar Foto</string>
 	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>	
 	
+	<!-- Intefaz crear partido -->
+	<string name="txtNombrePartido">Nombre del partido</string>
+	<string name="txtFechaPartido">Fecha</string>
+	<string name="txtHoraPartido">Hora</string>
+	<string name="txtTipoPartido">Tipo de partido</string>
+	<string name="txtUbicacionPartido">Cancha/Lugar</string>
+	<string name="txtCantidadJugadores">Cantidad jujadores</string>
+	<string name="txtCrearPartido">Crear partido</string>
+	
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No hay conexion a internet. Por favor revise su conexion.</string>
 	<string name="errMsjLoginOffline">No hay conexion a internet. Se inicia la aplicación en modo desconectado.</string>

@@ -15,8 +15,28 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "FulbitoDB";
     
-    //Sentencia SQL para crear la tabla de usuario
-    private static final String S_CREATE_USUARIO = "CREATE TABLE usuario (id INTEGER, alias TEXT, email TEXT, foto TEXT, password TEXT)";
+    //Sentencia SQL para crear la tabla USUARIO
+    private static final String S_CREATE_USUARIO = 
+    		"CREATE TABLE usuario " + 
+    		"(" +
+    			"id 		INTEGER, " +
+    			"alias 		TEXT, " +
+    			"email 		TEXT, " +
+    			"foto 		TEXT, " +
+    			"password 	TEXT" +
+    		")";
+    //Sentencia SQL para crear la tabla PARTIDO
+    private static final String S_CREATE_PARTIDO = 
+    		"CREATE TABLE partido " +
+    		"(" +
+    			"id_partido INTEGER, " +
+    			"nombre 	TEXT, " +
+    			"fecha 		TEXT, " +
+    			"hora 		TEXT, " +
+    			"duracion 	INTEGER" +
+    			"ubicacion	TEXT, " +
+    			"id_usuario	INTEGER, " +
+    		")";
     //Sentencia SQL para dropear la tabla de usuario
     private static final String S_DROP_USUARIO = "DROP TABLE IF EXISTS usuario";
  

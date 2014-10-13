@@ -39,6 +39,15 @@
 	<string name="txtBotonModificarPassword">Change Password</string>
 	<string name="txtBotonGuardarCambios">Save Profile</string>
 	
+	<!-- Intefaz crear partido -->
+	<string name="txtNombrePartido">Name of match</string>
+	<string name="txtFechaPartido">Date</string>
+	<string name="txtHoraPartido">Hour</string>
+	<string name="txtTipoPartido">Kind of match</string>
+	<string name="txtUbicacionPartido">Field/Place</string>
+	<string name="txtCantidadJugadores">Number of players</string>
+	<string name="txtCrearPartido">Create match</string>
+	
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No internet connection. Please check your connection.</string>
 	<string name="errMsjLoginOffline">No internet connection. The application starts in offline mode.</string>

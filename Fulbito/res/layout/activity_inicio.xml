@@ -39,7 +39,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/borde_layout_registracion"
+                android:background="@drawable/fondo_layout_sombra"
                 android:orientation="vertical" >
 
                 <LinearLayout

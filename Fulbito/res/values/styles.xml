@@ -87,4 +87,19 @@
         <item name="android:layout_marginBottom">3dp</item>     
     </style>
     
+    <!-- Estilo de fondo de la aplicacion. -->
+    <style name="FondoApp">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@drawable/fondo</item>  
+    </style>
+    
+    <!-- Estilo de Layout Contenedor en fragments del HOME. -->
+    <style name="LayoutContHome">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@drawable/fondo_layout_sombra</item>  
+        <item name="android:layout_margin">15dp</item>    
+    </style>
+    
 </resources>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/borde_layout_registracion" >
+    android:background="@drawable/fondo_layout_sombra" >
 
        <LinearLayout
             android:layout_width="match_parent"

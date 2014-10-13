@@ -3,7 +3,7 @@
     <string-array
         name="opciones_menu_lateral">
         <item>Profile</item>
-        <item>Friends</item>
+        <item>Create match</item>
         <item>Public matches</item>
         <item>Close session</item>
     </string-array>
