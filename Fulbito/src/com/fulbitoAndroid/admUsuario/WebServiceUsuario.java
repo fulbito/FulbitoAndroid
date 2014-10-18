@@ -28,8 +28,8 @@ public class WebServiceUsuario extends WebServiceFulbito{
 		public static final String S_WS_REGISTRAR_PAR_CORREO 	= "email";
 		public static final String S_WS_REGISTRAR_PAR_CLAVE 	= "password";
 		//WebService Modificar Datos de Usuario
-		private static final String S_WEBSERVICE_MOD_DATOS		= "login/modificar_datos_perfil";
-		public static final String S_WS_MOD_DATOS_PAR_ID		= "id";
+		private static final String S_WEBSERVICE_MOD_DATOS		= "usuario/modificar_datos_usuario";
+		public static final String S_WS_MOD_DATOS_PAR_ID		= "id_usuario";
 		public static final String S_WS_MOD_DATOS_PAR_ALIAS		= "alias";
 		public static final String S_WS_MOD_DATOS_PAR_CORREO 	= "email";
 		public static final String S_WS_MOD_DATOS_PAR_CLAVE 	= "password";

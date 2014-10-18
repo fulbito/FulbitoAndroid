@@ -297,10 +297,11 @@ public class FragmentModPerfilUbicacion extends Fragment{
         	//3 KM es el radio Default
         	radiusInMeters = I_RADIO_BUSQUEDA_DEFAULT;      
         	seekBar.setProgress(I_RADIO_BUSQUEDA_DEFAULT);
+        	usrLogueado.setRadioBusqueda(3);
         }
         else
         {
-        	radiusInMeters = (int) usrLogueado.getRadioBusqueda();        
+        	radiusInMeters = (int) usrLogueado.getRadioBusqueda() * 1000;        
         	seekBar.setProgress((int) usrLogueado.getRadioBusqueda());
         }
         
@@ -559,7 +560,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
           @Override 
           protected Boolean doInBackground(Void... par) {
           	Boolean bResult = true;
-  	    	/*
+  	    	
   	    	//Invocamos el Web Service de Login
           	WebServiceUsuario wsLogin = new WebServiceUsuario(getActivity().getApplicationContext());
   	    	RespuestaWebService cRespWS = new RespuestaWebService();
@@ -591,7 +592,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
   	    		//sError = getString(R.string.errMsjLogin);
   	    		bResult = false;
   	    	}
-  	    	 */
+  	    	
   	        return bResult;
           }
 
