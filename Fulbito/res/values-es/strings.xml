@@ -27,8 +27,12 @@
 	<string name="txtRecuperarContrasena">Recuperar contraseña</string>
 	<string name="txtBotonBuscarFoto">Buscar Foto</string>
 	<string name="txtBotonSacarFoto">Sacar Foto</string>
-	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>	
-	
+	<string name="txtImgFotoPerfilDesc">Foto de perfil</string>
+	<string name="txtCampoFechaNacimiento">Fecha de Nacimiento</string>
+	<string name="txtCampoTelefono">Teléfono</string>
+	<string name="txtBotonModificarPassword">Cambiar Clave</string>
+	<string name="txtBotonGuardarCambios">Guardar Cambios</string>
+		
 	<!-- Intefaz crear partido -->
 	<string name="txtNombrePartido">Nombre del partido</string>
 	<string name="txtFechaPartido">Fecha</string>
