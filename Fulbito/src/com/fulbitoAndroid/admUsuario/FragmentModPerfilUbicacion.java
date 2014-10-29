@@ -236,9 +236,10 @@ public class FragmentModPerfilUbicacion extends Fragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             	mCircle.setRadius(progress);
-            	seekBarValue.setText(Integer.toString(progress/1000) + " Km");
             	
-            	usrLogueado.setRadioBusqueda(progress);                            
+            	seekBarValue.setText(Integer.toString(progress/1000) + " Km");
+            	//En la base de datos lo almacenamos en KM
+            	usrLogueado.setRadioBusqueda(progress/1000);                            
             }
 
             @Override
@@ -295,16 +296,17 @@ public class FragmentModPerfilUbicacion extends Fragment{
         if(usrLogueado.getRadioBusqueda() == 0)
         {
         	//3 KM es el radio Default
-        	radiusInMeters = I_RADIO_BUSQUEDA_DEFAULT;      
-        	seekBar.setProgress(I_RADIO_BUSQUEDA_DEFAULT);
-        	usrLogueado.setRadioBusqueda(3);
+        	radiusInMeters = I_RADIO_BUSQUEDA_DEFAULT;              	
+        	usrLogueado.setRadioBusqueda(I_RADIO_BUSQUEDA_DEFAULT);
         }
         else
         {
-        	radiusInMeters = (int) usrLogueado.getRadioBusqueda() * 1000;        
-        	seekBar.setProgress((int) usrLogueado.getRadioBusqueda());
+        	radiusInMeters = (int) usrLogueado.getRadioBusqueda() * 1000;        	
         }
         
+        int iProgress = (int) Math.round(radiusInMeters);        
+        
+        //Agregamos el circulo en el mapa para indicar el radio de busqueda de partidos
         CircleOptions circleOptions = new CircleOptions().center(currentPosition).radius(radiusInMeters).fillColor(shadeColor).strokeColor(strokeColor).strokeWidth(8);
         mCircle = gmGoogleMap.addCircle(circleOptions);                
     	
@@ -313,7 +315,9 @@ public class FragmentModPerfilUbicacion extends Fragment{
         gmGoogleMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
         gmGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);    
-        gmGoogleMap.addMarker(new MarkerOptions().position(currentPosition));    	
+        gmGoogleMap.addMarker(new MarkerOptions().position(currentPosition));
+        
+        seekBar.setProgress(iProgress);
 	}
     
     public void vObtenerDireccion(Location location) {

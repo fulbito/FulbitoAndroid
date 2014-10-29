@@ -44,7 +44,9 @@ public class CoDecJSON {
 		try 
 		{
 			jsonRespuesta = new JSONObject(sRespuestaJSON);
-			sData 	= jsonRespuesta.getString("data");
+			//hay veces en caso de exito, no se manda el valor "data"
+			if(jsonRespuesta.length() > 1)
+				sData 	= jsonRespuesta.getString("data");
 		} 
 		catch (JSONException e) 
 		{
