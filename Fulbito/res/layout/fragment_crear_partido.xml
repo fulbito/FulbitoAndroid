@@ -218,20 +218,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"            
-            android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:layout_weight="1"                        
+            android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/button1"
+            
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"                               
-                android:background="@drawable/boton_interfaz_login"
-                android:textStyle="italic"
-                android:textColor="#000000"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:padding="0dp"
-                android:text="@string/txtCrearPartido" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:layout_weight="1" >
+                
+                <ImageButton
+		            android:id="@+id/btnAceptar"
+		            android:layout_width="match_parent"
+		            android:layout_height="40dp"
+		            android:background="@drawable/boton_interfaz_login"
+		            android:src="@drawable/ic_action_accept" />
+                
+            </LinearLayout>
+                                
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:layout_weight="1" >
+                
+                <ImageButton
+		            android:id="@+id/btnCancelar"
+		            android:layout_width="match_parent"
+		            android:layout_height="40dp"
+		            android:background="@drawable/boton_interfaz_login"
+		            android:src="@drawable/ic_action_cancel" />
+                
+            </LinearLayout>
+                                               
         </LinearLayout>
 
     </LinearLayout>
