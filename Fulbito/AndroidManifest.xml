@@ -57,7 +57,6 @@
             android:name="com.fulbitoAndroid.fulbito.InicioActivity"
             android:label="@string/title_activity_inicio" android:screenOrientation="portrait">
         </activity>
-        <activity android:name="eu.janmuller.android.simplecropimage.CropImage" />
     </application>
 
 </manifest>

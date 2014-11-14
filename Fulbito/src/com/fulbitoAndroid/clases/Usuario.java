@@ -25,7 +25,7 @@ public class Usuario
 	private String 	sUbicacionLongitud;
 	private String 	sSexo;
 	private String 	sTelefono;
-	private float	fRadioBusqueda;
+	private int		iRadioBusqueda;
 
 	//Métodos públicos
 	
@@ -43,7 +43,7 @@ public class Usuario
 		this.sUbicacionLongitud = "";
 		this.sSexo 				= "";
 		this.sTelefono 			= "";
-		this.fRadioBusqueda 	= 0;
+		this.iRadioBusqueda 	= 0;
 	}
 	//Constructor de copia
 	public Usuario(Usuario cUsuarioOrigen)
@@ -59,7 +59,7 @@ public class Usuario
 		this.sUbicacionLongitud = cUsuarioOrigen.getUbicacionLongitud();
 		this.sSexo 				= cUsuarioOrigen.getSexo();
 		this.sTelefono 			= cUsuarioOrigen.getTelefono();
-		this.fRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
+		this.iRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
     }
     
     //Setters 
@@ -96,8 +96,8 @@ public class Usuario
     public void setTelefono(String sTelefono){
     	this.sTelefono = sTelefono;
     }
-    public void setRadioBusqueda(float fRadioBusqueda){
-    	this.fRadioBusqueda = fRadioBusqueda;
+    public void setRadioBusqueda(int iRadioBusqueda){
+    	this.iRadioBusqueda = iRadioBusqueda;
     }
 
 	//Getters 
@@ -134,8 +134,8 @@ public class Usuario
     public String getTelefono(){
     	return this.sTelefono;
     }	
-    public float getRadioBusqueda(){
-    	return this.fRadioBusqueda;
+    public int getRadioBusqueda(){
+    	return this.iRadioBusqueda;
     }
     
     //Constructor de copia
@@ -152,7 +152,7 @@ public class Usuario
 	    this.sFechaNacimiento	= cUsuarioOrigen.getFechaNacimiento();
 	    this.sSexo 				= cUsuarioOrigen.getSexo();
 	    this.sTelefono 			= cUsuarioOrigen.getTelefono();
-	    this.fRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
+	    this.iRadioBusqueda 	= cUsuarioOrigen.getRadioBusqueda();
 	}
     
 }//Fin Usuario

@@ -1,5 +1,9 @@
 package com.fulbitoAndroid.clases;
 
+import java.util.List;
+
+import com.fulbitoAndroid.gestionDB.UsuarioDB;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -99,7 +103,7 @@ public class SingletonUsuarioLogueado {
 			usrLogueado.setUbicacionLatitud(prefs.getString(KEY_UBICACION_LAT, ""));
 			usrLogueado.setUbicacionLongitud(prefs.getString(KEY_UBICACION_LONG, ""));
 			usrLogueado.setFechaNacimiento(prefs.getString(KEY_FECHA_NACIMIENTO, ""));
-			usrLogueado.setRadioBusqueda(prefs.getFloat(KEY_RADIO_BUSQUEDA, 0));
+			usrLogueado.setRadioBusqueda(prefs.getInt(KEY_RADIO_BUSQUEDA, 0));
 			usrLogueado.setSexo(prefs.getString(KEY_SEXO, ""));
 			usrLogueado.setTelefono(prefs.getString(KEY_TELEFONO, ""));
 
@@ -125,9 +129,17 @@ public class SingletonUsuarioLogueado {
 		editor.putString(KEY_UBICACION_LAT, usrUsuario.getUbicacionLatitud());
 		editor.putString(KEY_UBICACION_LONG, usrUsuario.getUbicacionLongitud());
 		editor.putString(KEY_FECHA_NACIMIENTO, usrUsuario.getFechaNacimiento());
-		editor.putFloat(KEY_RADIO_BUSQUEDA, usrUsuario.getRadioBusqueda());
+		editor.putInt(KEY_RADIO_BUSQUEDA, usrUsuario.getRadioBusqueda());
 		editor.putString(KEY_SEXO, usrUsuario.getSexo());
 		editor.putString(KEY_TELEFONO, usrUsuario.getTelefono());
+		
+		//Insertamos los datos del usuario logueado en la BD --> ACA VERIFICAR QUE LA BASE DE DATOS FUNCIONA OK
+		UsuarioDB usrDB = new UsuarioDB();
+		usrDB.bInsertarUsuario(usrUsuario);
+		
+		Usuario usr2 = usrDB.usrSelectUsuarioById(7);
+		
+		List<Usuario> lista = usrDB.usrSelectAllUsuario();
 
 		editor.commit();		
 	}
@@ -146,7 +158,7 @@ public class SingletonUsuarioLogueado {
 		editor.putString(KEY_UBICACION_LAT, "");
 		editor.putString(KEY_UBICACION_LONG, "");
 		editor.putString(KEY_FECHA_NACIMIENTO, "");
-		editor.putFloat(KEY_RADIO_BUSQUEDA, 0);
+		editor.putInt(KEY_RADIO_BUSQUEDA, 0);
 		editor.putString(KEY_SEXO, "");
 		editor.putString(KEY_TELEFONO, "");
 		
@@ -225,12 +237,12 @@ public class SingletonUsuarioLogueado {
 		editor.commit();		
 	}
 	
-	public static void modificarRadioBusqueda(float fRadioBusqueda)
+	public static void modificarRadioBusqueda(int iRadioBusqueda)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.putFloat(KEY_RADIO_BUSQUEDA, fRadioBusqueda);
+		editor.putInt(KEY_RADIO_BUSQUEDA, iRadioBusqueda);
 		editor.commit();		
 	}
 

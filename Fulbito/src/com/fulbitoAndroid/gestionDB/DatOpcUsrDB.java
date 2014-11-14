@@ -132,8 +132,7 @@ public class DatOpcUsrDB {
                 usr.setUbicacionLongitud(cursor.getString(4));
                 usr.setSexo(cursor.getString(5));
                 usr.setTelefono(cursor.getString(6));
-                //Cambiar Radio Busqueda a INT
-                usr.setRadioBusqueda(cursor.getFloat(7));
+                usr.setRadioBusqueda(cursor.getInt(7));
                 
                 cursor.close();
         	}
@@ -193,8 +192,7 @@ public class DatOpcUsrDB {
                         usr.setUbicacionLongitud(cursor.getString(4));
                         usr.setSexo(cursor.getString(5));
                         usr.setTelefono(cursor.getString(6));
-                        //Cambiar Radio Busqueda a INT
-                        usr.setRadioBusqueda(cursor.getFloat(7));
+                        usr.setRadioBusqueda(cursor.getInt(7));
                     	
                         listaUsuarios.add(usr);
                         cursor.moveToNext();

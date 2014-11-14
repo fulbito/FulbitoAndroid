@@ -65,10 +65,11 @@ public class WebServiceUsuario extends WebServiceFulbito{
 			try {
 				vEjecutarWebservice(listaParametros, cRespWS);
 			} catch (SocketTimeoutException e) {
-				Log.e("WebServiceUsuario::bLoguearUsuario", e.getMessage());
+				//e.getMessage puede que retorne null y pincha
+				Log.e("WebServiceUsuario::bLoguearUsuario", "TimeOut Exception");
 				return Result.NO_CONNECTION;
 			} catch (ConnectTimeoutException e) {
-				Log.e("WebServiceUsuario::bLoguearUsuario", e.getMessage());
+				Log.e("WebServiceUsuario::bLoguearUsuario", "TimeOut Exception");
 				return Result.NO_CONNECTION;
 			}
 			

@@ -42,8 +42,12 @@ public class UsuarioDB {
         	values.put(FulbitoSQLiteHelper.USUARIO_EMAIL	, usr.getEmail());
         	values.put(FulbitoSQLiteHelper.USUARIO_PASSWORD	, usr.getPassword());
         	values.put(FulbitoSQLiteHelper.USUARIO_FOTO		, usr.getFoto());
+        	        	
+        	db.insert(FulbitoSQLiteHelper.TABLA_USUARIO, null, values);
         	
-        	db.insert(FulbitoSQLiteHelper.TABLA_USUARIO, null, values);        	
+        	//Van a ocurrir muchas situaciones en la que se quiera insertar un USUARIO ya insertado
+        	//por eso se usa el metodo insertWithOnConflict para ignorar cuando ocurra este tipo de conflicto
+        	//db.insertWithOnConflict(FulbitoSQLiteHelper.TABLA_USUARIO, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         	/*
         	db.execSQL(
         			"INSERT INTO " + FulbitoSQLiteHelper.TABLA_USUARIO +
@@ -320,7 +324,7 @@ public class UsuarioDB {
                 usr.setUbicacionLongitud(cursor.getString(8));
                 usr.setSexo(cursor.getString(9));
                 usr.setTelefono(cursor.getString(10));
-                usr.setRadioBusqueda(cursor.getFloat(11));
+                usr.setRadioBusqueda(cursor.getInt(11));
                 
                 cursor.close();
         	}

@@ -113,7 +113,7 @@ public class CoDecJSON {
 			usrUsuarioLogin.setEmail(sCorreo);
 			
 			if(!sRadioBusqueda.equalsIgnoreCase(S_NULL))
-				usrUsuarioLogin.setRadioBusqueda(Float.parseFloat(sRadioBusqueda));
+				usrUsuarioLogin.setRadioBusqueda(Integer.parseInt(sRadioBusqueda));
 			
 			if(!sTelefono.equalsIgnoreCase(S_NULL))
 				usrUsuarioLogin.setTelefono(sTelefono);

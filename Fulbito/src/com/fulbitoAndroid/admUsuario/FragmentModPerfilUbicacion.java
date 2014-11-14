@@ -226,7 +226,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
         }
         else
         {
-        	seekBar.setProgress((int) usrLogueado.getRadioBusqueda());        
+        	seekBar.setProgress(usrLogueado.getRadioBusqueda() * 1000);        
         }
         
         //Seteamos en el texto el valor del radio de busqueda para que sea visible por el usuario
@@ -289,7 +289,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
     	gmGoogleMap.clear();
     	LatLng currentPosition = new LatLng(latitude, longitude);    	
     	
-    	double radiusInMeters;
+    	int radiusInMeters;
         int strokeColor = 0xffff0000; //red outline
         int shadeColor = 0x44ff0000; //opaque red fill   
         
