@@ -47,7 +47,58 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     static final String PARTIDO_LUGAR		= "lugar";
     static final String PARTIDO_ID_USR_ADM	= "id_usuario_adm";
 	/////////////////////////////////////////////////////////////    
-    //Sentencia SQL para crear la tabla USUARIO
+    // TABLA TIPO_PARTIDO
+    static final String TABLA_TIPO_PARTIDO = "tipo_partido";
+    // CAMPOS TABLA TIPO_PARTIDO
+    static final String TIPO_PARTIDO_ID 	= "id";
+    static final String TIPO_PARTIDO_DESC 	= "descripcion";
+	/////////////////////////////////////////////////////////////
+    // TABLA TIPO_VISIBILIDAD
+    static final String TABLA_TIPO_VISIBILIDAD = "tipo_visibilidad";
+    // CAMPOS TABLA TIPO_VISIBILIDAD
+    static final String TIPO_VISIBILIDAD_ID 	= "id";
+    static final String TIPO_VISIBILIDAD_DESC 	= "descripcion";
+	/////////////////////////////////////////////////////////////
+    // TABLA PARTIDO_AMISTOSO
+    static final String TABLA_PART_AMISTOSO = "partido_amistoso";
+    // CAMPOS TABLA PARTIDO_AMISTOSO
+    static final String PART_AMISTOSO_PART_ID 			= "id_partido";
+    static final String PART_AMISTOSO_TIPO_SELEC 	= "id_tipo_seleccion";
+	/////////////////////////////////////////////////////////////
+    // TABLA TIPO_SELECCION
+    static final String TABLA_TIPO_SELECCION = "tipo_seleccion";
+    // CAMPOS TABLA PARTIDO_AMISTOSO
+    static final String TIPO_SELECCION_ID 		= "id_partido";
+    static final String TIPO_SELECCION_DESC 	= "id_tipo_seleccion";
+	/////////////////////////////////////////////////////////////
+    // TABLA PARTIDO_AMISTOSO_PAN_QUESO
+    static final String TABLA_PAN_QUESO = "partido_amistoso_pan_queso";
+    // CAMPOS TABLA PARTIDO_AMISTOSO
+    static final String PAN_QUESO_ID 		= "id_partido";
+    static final String PAN_QUESO_JUG_1 	= "id_usuario_selec_1";
+    static final String PAN_QUESO_JUG_2 	= "id_usuario_selec_2";
+	/////////////////////////////////////////////////////////////
+    // TABLA JUGADOR
+	static final String TABLA_JUGADOR = "jugador";
+	// CAMPOS TABLA JUGADOR
+	static final String JUGADOR_ID_USUARIO	= "id_usuario";
+	static final String JUGADOR_ID_PARTIDO 	= "id_partido";
+	static final String JUGADOR_ID_EQUIPO 	= "id_equipo";
+	static final String JUGADOR_GOLES 		= "goles";
+	/////////////////////////////////////////////////////////////
+	// TABLA PARTIDO_DESAFIO_USUARIO
+	static final String TABLA_DESAFIO_USR = "partido_desafio_usuario";
+	// CAMPOS TABLA JUGADOR
+	static final String DESAFIO_USR_ID_PARTIDO			= "id_partido";
+	static final String DESAFIO_USR_ID_USR_DESAFIADO 	= "id_usuario_desafiado";
+	static final String DESAFIO_USR_ID_USR_DESAFIANTE 	= "id_usuario_desafiante";
+	/////////////////////////////////////////////////////////////
+	// TABLA PARTIDO_DESAFIO_EQUIPO
+	static final String TABLA_DESAFIO_EQ = "partido_desafio_equipo";
+	// CAMPOS TABLA JUGADOR
+	static final String DESAFIO_EQ_ID_PARTIDO	= "id_partido";
+		/////////////////////////////////////////////////////////////
+	//Sentencia SQL para crear la tabla USUARIO
     private static final String S_CREATE_USUARIO = 
     		"CREATE TABLE " + TABLA_USUARIO + 
     		" ( " +
