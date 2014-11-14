@@ -38,6 +38,7 @@
 	<string name="txtFechaPartido">Fecha</string>
 	<string name="txtHoraPartido">Hora</string>
 	<string name="txtTipoPartido">Tipo de partido</string>
+	<string name="txtVisibilidad">Visibilidad del partido</string>
 	<string name="txtUbicacionPartido">Cancha/Lugar</string>
 	<string name="txtCantidadJugadores">Cantidad jujadores</string>
 	<string name="txtCrearPartido">Crear partido</string>

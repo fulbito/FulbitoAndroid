@@ -47,6 +47,7 @@
 	<string name="txtTipoPartido">Kind of match</string>
 	<string name="txtUbicacionPartido">Field/Place</string>
 	<string name="txtCantidadJugadores">Number of players</string>
+	<string name="txtVisibilidad">Visibilidad del partido</string>
 	<string name="txtCrearPartido">Create match</string>
 	
 	<!-- Mensajes de error -->

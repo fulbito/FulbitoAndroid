@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    style="@style/FondoApp"
-    android:padding="0dp" >
+    style="@style/FondoApp" >
 
     <LinearLayout
         android:orientation="vertical"
-        style="@style/LayoutContHome"
-        android:padding="0dp" >
+        style="@style/LayoutContHome" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="0dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtVwNombPartido"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimenTxtInicio"
                 android:textColor="#FFFFFF"
@@ -26,15 +23,16 @@
                 android:text="@string/txtNombrePartido" />
 
             <EditText
-                android:id="@+id/editText1"
+                android:id="@+id/edtTxtNombPartido"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/fulbito_edit_text_holo_dark"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/dimenTxtInicio"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:ems="10" >
-                <requestFocus />
             </EditText>
 
         </LinearLayout>
@@ -43,12 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="0dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtVwFechaPartido"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:textStyle="italic"
@@ -57,11 +54,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp" >
+                android:layout_height="40dp" >
 
                 <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/edtFechaPartido"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/fulbito_edit_text_holo_dark"
                     android:ems="10"
@@ -71,25 +69,24 @@
 
                 <ImageButton
 		            android:id="@+id/btnModificarFecha"
-		            android:layout_width="48dp"
+		            android:layout_width="40dp"
 		            android:layout_height="match_parent"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_edit" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </LinearLayout>        
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="0dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtVwHoraPartido"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:textStyle="italic"
@@ -98,21 +95,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp" >
+                android:layout_height="40dp" >
 
                 <EditText
-                    android:id="@+id/editText3"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/edtTxtHoraPartido"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/fulbito_edit_text_holo_dark"
-                    android:textSize="@dimen/dimenTxtInicio"
                     android:ems="10"
                     android:textCursorDrawable="@null"
+                    android:textSize="@dimen/dimenTxtInicio"
                     android:textColor="#FFFFFF" />
 
                 <ImageButton
 		            android:id="@+id/btnModificarHora"
-		            android:layout_width="48dp"
+		            android:layout_width="40dp"
 		            android:layout_height="match_parent"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_edit" />
@@ -120,61 +118,16 @@
             </LinearLayout>
 
         </LinearLayout>
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="0dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:text="@string/txtTipoPartido" />
-
-            <LinearLayout
+                android:id="@+id/txtVwUbicPartido"
                 android:layout_width="match_parent"
-                android:layout_height="48dp" >
-
-                <RadioButton
-                    android:id="@+id/radioButton1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@drawable/fulbito_btn_radio_holo_dark"                    
-                    android:text="Privado"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/dimenTxtInicio" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@drawable/fulbito_btn_radio_holo_dark"
-                    android:text="Público"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/dimenTxtInicio" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="0dp"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimenTxtInicio"
                 android:textColor="#FFFFFF"
@@ -182,9 +135,9 @@
                 android:text="@string/txtUbicacionPartido" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/edtTxtUbicPartido"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/dimenTxtInicio"
                 android:textCursorDrawable="@null"
@@ -196,12 +149,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="0dp" >
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/txtCantidadJugadores"
@@ -212,27 +165,68 @@
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="96dp"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"                
                 android:entries="@array/spinnerItems"
                 android:background="@drawable/fulbito_spinner_background_holo_dark" />
 
         </LinearLayout>
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="0dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtVwVisibilidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimenTxtInicio"
+                android:textColor="#FFFFFF"
+                android:textStyle="italic"
+                android:text="@string/txtVisibilidad" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <RadioButton
+                    android:id="@+id/radioBtnPrivado"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@drawable/fulbito_btn_radio_holo_dark"                    
+                    android:text="Privado"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/dimenTxtInicio" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnPublico"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@drawable/fulbito_btn_radio_holo_dark"
+                    android:text="Público"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/dimenTxtInicio" />
+
+            </LinearLayout>
+
+        </LinearLayout>                
+                
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"            
+            android:gravity="center_vertical"
             android:orientation="vertical" >
 
             <Button
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"                               
                 android:background="@drawable/boton_interfaz_login"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
                 android:textStyle="italic"
                 android:textColor="#000000"
                 android:textSize="@dimen/dimenTxtInicio"
