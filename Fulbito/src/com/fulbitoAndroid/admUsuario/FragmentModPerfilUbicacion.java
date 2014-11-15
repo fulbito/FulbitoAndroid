@@ -297,7 +297,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
         {
         	//3 KM es el radio Default
         	radiusInMeters = I_RADIO_BUSQUEDA_DEFAULT;              	
-        	usrLogueado.setRadioBusqueda(I_RADIO_BUSQUEDA_DEFAULT);
+        	usrLogueado.setRadioBusqueda(I_RADIO_BUSQUEDA_DEFAULT / 1000);
         }
         else
         {
@@ -613,10 +613,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
           	{
           		//Se modificaron correctamente los datos de prefil en el servidor
           		//entonces modificamos los datos en el archivo SharedPreferences
-          		SingletonUsuarioLogueado.modificarUbicacionDesc(usrLogueado.getUbicacion());
-	            SingletonUsuarioLogueado.modificarUbicacionLatitud(usrLogueado.getUbicacionLatitud());
-	            SingletonUsuarioLogueado.modificarUbicacionLongitud(usrLogueado.getUbicacionLongitud());
-	            SingletonUsuarioLogueado.modificarRadioBusqueda(usrLogueado.getRadioBusqueda());
+          		SingletonUsuarioLogueado.actualizarUsuarioLogueado(usrLogueado);
           	}
   	        else
   	        {

@@ -1,11 +1,11 @@
 package com.fulbitoAndroid.clases;
 
-import java.util.List;
-
+import com.fulbitoAndroid.gestionDB.DatOpcUsrDB;
 import com.fulbitoAndroid.gestionDB.UsuarioDB;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class SingletonUsuarioLogueado {
 	private static Usuario usrLogueado;
@@ -20,9 +20,10 @@ public class SingletonUsuarioLogueado {
 	
 	private static final String SH_PREF_NOMBRE 			= "InfoUsuario";
 	private static final String KEY_ID 					= "ID";
-	private static final String KEY_ALIAS 				= "ALIAS";
+	//private static final String KEY_ALIAS 				= "ALIAS";
 	private static final String KEY_EMAIL 				= "EMAIL";
 	private static final String KEY_PASSWORD 			= "PASSWORD";
+	/*
 	private static final String KEY_PATH_FOTO 			= "PATH_FOTO";
 	private static final String KEY_FECHA_NACIMIENTO 	= "FECHA_NACIMIENTO";
 	private static final String KEY_UBICACION_DESC 		= "UBICACION_DESC";
@@ -30,7 +31,8 @@ public class SingletonUsuarioLogueado {
 	private static final String KEY_UBICACION_LONG 		= "UBICACION_LONG";
 	private static final String KEY_SEXO 				= "SEXO";
 	private static final String KEY_TELEFONO 			= "TELEFONO";
-	private static final String KEY_RADIO_BUSQUEDA 		= "RADIO_BUSQUEDA";	
+	private static final String KEY_RADIO_BUSQUEDA 		= "RADIO_BUSQUEDA";
+	*/	
 	private static final String KEY_MODO_CONEXION 		= "MODO_CONEXION";
 	   
 	public static ModoConexion getModoConexion(){
@@ -95,9 +97,25 @@ public class SingletonUsuarioLogueado {
 		if(iId != -1)
 		{
 			usrLogueado.setId(iId);
-			usrLogueado.setAlias(prefs.getString(KEY_ALIAS, ""));
+			//usrLogueado.setAlias(prefs.getString(KEY_ALIAS, ""));
 			usrLogueado.setEmail(prefs.getString(KEY_EMAIL, ""));
 			usrLogueado.setPassword(prefs.getString(KEY_PASSWORD, ""));
+			
+			UsuarioDB usrDB = new UsuarioDB();
+			usrLogueado = usrDB.usrSelectDatosUsuarioById(iId); 	
+			
+			String sPrueba = usrLogueado.getFechaNacimiento();
+			
+			if(usrLogueado.getFechaNacimiento() == null)
+			{
+				Log.d("prueba", "null");
+			}
+			
+			if(usrLogueado.getFechaNacimiento() == "")
+			{
+				Log.d("prueba", "vacio");
+			}
+			/*
 			usrLogueado.setFoto(prefs.getString(KEY_PATH_FOTO, ""));			
 			usrLogueado.setUbicacion(prefs.getString(KEY_UBICACION_DESC, ""));
 			usrLogueado.setUbicacionLatitud(prefs.getString(KEY_UBICACION_LAT, ""));
@@ -106,7 +124,7 @@ public class SingletonUsuarioLogueado {
 			usrLogueado.setRadioBusqueda(prefs.getInt(KEY_RADIO_BUSQUEDA, 0));
 			usrLogueado.setSexo(prefs.getString(KEY_SEXO, ""));
 			usrLogueado.setTelefono(prefs.getString(KEY_TELEFONO, ""));
-
+			*/
 			return usrLogueado;			
 		}
 		else
@@ -121,9 +139,10 @@ public class SingletonUsuarioLogueado {
 		
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putInt(KEY_ID, usrUsuario.getId());
-		editor.putString(KEY_ALIAS, usrUsuario.getAlias());
+		//editor.putString(KEY_ALIAS, usrUsuario.getAlias());
 		editor.putString(KEY_EMAIL, usrUsuario.getEmail());
 		editor.putString(KEY_PASSWORD, usrUsuario.getPassword());
+		/*
 		editor.putString(KEY_PATH_FOTO, usrUsuario.getFoto());		
 		editor.putString(KEY_UBICACION_DESC, usrUsuario.getUbicacion());
 		editor.putString(KEY_UBICACION_LAT, usrUsuario.getUbicacionLatitud());
@@ -132,15 +151,43 @@ public class SingletonUsuarioLogueado {
 		editor.putInt(KEY_RADIO_BUSQUEDA, usrUsuario.getRadioBusqueda());
 		editor.putString(KEY_SEXO, usrUsuario.getSexo());
 		editor.putString(KEY_TELEFONO, usrUsuario.getTelefono());
-		
-		//Insertamos los datos del usuario logueado en la BD --> ACA VERIFICAR QUE LA BASE DE DATOS FUNCIONA OK
+		*/
+		//Insertamos los datos del usuario logueado en la tabla USUARIO
 		UsuarioDB usrDB = new UsuarioDB();
 		usrDB.bInsertarUsuario(usrUsuario);
+		//Insertamos los datos opcionales del usuario logueado en la tabla DATOS_OPC_USUARIO
+		DatOpcUsrDB datOpcDB = new DatOpcUsrDB();
+		datOpcDB.bInsertarDatOpcUsr(usrUsuario);
+				
+		editor.commit();		
+	}
+	
+	public static void actualizarUsuarioLogueado(Usuario usrUsuario)
+	{
+		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
 		
-		Usuario usr2 = usrDB.usrSelectUsuarioById(7);
-		
-		List<Usuario> lista = usrDB.usrSelectAllUsuario();
-
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt(KEY_ID, usrUsuario.getId());
+		//editor.putString(KEY_ALIAS, usrUsuario.getAlias());
+		editor.putString(KEY_EMAIL, usrUsuario.getEmail());
+		editor.putString(KEY_PASSWORD, usrUsuario.getPassword());
+		/*
+		editor.putString(KEY_PATH_FOTO, usrUsuario.getFoto());		
+		editor.putString(KEY_UBICACION_DESC, usrUsuario.getUbicacion());
+		editor.putString(KEY_UBICACION_LAT, usrUsuario.getUbicacionLatitud());
+		editor.putString(KEY_UBICACION_LONG, usrUsuario.getUbicacionLongitud());
+		editor.putString(KEY_FECHA_NACIMIENTO, usrUsuario.getFechaNacimiento());
+		editor.putInt(KEY_RADIO_BUSQUEDA, usrUsuario.getRadioBusqueda());
+		editor.putString(KEY_SEXO, usrUsuario.getSexo());
+		editor.putString(KEY_TELEFONO, usrUsuario.getTelefono());
+		*/
+		//Insertamos los datos del usuario logueado en la tabla USUARIO
+		UsuarioDB usrDB = new UsuarioDB();
+		usrDB.bUpdateUsuario(usrUsuario);
+		//Insertamos los datos opcionales del usuario logueado en la tabla DATOS_OPC_USUARIO
+		DatOpcUsrDB datOpcDB = new DatOpcUsrDB();
+		datOpcDB.bInsertarDatOpcUsr(usrUsuario);
+				
 		editor.commit();		
 	}
 	
@@ -150,9 +197,10 @@ public class SingletonUsuarioLogueado {
 		
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putInt(KEY_ID, -1);
-		editor.putString(KEY_ALIAS, "");
+		//editor.putString(KEY_ALIAS, "");
 		editor.putString(KEY_EMAIL, "");
 		editor.putString(KEY_PASSWORD, "");
+		/*
 		editor.putString(KEY_PATH_FOTO, "");
 		editor.putString(KEY_UBICACION_DESC, "");
 		editor.putString(KEY_UBICACION_LAT, "");
@@ -161,10 +209,13 @@ public class SingletonUsuarioLogueado {
 		editor.putInt(KEY_RADIO_BUSQUEDA, 0);
 		editor.putString(KEY_SEXO, "");
 		editor.putString(KEY_TELEFONO, "");
+		*/
+		
+		//evaluar la eliminación de los datos del usuario logueado en la BD
 		
     	editor.commit();		
 	}
-	
+	/*
 	public static void modificarAlias(String sAlias)
 	{
 		SharedPreferences prefs = context.getSharedPreferences(SH_PREF_NOMBRE, Context.MODE_PRIVATE);
@@ -263,4 +314,5 @@ public class SingletonUsuarioLogueado {
 		editor.putString(KEY_TELEFONO, sTelefono);
 		editor.commit();		
 	}
+	*/
 }

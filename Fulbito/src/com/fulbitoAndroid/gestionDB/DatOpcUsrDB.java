@@ -17,7 +17,10 @@ import com.fulbitoAndroid.clases.Usuario;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DatOpcUsrDB {
 	
@@ -29,10 +32,18 @@ public class DatOpcUsrDB {
 	
 	//Metodo para insertar un registro en la tabla DATOS_OPC_USUARIO
 	public boolean bInsertarDatOpcUsr(Usuario usr){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("DatOpcUsrDB:bInsertarDatOpcUsr", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
 		 
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {
         	ContentValues values = new ContentValues();
             
@@ -45,21 +56,41 @@ public class DatOpcUsrDB {
         	values.put(FulbitoSQLiteHelper.DAT_OPC_USR_TELEFONO		, usr.getTelefono());
         	values.put(FulbitoSQLiteHelper.DAT_OPC_USR_RADIO_BUSQ	, usr.getRadioBusqueda());
         	
-        	db.insert(FulbitoSQLiteHelper.TABLA_DAT_OPC_USR, null, values);        	
+        	try{        	
+        		db.insertOrThrow(FulbitoSQLiteHelper.TABLA_DAT_OPC_USR, null, values);
+        	}
+        	catch(SQLiteConstraintException e)
+        	{
+        		//Fallo el insert por Constraint PRIMARY KEY, entonces hacemos un update
+        		bResult = bUpdateDatOpcUsr(usr);
+        	}
+        	catch(SQLException e)
+        	{
+        		Log.e("DatOpcUsrDB:bInsertarDatOpcUsr", "Error al insertar en tabla " + FulbitoSQLiteHelper.TABLA_DAT_OPC_USR);
+        		bResult = false;
+        	}      	
         	
             //Cerramos la base de datos
             db.close();
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para eliminar toda la tabla DATOS_OPC_USUARIO
 	public boolean bDeleteAllDatOpcUsr(){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
+        if(db == null)
+        {
+        	Log.e("DatOpcUsrDB:bDeleteAllDatOpcUsr", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {
         	db.delete(FulbitoSQLiteHelper.TABLA_DAT_OPC_USR, null, null);
         	
@@ -67,15 +98,23 @@ public class DatOpcUsrDB {
 			db.close();  
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para eliminar un registro de la tabla DATOS_OPC_USUARIO filtrando por ID
 	public boolean bDeleteDatOpcUsrById(int iIdUsuario){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
+        if(db == null)
+        {
+        	Log.e("DatOpcUsrDB:bDeleteDatOpcUsrById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {        
         	String FILTROS = FulbitoSQLiteHelper.DAT_OPC_USR_ID + " = " + Integer.toString(iIdUsuario);
         	
@@ -85,16 +124,24 @@ public class DatOpcUsrDB {
 			db.close(); 
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para obtener un registro de la tabla DATOS_OPC_USUARIO filtrando por ID
 	public Usuario usrSelectDatOpcUsrById(int iIdUsuario){
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		boolean bResult = true;
 		Usuario usr = new Usuario();
 		
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {        	        
         	String[] COLUMNAS = {
         			FulbitoSQLiteHelper.DAT_OPC_USR_ID, 
@@ -121,7 +168,7 @@ public class DatOpcUsrDB {
                     		null // h. limit
                     	); 
         	
-        	if (cursor != null)
+        	if (cursor != null && cursor.getCount() != 0)
         	{
         		cursor.moveToFirst();
 
@@ -139,7 +186,6 @@ public class DatOpcUsrDB {
                     	
             //Cerramos la base de datos
             db.close();
- 
         }
 
         return usr;
@@ -147,13 +193,20 @@ public class DatOpcUsrDB {
 	
 	//Metodo para obtener todos los registros de la tabla DATOS_OPC_USUARIO
 	public List<Usuario> usrSelectAllDatOpcUsr(){
-		SQLiteDatabase db = dbHelper.getReadableDatabase();		
-		
+		boolean bResult = true;
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
-        {        	        
+        if(bResult == true)	
+        {
         	String[] COLUMNAS = {
         			FulbitoSQLiteHelper.DAT_OPC_USR_ID, 
         			FulbitoSQLiteHelper.DAT_OPC_USR_FECHA_NAC, 
@@ -201,6 +254,10 @@ public class DatOpcUsrDB {
                 
                 cursor.close();
         	}
+        	else
+        	{
+        		listaUsuarios = null;
+        	}
                     	
             //Cerramos la base de datos
             db.close();
@@ -230,11 +287,19 @@ public class DatOpcUsrDB {
 	}
 	
 	//Metodo para updatear un registro en la tabla DATOS_OPC_USUARIO
-	public boolean bUpdateUsuario(Usuario usr){
+	public boolean bUpdateDatOpcUsr(Usuario usr){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
-        //Si hemos abierto correctamente la base de datos
-        if(db != null)
+		if(db == null)
+        {
+        	Log.e("UsuarioDB:bUpdateDatOpcUsr", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
+        //Realizamos el insert
+        if(bResult == true)
         {
         	ContentValues values = new ContentValues();
             
@@ -255,6 +320,6 @@ public class DatOpcUsrDB {
             db.close();
         }
 
-        return true;
+        return bResult;
 	}
 }

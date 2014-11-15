@@ -17,8 +17,11 @@ import com.fulbitoAndroid.clases.Usuario;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 public class UsuarioDB {
 	
@@ -29,11 +32,19 @@ public class UsuarioDB {
 	}
 	
 	//Metodo para insertar un registro en la tabla USUARIO
-	public boolean bInsertarUsuario(Usuario usr){
+	public boolean bInsertarUsuario(Usuario usr){		
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
-        //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bInsertarUsuario", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
+        //Realizamos el insert
+        if(bResult == true)
         {
         	ContentValues values = new ContentValues();
             
@@ -42,66 +53,66 @@ public class UsuarioDB {
         	values.put(FulbitoSQLiteHelper.USUARIO_EMAIL	, usr.getEmail());
         	values.put(FulbitoSQLiteHelper.USUARIO_PASSWORD	, usr.getPassword());
         	values.put(FulbitoSQLiteHelper.USUARIO_FOTO		, usr.getFoto());
-        	        	
-        	db.insert(FulbitoSQLiteHelper.TABLA_USUARIO, null, values);
         	
-        	//Van a ocurrir muchas situaciones en la que se quiera insertar un USUARIO ya insertado
-        	//por eso se usa el metodo insertWithOnConflict para ignorar cuando ocurra este tipo de conflicto
-        	//db.insertWithOnConflict(FulbitoSQLiteHelper.TABLA_USUARIO, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        	/*
-        	db.execSQL(
-        			"INSERT INTO " + FulbitoSQLiteHelper.TABLA_USUARIO +
-        			" ( " +
-        				FulbitoSQLiteHelper.USUARIO_ID 			+ ", " +
-        				FulbitoSQLiteHelper.USUARIO_ALIAS 		+ ", " +
-        				FulbitoSQLiteHelper.USUARIO_EMAIL 		+ ", " +
-        				FulbitoSQLiteHelper.USUARIO_PASSWORD 	+ ", " +
-        				FulbitoSQLiteHelper.USUARIO_FOTO 		+ 
-        			" ) " + 
-        			"VALUES" +
-        			" ( " + 
-        				usr.getId() + 
-        				", " + 
-        				"'" + usr.getAlias() + "'" + 
-        				", " + 
-        				"'" + usr.getEmail() + "'" +
-        				", " + 
-        				"'" + usr.getPassword() + "'" +
-        				", " + 
-        				"'" + usr.getFoto() + "'" +
-        			")");
-        	*/
+        	try{        	
+        		db.insertOrThrow(FulbitoSQLiteHelper.TABLA_USUARIO, null, values);
+        	}
+        	catch(SQLiteConstraintException e)
+        	{
+        		//Fallo el insert por Constraint PRIMARY KEY, entonces hacemos un update
+        		bResult = bUpdateUsuario(usr);
+        	}
+        	catch(SQLException e)
+        	{
+        		Log.e("UsuarioDB:bInsertarUsuario", "Error al insertar en tabla " + FulbitoSQLiteHelper.TABLA_USUARIO);
+        		bResult = false;
+        	}
+        	
             //Cerramos la base de datos
             db.close();
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para eliminar toda la tabla USUARIO
 	public boolean bDeleteAllUsuario(){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteAllUsuario", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {
         	db.delete(FulbitoSQLiteHelper.TABLA_USUARIO, null, null);
-
-        	//db.execSQL("DELETE FROM usuario");
         	
 			//Cerramos la base de datos
 			db.close();
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para eliminar un registro de la tabla USUARIO filtrando por ID
 	public boolean bDeleteUsuarioById(int iIdUsuario){
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {        
         	String FILTROS = FulbitoSQLiteHelper.USUARIO_ID + " = " + Integer.toString(iIdUsuario);
         	
@@ -111,16 +122,24 @@ public class UsuarioDB {
 			db.close(); 
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para obtener un registro de la tabla USUARIO filtrando por ID
 	public Usuario usrSelectUsuarioById(int iIdUsuario){
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		boolean bResult = true;
 		Usuario usr = new Usuario();
 		
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)
         {        	        
         	String[] COLUMNAS = {
         			FulbitoSQLiteHelper.USUARIO_ID, 
@@ -156,6 +175,10 @@ public class UsuarioDB {
                 
                 cursor.close();
         	}
+        	else
+        	{
+        		usr = null;
+        	}
                     	
             //Cerramos la base de datos
             db.close();
@@ -167,12 +190,19 @@ public class UsuarioDB {
 	
 	//Metodo para obtener todos los registros de la tabla USUARIO
 	public List<Usuario> usrSelectAllUsuario(){
-		SQLiteDatabase db = dbHelper.getReadableDatabase();		
-		
+		boolean bResult = true;
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
+        if(bResult == true)	
         {        	        
         	String[] COLUMNAS = {
         			FulbitoSQLiteHelper.USUARIO_ID, 
@@ -215,6 +245,10 @@ public class UsuarioDB {
                 
                 cursor.close();
         	}
+        	else
+        	{
+        		listaUsuarios = null;
+        	}
                     	
             //Cerramos la base de datos
             db.close();
@@ -245,10 +279,19 @@ public class UsuarioDB {
 	
 	//Metodo para updatear un registro en la tabla USUARIO
 	public boolean bUpdateUsuario(Usuario usr){
+		
+		boolean bResult = true;
+		
+		//Obtenemos el acceso a la base de datos
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		 
-        //Si hemos abierto correctamente la base de datos
-        if(db != null)
+		if(db == null)
+        {
+        	Log.e("UsuarioDB:bUpdateUsuario", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
+        //Realizamos el insert
+        if(bResult == true)
         {
         	ContentValues values = new ContentValues();
             
@@ -265,28 +308,35 @@ public class UsuarioDB {
             db.close();
         }
 
-        return true;
+        return bResult;
 	}
 	
 	//Metodo para obtener todos los datos de un usuario (USUARIO + DATOS_OPC_USUARIO)
 	public Usuario usrSelectDatosUsuarioById(int iIdUsuario){
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		boolean bResult = true;
 		Usuario usr = new Usuario();
 		
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+        
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
-        {        	        
-        	
+        if(bResult == true)
+        {
         	SQLiteQueryBuilder qbQuery = new SQLiteQueryBuilder();
         	//Asignamos las tablas que se acceden
         	qbQuery.setTables(
         			FulbitoSQLiteHelper.TABLA_USUARIO + 
-        			" JOIN " + 
+        			" LEFT JOIN " + 
     				FulbitoSQLiteHelper.TABLA_DAT_OPC_USR + 
     				" ON (" +
-    				FulbitoSQLiteHelper.USUARIO_ID +
+    				FulbitoSQLiteHelper.TABLA_USUARIO + "." +FulbitoSQLiteHelper.USUARIO_ID +
     				" = " + 
-    				FulbitoSQLiteHelper.DAT_OPC_USR_ID +
+    				FulbitoSQLiteHelper.TABLA_DAT_OPC_USR + "." +FulbitoSQLiteHelper.DAT_OPC_USR_ID +
     				")"
     			);
         	        	
@@ -309,7 +359,7 @@ public class UsuarioDB {
         	
         	Cursor cursor = qbQuery.query(db, sCampos, FILTROS, null, null, null, null);
         	        	
-        	if (cursor != null)
+        	if (cursor != null && cursor.getCount() != 0)
         	{
         		cursor.moveToFirst();
 
@@ -327,6 +377,10 @@ public class UsuarioDB {
                 usr.setRadioBusqueda(cursor.getInt(11));
                 
                 cursor.close();
+        	}
+        	else
+        	{
+        		usr = null;
         	}
                     	
             //Cerramos la base de datos

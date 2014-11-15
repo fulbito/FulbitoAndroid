@@ -205,7 +205,7 @@ public class FragmentModPerfilFoto extends Fragment {
 		      	//Guardamos el nombre de la foto de perfil en la información del usuario logueado
 		      	String sNombreFotoPerfil = mFileFotoPerfil.getPath().substring(mFileFotoPerfil.getPath().lastIndexOf('/')+1);
 		      	usrLogueado.setFoto(sNombreFotoPerfil);
-		      	SingletonUsuarioLogueado.modificarPathFoto(sNombreFotoPerfil);
+		      	SingletonUsuarioLogueado.actualizarUsuarioLogueado(usrLogueado);
 		      	//Habria que hacer el UPLOAD del archivo		          
 				break;
 			//Se captura el resultado de la galeria
