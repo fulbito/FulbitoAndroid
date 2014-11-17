@@ -12,6 +12,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
+            
+            <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/txtVwNombPartido"
@@ -25,7 +32,7 @@
             <EditText
                 android:id="@+id/edtTxtNombPartido"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dimenElementos"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/fulbito_edit_text_holo_dark"
                 android:textCursorDrawable="@null"
@@ -41,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
@@ -54,10 +62,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp" >
+                android:layout_height="@dimen/dimenElementos" >
 
                 <EditText
-                    android:id="@+id/edtFechaPartido"
+                    android:id="@+id/edtTxtFechaPartido"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -65,12 +73,15 @@
                     android:ems="10"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/dimenTxtInicio"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:ellipsize="end"
+                	android:singleLine="true" />
 
                 <ImageButton
 		            android:id="@+id/btnModificarFecha"
-		            android:layout_width="40dp"
+		            android:layout_width="@dimen/dimenElementos"
 		            android:layout_height="match_parent"
+		            android:layout_marginLeft="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_edit" />
 
@@ -82,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
@@ -95,7 +107,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp" >
+                android:layout_height="@dimen/dimenElementos" >
 
                 <EditText
                     android:id="@+id/edtTxtHoraPartido"
@@ -106,12 +118,15 @@
                     android:ems="10"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/dimenTxtInicio"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:ellipsize="end"
+                	android:singleLine="true" />
 
                 <ImageButton
 		            android:id="@+id/btnModificarHora"
-		            android:layout_width="40dp"
+		            android:layout_width="@dimen/dimenElementos"
 		            android:layout_height="match_parent"
+		            android:layout_marginLeft="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_edit" />
 
@@ -123,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
@@ -137,22 +153,25 @@
             <EditText
                 android:id="@+id/edtTxtUbicPartido"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dimenElementos"
                 android:textColor="#FFFFFF"
                 android:textSize="@dimen/dimenTxtInicio"
                 android:textCursorDrawable="@null"
                 android:background="@drawable/fulbito_edit_text_holo_dark"
-                android:ems="10" />
+                android:ems="10"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/txtVwCantJugadores"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -163,11 +182,11 @@
                 android:textSize="@dimen/dimenTxtInicio" />
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spCantJugadores"
                 android:layout_width="96dp"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dimenElementos"
                 android:layout_gravity="center_vertical"                
-                android:entries="@array/spinnerItems"
+                
                 android:background="@drawable/fulbito_spinner_background_holo_dark" />
 
         </LinearLayout>
@@ -176,6 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
@@ -187,11 +207,12 @@
                 android:textStyle="italic"
                 android:text="@string/txtVisibilidad" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp" >
-
-                <RadioButton
+            <RadioGroup android:id="@+id/radGruopTipoPriv"
+		    android:orientation="horizontal"
+		    android:layout_width="match_parent"
+            android:layout_height="@dimen/dimenElementos">
+	 
+		        <RadioButton
                     android:id="@+id/radioBtnPrivado"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -210,18 +231,19 @@
                     android:text="Público"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/dimenTxtInicio" />
+			</RadioGroup>
 
-            </LinearLayout>
+        </LinearLayout>  
+        
+        </LinearLayout>
 
-        </LinearLayout>                
-                
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"                        
+            android:layout_weight="6"
+            android:gravity="center"
             android:orientation="horizontal" >
 
-            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -232,7 +254,7 @@
                 <ImageButton
 		            android:id="@+id/btnAceptar"
 		            android:layout_width="match_parent"
-		            android:layout_height="40dp"
+		            android:layout_height="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_accept" />
                 
@@ -248,12 +270,12 @@
                 <ImageButton
 		            android:id="@+id/btnCancelar"
 		            android:layout_width="match_parent"
-		            android:layout_height="40dp"
+		            android:layout_height="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_cancel" />
                 
             </LinearLayout>
-                                               
+            
         </LinearLayout>
 
     </LinearLayout>

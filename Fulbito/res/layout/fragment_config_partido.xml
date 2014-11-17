@@ -7,47 +7,63 @@
         android:orientation="vertical"
         style="@style/LayoutContHome" >
 
-       <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtVwNombPartido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:text="@string/txtNombrePartido" />
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"                
-                android:entries="@array/spinnerItems"
-                android:background="@drawable/fulbito_spinner_background_holo_dark" />
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
-           
-        </LinearLayout>        
+            
+            <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_weight="5"
+	            android:gravity="center"
+	            android:orientation="vertical" >
+	            
+                <TextView
+	                android:id="@+id/txtVwTipoPartido"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:textSize="@dimen/dimenTxtInicio"
+	                android:textColor="#FFFFFF"
+	                android:textStyle="italic"
+	                android:text="Elige el tipo de partido" />
+	
+	            <Spinner
+	                android:id="@+id/spTipoPartido"
+	                android:layout_width="fill_parent"
+	                android:layout_height="@dimen/dimenElementos"
+	                android:layout_gravity="center_vertical"                
+	                android:entries="@array/spTipoPartidoItems"
+	                android:background="@drawable/fulbito_spinner_background_holo_dark" />
+	           
+	        </LinearLayout> 
+	        
+            <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical" >
+	           
+                <LinearLayout
+		            android:id="@+id/loContenedorTipoPartido"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:orientation="vertical" >
+		           
+		        </LinearLayout> 
+                
+	        </LinearLayout>                         	        
+            
+        </LinearLayout>
 
-       
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"            
-            android:gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center"
             android:orientation="horizontal" >
-
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -58,7 +74,7 @@
                 <ImageButton
 		            android:id="@+id/btnAceptar"
 		            android:layout_width="match_parent"
-		            android:layout_height="40dp"
+		            android:layout_height="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_accept" />
                 
@@ -74,11 +90,12 @@
                 <ImageButton
 		            android:id="@+id/btnCancelar"
 		            android:layout_width="match_parent"
-		            android:layout_height="40dp"
+		            android:layout_height="@dimen/dimenElementos"
 		            android:background="@drawable/boton_interfaz_login"
 		            android:src="@drawable/ic_action_cancel" />
                 
             </LinearLayout>
+            
         </LinearLayout>
 
     </LinearLayout>

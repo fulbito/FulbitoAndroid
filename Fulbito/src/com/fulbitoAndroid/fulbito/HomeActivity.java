@@ -186,7 +186,7 @@ public class HomeActivity extends ActionBarActivity {
 		        //Agregamos el fragment Modificar Perfil
 				fragment = new FragmentModificarPerfil();								
 				ftFragmentTransaction = fragmentManager.beginTransaction();
-				ftFragmentTransaction.replace(R.id.loFragmentContainer, fragment);		        																								
+				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);		        																								
 				//Agregamos el fragment anterior a la pila para volver
 				ftFragmentTransaction.addToBackStack(null);
 				ftFragmentTransaction.commit();			        
@@ -194,7 +194,7 @@ public class HomeActivity extends ActionBarActivity {
 			case 2:
 				fragment = new FragmentCrearPartido();				
 				ftFragmentTransaction = fragmentManager.beginTransaction();
-				ftFragmentTransaction.replace(R.id.loFragmentContainer, fragment);		        																								
+				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);		        																								
 				//Agregamos el fragment anterior a la pila para volver
 				ftFragmentTransaction.addToBackStack(null);
 				ftFragmentTransaction.commit();

@@ -5,33 +5,58 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtVwTipoSeleccion"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="@dimen/dimenTxtInicio"
+        android:textColor="#FFFFFF"
+        android:textStyle="italic"
+        android:text="Elige el modo de seleccion de equipos" />
+    
+    <RadioGroup android:id="@+id/radGruopTipoSeleccion"
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+	 
+        <RadioButton
+            android:id="@+id/radioBtnYoLosArmo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimenElementos"
+            android:layout_weight="1"
+            android:button="@drawable/fulbito_btn_radio_holo_dark"                    
+            android:text="Yo los armo"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/dimenTxtInicio" />
 
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton" />
-
-    <RadioButton
-        android:id="@+id/radioButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RadioButton" />
+		<RadioButton
+		    android:id="@+id/radioBtnPanQueso"
+		    android:layout_width="match_parent"
+		    android:layout_height="@dimen/dimenElementos"
+		    android:layout_weight="1"
+		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:text="Pan y Queso"
+		    android:textColor="#FFFFFF"
+		    android:textSize="@dimen/dimenTxtInicio" />
+		
+		<RadioButton
+		    android:id="@+id/radioDosJugadores"
+		    android:layout_width="match_parent"
+		    android:layout_height="@dimen/dimenElementos"
+		    android:layout_weight="1"
+		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:text="Dos jugadores eligen equipo"
+		    android:textColor="#FFFFFF"
+		    android:textSize="@dimen/dimenTxtInicio" />
+		
+		<RadioButton
+		    android:id="@+id/radioBtnAleatorio"
+		    android:layout_width="match_parent"
+		    android:layout_height="@dimen/dimenElementos"
+		    android:layout_weight="1"
+		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:text="Seleccion aleatoria"
+		    android:textColor="#FFFFFF"
+		    android:textSize="@dimen/dimenTxtInicio" />
+	</RadioGroup>
 
 </LinearLayout>

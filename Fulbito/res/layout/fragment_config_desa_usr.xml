@@ -5,16 +5,16 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/txtVwEqDesafio"
+        android:id="@+id/txtVwUsrDesafio"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/dimenTxtInicio"
         android:textColor="#FFFFFF"
         android:textStyle="italic"
-        android:text="Selecciona equipo a desafiar" />
+        android:text="Selecciona usuario a desafiar" />
 
     <EditText
-        android:id="@+id/edtTxtEqDesafio"
+        android:id="@+id/edtTxtUsrDesafio"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimenElementos"
         android:textColor="#FFFFFF"

@@ -13,6 +13,11 @@
         <item>@drawable/ic_action_search</item>
         <item>@drawable/ic_action_search</item>
     </array>
+    <string-array name="spTipoPartidoItems">
+        <item>Amistoso</item>
+        <item>Desafio a usuario</item>
+        <item>Desafio a equipo</item>
+    </string-array>
     <string-array
         name="msjs_error_webservices">
         <item>Debe ingresar su usuario y contraseña.</item>
