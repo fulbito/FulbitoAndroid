@@ -134,7 +134,7 @@ public class UsuarioDB {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(db == null)
         {
-        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	Log.e("UsuarioDB:usrSelectUsuarioById", "La base de datos no fue abierta correctamente");
         	bResult = false;
         }
         
@@ -197,7 +197,7 @@ public class UsuarioDB {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
         if(db == null)
         {
-        	Log.e("UsuarioDB:bDeleteUsuarioById", "La base de datos no fue abierta correctamente");
+        	Log.e("UsuarioDB:usrSelectAllUsuario", "La base de datos no fue abierta correctamente");
         	bResult = false;
         }
         

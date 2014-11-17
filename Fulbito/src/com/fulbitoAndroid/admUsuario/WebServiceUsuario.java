@@ -191,22 +191,14 @@ public class WebServiceUsuario extends WebServiceFulbito{
 	    	if(sError.equalsIgnoreCase(S_RESP_ERROR))
 			{
 	    		//El webservice envio una respuesta con error
-				/*String sMsjError = sObtenerMsjError(Integer.parseInt(sData));
+				/*
+				MAC - Ver que error manda el webservice de actualzar datos de perfil
+				String sMsjError = sObtenerMsjError(Integer.parseInt(sData));
 				cRespWS.vSetData(sMsjError);*/
 	    		return Result.ERROR;
 			}
 	    	else
 			{
-				//El webservice envio una respuesta valida con los datos del usuario logueado  
-	    		/*CoDecJSON cCodJSON = new CoDecJSON();
-	    		
-				Usuario usrJSON = cCodJSON.usrDecodificarJSON_Registrar(sData);
-				
-				cUsrRegistrar.setId(usrJSON.getId());
-				
-				//Se activa el modo de conexión ONLINE
-				SingletonUsuarioLogueado.setModoConexion(SingletonUsuarioLogueado.ModoConexion.ONLINE);
-				*/
 				return Result.OK;
 			}
 		}

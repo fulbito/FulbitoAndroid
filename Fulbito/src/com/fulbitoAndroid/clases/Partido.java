@@ -39,4 +39,71 @@ public class Partido {
 		this.sLugar 			= "";
 		this.uUsuarioAdm 		= new Usuario();
 	}
+	
+	//Constructor de copia	
+	public Partido(Partido cPartidoOrigen)
+    {
+		this.iId 				= cPartidoOrigen.getId();
+		this.sNombre 			= cPartidoOrigen.getNombre();
+	    this.sFecha 			= cPartidoOrigen.getFecha();
+	    this.iHora 				= cPartidoOrigen.getHora();
+	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
+	    this.sLugar				= cPartidoOrigen.getLugar();
+	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();
+    }
+
+	public int getId() {
+		return iId;
+	}
+	public void setId(int iId) {
+		this.iId = iId;
+	}
+	public String getNombre() {
+		return sNombre;
+	}
+	public void setNombre(String sNombre) {
+		this.sNombre = sNombre;
+	}
+	public String getFecha() {
+		return sFecha;
+	}
+	public void setFecha(String sFecha) {
+		this.sFecha = sFecha;
+	}
+	public int getHora() {
+		return iHora;
+	}
+	public void setHora(int iHora) {
+		this.iHora = iHora;
+	}
+	public int getCantJugadores() {
+		return iCantJugadores;
+	}
+	public void setCantJugadores(int iCantJugadores) {
+		this.iCantJugadores = iCantJugadores;
+	}
+	public String getLugar() {
+		return sLugar;
+	}
+	public void setLugar(String sLugar) {
+		this.sLugar = sLugar;
+	}
+	public Usuario getUsuarioAdm() {
+		return uUsuarioAdm;
+	}
+	public void setUsuarioAdm(Usuario uUsuarioAdm) {
+		this.uUsuarioAdm = uUsuarioAdm;
+	}
+	
+	//metodo de copia
+  	public void vCopiar(Partido cPartidoOrigen)
+  	{
+  		this.iId 				= cPartidoOrigen.getId();
+		this.sNombre 			= cPartidoOrigen.getNombre();
+	    this.sFecha 			= cPartidoOrigen.getFecha();
+	    this.iHora 				= cPartidoOrigen.getHora();
+	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
+	    this.sLugar				= cPartidoOrigen.getLugar();
+	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();
+	}
 }

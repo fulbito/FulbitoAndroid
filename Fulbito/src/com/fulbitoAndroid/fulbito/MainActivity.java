@@ -88,10 +88,7 @@ public class MainActivity extends Activity {
 			    		case OK:
 			    			//el logueo automatico fue exitoso		    
 			    			//Seteamos los datos del usuario logueado
-			    						    			
-			    			//SingletonUsuarioLogueado.registrarUsuarioLogueado(usrLogin);
-			    			SingletonUsuarioLogueado.actualizarUsuarioLogueado(usrLogin);
-			    			
+			    			SingletonUsuarioLogueado.actualizarUsuarioLogueado(usrLogin);			    			
 				    		iAccionSiguiente = I_INICIAR_HOME;
 			    			break;
 			    		case NO_CONNECTION:
