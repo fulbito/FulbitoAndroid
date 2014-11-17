@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
     
     <TextView
@@ -10,17 +10,14 @@
 		android:text="@string/txtLogin" />
 	
 	<Button
-	    android:id="@+id/btnInicioIngresar"
-	    style="@style/ButtonLogin"	    
+	    android:id="@+id/btnInicioIngresar"	    
+	    style="@style/BtnFulbito1"   	    
 	    android:text="@string/txtBotonIngresar" />
 	
 	<LinearLayout
-	    android:id="@+id/loBotonTwitter"
-	    style="@style/ButtonTwitter"
-	    android:paddingLeft="10dp"
-	    android:paddingRight="10dp"
-	    android:paddingBottom="0dp"
-	    android:paddingTop="0dp" >
+	    android:id="@+id/loBotonTwitter"	   	   
+	    style="@style/BtnRedSocial" 	    
+	    android:background="@drawable/boton_twitter" >
 	
 	    <ImageView
 	        android:id="@+id/imageView1"
@@ -53,13 +50,9 @@
 	</LinearLayout>
 
 	<LinearLayout
-	    android:id="@+id/loBotonFacebook"
-	    style="@style/ButtonFacebook"
-	    android:padding="0dp"
-	    android:paddingLeft="10dp"
-	    android:paddingRight="10dp"
-	    android:paddingBottom="0dp"
-	    android:paddingTop="0dp" >
+	    android:id="@+id/loBotonFacebook"	    
+	    style="@style/BtnRedSocial"   	    
+	    android:background="@drawable/boton_facebook" >
 	
 	    <ImageView
 	        android:id="@+id/imageView2"
@@ -90,15 +83,15 @@
 	    </RelativeLayout>
 	
 	</LinearLayout>          
-            
+
 	<TextView
-	    android:id="@+id/txtVwRegistrar"
-	    style="@style/TxtVwLogin"
-	    android:text="@string/txtRegistrar" />            
+		android:id="@+id/txtVwRegistrar"
+		style="@style/TxtVwLogin"
+		android:text="@string/txtRegistrar" />
 	
 	<Button
-	    android:id="@+id/btnInicioRegistrar"
-	    style="@style/ButtonLogin"
+	    android:id="@+id/btnInicioRegistrar"	   
+	   	style="@style/BtnFulbito1"   	    
 	    android:text="@string/txtBotonRegistrarme" />
 
 </LinearLayout>

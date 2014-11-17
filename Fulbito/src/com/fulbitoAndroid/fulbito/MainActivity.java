@@ -1,7 +1,19 @@
 /* ----------------------------------------------------------------------------- 
 Nombre: 		MainActivity
-Descripción:	Clase que lanza el proceso de inicialización de la 
-				aplicación mientras muestra un splash de la aplicación
+
+Descripción:	
+
+Clase que lanza el proceso de inicialización de la aplicación mientras muestra 
+un splash.
+El proceso de inicialización es el siguiente:
+1) Consultamos si hay registrado un usuario logueado
+2) Si hay usuario logueado intentamos loguear automaticamente y se lanza el home
+de la aplicación
+	a) Si hay conexion a internet, se loguea en modo ONLINE, actualizando los
+	datos del usuario.
+	b) Si no hay conexion a internet, se loguea en modo OFFLINE
+3) Si no hay usuario logueado, se lanza la inerfaz de inicio de la aplciación.
+4) En caso de error de logueo, se lanza la inerfaz de inicio de la aplciación.
 
 Log de modificaciones:
 

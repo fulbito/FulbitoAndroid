@@ -11,22 +11,20 @@
 
 	<EditText
 	    android:id="@+id/edtTxtEmailLogin"
-	    style="@style/EdtTxtLogin"
-	    android:ems="10"	   
+	    style="@style/EdtTxtFulbito1"   
 	    android:inputType="textEmailAddress"
 	    android:hint="@string/txtCampoCorreoElectronico" >
 	</EditText>
 
     <EditText
         android:id="@+id/edtTxtContrasenaLogin"
-        style="@style/EdtTxtLogin"
-        android:ems="10"              
+        style="@style/EdtTxtFulbito1"              
         android:inputType="textPassword"
         android:hint="@string/txtCampoContrasena" />
 
 	<Button
 	    android:id="@+id/btnIngresar"
-	    style="@style/ButtonLogin"
+	    style="@style/BtnFulbito1"
 	    android:text="@string/txtBotonIngresar" />
 	
 	<TextView
@@ -36,7 +34,7 @@
 
 	<Button
 	    android:id="@+id/btnRecuperarContrasena"
-	    style="@style/ButtonLogin"
+	    style="@style/BtnFulbito1"
 	    android:text="@string/txtRecuperarContrasena" />
             
 </LinearLayout>

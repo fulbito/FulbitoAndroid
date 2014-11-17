@@ -1,8 +1,12 @@
 /* ----------------------------------------------------------------------------- 
 Nombre: 		FragmentLogin
-Descripción:	Clase que controla la interfaz de logueo de usuario 
-				implementada mediante Fragment y que es invocada a través
-				del FragmentInicio.java
+Descripción:	
+
+Clase que controla la interfaz de logueo de usuario implementada mediante Fragment 
+y que es invocada a través del FragmentInicio.java
+Permite a un usuario loguearse ingresando su email y contraseña registrados en Fulbito. 
+Se validan que los datos ingresados sean válidos.
+También se permite recuperar la contraseña.
 
 Log de modificaciones:
 
@@ -70,10 +74,7 @@ public class FragmentLogin extends Fragment {
         //Obtenemos los controles EditText
     	edtTextCorreo = (EditText) getView().findViewById(R.id.edtTxtEmailLogin);		
     	edtTextContrasena = (EditText) getView().findViewById(R.id.edtTxtContrasenaLogin); 
-    	/*
-    	edtTextCorreo.setText("mac_android@gmail.com");
-    	edtTextContrasena.setText("123456");
-    	*/
+
     	//Obtenemos el control del botón Registrar y RecuperarContrasena
     	btnIngresar = (Button) getView().findViewById(R.id.btnIngresar);
     	btnRecuperarContrasena = (Button) getView().findViewById(R.id.btnRecuperarContrasena);

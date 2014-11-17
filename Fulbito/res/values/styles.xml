@@ -28,12 +28,21 @@
         <item name="android:layout_marginBottom">30dp</item>
         <item name="android:layout_marginTop">30dp</item>                  
     </style>    
+    
+    <style name="LayoutInicio">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_centerInParent">true</item>   
+        <item name="android:layout_marginLeft">25dp</item>  
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_marginTop">40dp</item>              
+    </style>  
 
     <!-- Estilo del textView de la interfaz de logueo. -->
     <style name="TxtVwLogin">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_weight">1</item> 
+        <item name="android:layout_height">@dimen/dimenElementos</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/dimenTxtTituloInicio</item>
         <item name="android:textColor">#FFFFFF</item>
@@ -53,6 +62,19 @@
         <item name="android:ellipsize">end</item>  
     </style>
     
+    <style name="EdtTxtFulbito1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimenElementos</item>
+        <item name="android:background">@drawable/resaltar_campo_on_focus</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/dimenTxtInicio</item>
+        <item name="android:ems">10</item>
+        <item name="android:ellipsize">end</item>  
+    </style>
+    
     <!-- Estilo del Button de la interfaz de logueo. -->
     <style name="ButtonLogin">
         <item name="android:layout_width">fill_parent</item>
@@ -64,7 +86,30 @@
         <item name="android:textStyle">italic</item>
         <item name="android:textColor">#000000</item>
         <item name="android:textSize">@dimen/dimenTxtInicio</item>
+        <item name="android:padding">0dp</item>                       
+    </style>
+    
+    <style name="BtnFulbito1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimenElementos</item>
+        <item name="android:background">@drawable/boton_interfaz_login</item>  
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>     
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">@dimen/dimenTxtInicio</item>
         <item name="android:padding">0dp</item>
+    </style>
+    
+    <style name="BtnRedSocial">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimenElementos</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>         
+        <item name="android:paddingLeft">10dp</item> 
+        <item name="android:paddingRight">10dp</item> 
+        <item name="android:paddingBottom">0dp</item> 
+        <item name="android:paddingTop">0dp</item> 
     </style>
 
     <!-- Estilo del Button twitter. -->
