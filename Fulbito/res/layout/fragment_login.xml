@@ -11,14 +11,14 @@
 
 	<EditText
 	    android:id="@+id/edtTxtEmailLogin"
-	    style="@style/EdtTxtFulbito1"   
+	    style="@style/EdtTxtFulbito1"
 	    android:inputType="textEmailAddress"
 	    android:hint="@string/txtCampoCorreoElectronico" >
 	</EditText>
 
     <EditText
         android:id="@+id/edtTxtContrasenaLogin"
-        style="@style/EdtTxtFulbito1"              
+        style="@style/EdtTxtFulbito1"
         android:inputType="textPassword"
         android:hint="@string/txtCampoContrasena" />
 

@@ -6,15 +6,20 @@ import java.util.Locale;
 import com.fulbitoAndroid.admUsuario.FragmentLogin;
 import com.fulbitoAndroid.admUsuario.FragmentRegistrar;
 import com.fulbitoAndroid.fulbito.R;
+
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -82,7 +87,8 @@ public class FragmentCrearPartido extends Fragment {
 		
         //seteamos el evento OnClick del botón btnIngresar                                 
         vAgregarEventoBotónAceptar();
-        vAgregarEventoBotónCancelar();	               
+        vAgregarEventoBotónCancelar();	  
+        vAgregarEventoBotónModificarFecha();
     }
     
     private void vAgregarEventoBotónAceptar(){
@@ -104,6 +110,51 @@ public class FragmentCrearPartido extends Fragment {
         }); 
     }
     private void vAgregarEventoBotónCancelar(){
+
+    }
+    
+    private void vAgregarEventoBotónModificarFecha(){
+    	
+    	final OnDateSetListener odsl = new OnDateSetListener()
+    	{  
+    		public void onDateSet(DatePicker arg0, int iSelectYear, int iSelectMonth, int iSelectDay) 
+			{
+				String strSelectDay;
+				String sFecha;
+				
+				if(iSelectDay < 10)
+					strSelectDay  = "0" + Integer.toString(iSelectDay);
+				else
+					strSelectDay = Integer.toString(iSelectDay);
+				
+				sFecha = strSelectDay + "-" + (iSelectMonth + 1) + "-" + iSelectYear;
+				
+				edtTxtFechaPartido.setText(sFecha);
+				
+				if(edtTxtNombrePartido.getText().toString().substring(0, 8).equals("Desafio_"))
+				{
+					edtTxtNombrePartido.setText("Desafio_" + sFecha);
+				}
+			} 
+        };
+    	
+    	imgBtnModificarFecha.setOnClickListener(new OnClickListener()
+        {
+    		public void onClick(View arg0) {
+
+			String[] arrFechaSeparada = edtTxtFechaPartido.getText().toString().split("-");
+
+			int iDay = Integer.parseInt(arrFechaSeparada[0].trim());
+			int iMonth = Integer.parseInt(arrFechaSeparada[1].trim());
+			int iYear = Integer.parseInt(arrFechaSeparada[2].trim());
+  
+    		DatePickerDialog datePickDiag = new DatePickerDialog(getActivity(), odsl, iYear, iMonth, iDay);
+    		datePickDiag.show();
+        }
+        });
+    }
+    
+    private void vAgregarEventoBotónModificarHora(){
 
     }
 }
