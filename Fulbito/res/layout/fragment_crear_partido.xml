@@ -9,231 +9,158 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="match_parent"            
             android:layout_weight="1"
             android:orientation="vertical" >
             
             <LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:layout_weight="1"
-	            android:gravity="center"
-	            android:orientation="vertical" >
+	            style="@style/FilaFormulario" >
 
-            <TextView
-                android:id="@+id/txtVwNombPartido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:text="@string/txtNombrePartido" />
+	            <TextView
+	                android:id="@+id/txtVwNombPartido"
+	                style="@style/TxtVwForm"
+	                android:text="@string/txtNombrePartido" />
+	
+	            <EditText
+	                android:id="@+id/edtTxtNombPartido"
+	                android:layout_height="@dimen/dimenElementos"
+	                style="@style/EdtTxtVwForm" >
+	            </EditText>
+	
+	        </LinearLayout>
 
-            <EditText
-                android:id="@+id/edtTxtNombPartido"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimenElementos"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/fulbito_edit_text_holo_dark"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:ems="10" >
-            </EditText>
+	        <LinearLayout
+	            style="@style/FilaFormulario" >
+	
+	            <TextView
+	                android:id="@+id/txtVwFechaPartido"
+	                style="@style/TxtVwForm"
+	                android:text="@string/txtFechaPartido" />
+	
+	            <LinearLayout
+	                android:layout_width="match_parent"
+	                android:layout_height="@dimen/dimenElementos" >
+	
+	                <EditText
+	                    android:id="@+id/edtTxtFechaPartido"
+	                    android:layout_weight="1"
+	                    android:layout_width="0dp"
+	                    style="@style/EdtTxtVwForm"
+	                    android:editable="false" />
+	
+	                <ImageButton
+			            android:id="@+id/btnModificarFecha"
+			            android:layout_width="@dimen/dimenElementos"
+			            android:layout_height="match_parent"
+			            android:layout_marginLeft="@dimen/dimenElementos"
+			            android:background="@drawable/boton_interfaz_login"
+			            android:src="@drawable/ic_action_edit" />
+	
+	            </LinearLayout>
+	
+	        </LinearLayout>        
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtVwFechaPartido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:text="@string/txtFechaPartido" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimenElementos" >
-
-                <EditText
-                    android:id="@+id/edtTxtFechaPartido"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/fulbito_edit_text_holo_dark"
-                    android:ems="10"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/dimenTxtInicio"
-                    android:textColor="#FFFFFF"
-                    android:ellipsize="end"
-                	android:singleLine="true" />
-
-                <ImageButton
-		            android:id="@+id/btnModificarFecha"
-		            android:layout_width="@dimen/dimenElementos"
-		            android:layout_height="match_parent"
-		            android:layout_marginLeft="@dimen/dimenElementos"
-		            android:background="@drawable/boton_interfaz_login"
-		            android:src="@drawable/ic_action_edit" />
-
-            </LinearLayout>
-
-        </LinearLayout>        
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtVwHoraPartido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:text="@string/txtHoraPartido" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimenElementos" >
-
-                <EditText
-                    android:id="@+id/edtTxtHoraPartido"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/fulbito_edit_text_holo_dark"
-                    android:ems="10"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/dimenTxtInicio"
-                    android:textColor="#FFFFFF"
-                    android:ellipsize="end"
-                	android:singleLine="true" />
-
-                <ImageButton
-		            android:id="@+id/btnModificarHora"
-		            android:layout_width="@dimen/dimenElementos"
-		            android:layout_height="match_parent"
-		            android:layout_marginLeft="@dimen/dimenElementos"
-		            android:background="@drawable/boton_interfaz_login"
-		            android:src="@drawable/ic_action_edit" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+	        <LinearLayout
+	            style="@style/FilaFormulario" >
+	
+	            <TextView
+	                android:id="@+id/txtVwHoraPartido"
+	                style="@style/TxtVwForm"
+	                android:text="@string/txtHoraPartido" />
+	
+	            <LinearLayout
+	                android:layout_width="match_parent"
+	                android:layout_height="@dimen/dimenElementos" >
+	
+	                <EditText
+	                    android:id="@+id/edtTxtHoraPartido"
+	                    android:layout_weight="1"
+	                    android:layout_width="0dp"
+	                    style="@style/EdtTxtVwForm"
+	                    android:editable="false" />
+	
+	                <ImageButton
+			            android:id="@+id/btnModificarHora"
+			            android:layout_width="@dimen/dimenElementos"
+			            android:layout_height="match_parent"
+			            android:layout_marginLeft="@dimen/dimenElementos"
+			            android:background="@drawable/boton_interfaz_login"
+			            android:src="@drawable/ic_action_edit" />
+	
+	            </LinearLayout>
+	
+	        </LinearLayout>
         
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
+	        <LinearLayout
+	            style="@style/FilaFormulario" >
+	
+	            <TextView
+	                android:id="@+id/txtVwUbicPartido"
+	                style="@style/TxtVwForm"
+	                android:text="@string/txtUbicacionPartido" />
+	
+	            <EditText
+	                android:id="@+id/edtTxtUbicPartido"
+	                style="@style/EdtTxtVwForm" />
+	
+	        </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtVwUbicPartido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:text="@string/txtUbicacionPartido" />
-
-            <EditText
-                android:id="@+id/edtTxtUbicPartido"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimenElementos"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textCursorDrawable="@null"
-                android:background="@drawable/fulbito_edit_text_holo_dark"
-                android:ems="10"
-                android:ellipsize="end"
-                android:singleLine="true" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1" >
-
-            <TextView
-                android:id="@+id/txtVwCantJugadores"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/txtCantidadJugadores"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:textSize="@dimen/dimenTxtInicio" />
-
-            <Spinner
-                android:id="@+id/spCantJugadores"
-                android:layout_width="96dp"
-                android:layout_height="@dimen/dimenElementos"
-                android:layout_gravity="center_vertical"                
-                
-                android:background="@drawable/fulbito_spinner_background_holo_dark" />
-
-        </LinearLayout>
+	        <LinearLayout
+	            style="@style/FilaFormulario"
+	            android:orientation= "horizontal" >
+	
+	            <TextView
+	                android:id="@+id/txtVwCantJugadores"
+	                style="@style/TxtVwForm"
+	                android:layout_weight="1"
+	                android:layout_width="0dp"                
+	                android:layout_gravity="center_vertical"
+	                android:text="@string/txtCantidadJugadores" />
+	                            
+	            <Spinner
+	                android:id="@+id/spCantJugadores"
+	                android:layout_width="96dp"
+	                android:layout_height="@dimen/dimenElementos"
+	                android:layout_gravity="center_vertical"                
+	                
+	                android:background="@drawable/fulbito_spinner_background_holo_dark" />
+	
+	        </LinearLayout>
         
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtVwVisibilidad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimenTxtInicio"
-                android:textColor="#FFFFFF"
-                android:textStyle="italic"
-                android:text="@string/txtVisibilidad" />
-
-            <RadioGroup android:id="@+id/radGruopTipoPriv"
-		    android:orientation="horizontal"
-		    android:layout_width="match_parent"
-            android:layout_height="@dimen/dimenElementos">
-	 
-		        <RadioButton
-                    android:id="@+id/radioBtnPrivado"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@drawable/fulbito_btn_radio_holo_dark"                    
-                    android:text="Privado"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/dimenTxtInicio" />
-
-                <RadioButton
-                    android:id="@+id/radioBtnPublico"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@drawable/fulbito_btn_radio_holo_dark"
-                    android:text="Público"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/dimenTxtInicio" />
-			</RadioGroup>
-
-        </LinearLayout>  
+	        <LinearLayout
+	            style="@style/FilaFormulario" >
+	
+	            <TextView
+	                android:id="@+id/txtVwVisibilidad"
+	                style="@style/TxtVwForm"
+	                android:text="@string/txtVisibilidad" />
+	
+	            <RadioGroup android:id="@+id/radGruopTipoPriv"
+				    android:orientation="horizontal"
+				    android:layout_width="match_parent"
+				    android:layout_margin="@dimen/margenFilaForm"
+		            android:layout_height="@dimen/dimenElementos">
+		 
+			        <RadioButton
+	                    android:id="@+id/radioBtnPrivado"
+	                    style="@style/TxtVwForm"                    
+	                    android:layout_weight="1"
+	                    android:layout_margin="@dimen/margenFilaForm"
+	                    android:button="@drawable/fulbito_btn_radio_holo_dark"                    
+	                    android:text="Privado"
+	                    android:gravity="center" />
+	
+	                <RadioButton
+	                    android:id="@+id/radioBtnPublico"
+	                    style="@style/TxtVwForm"
+	                    android:layout_weight="1"
+	                    android:layout_margin="@dimen/margenFilaForm"
+	                    android:button="@drawable/fulbito_btn_radio_holo_dark"
+	                    android:text="Público"
+	                    android:gravity="center" />
+				</RadioGroup>
+	
+	        </LinearLayout>  
         
         </LinearLayout>
 

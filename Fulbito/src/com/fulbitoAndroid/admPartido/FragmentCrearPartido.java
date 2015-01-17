@@ -5,10 +5,12 @@ import java.util.Locale;
 
 import com.fulbitoAndroid.admUsuario.FragmentLogin;
 import com.fulbitoAndroid.admUsuario.FragmentRegistrar;
+import com.fulbitoAndroid.clases.Partido;
 import com.fulbitoAndroid.fulbito.R;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,10 +26,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 public class FragmentCrearPartido extends Fragment {
 	
 	//Atributos privados de la clase
+	
+	//INICIO - Componentes de la interfaz gráfica
 	private EditText edtTxtNombrePartido;
 	private EditText edtTxtFechaPartido;
 	private EditText edtTxtHoraPartido;
@@ -42,6 +47,12 @@ public class FragmentCrearPartido extends Fragment {
 	
 	private RadioButton radBtnPrivado;
 	private RadioButton radBtnPublico;
+	// FIN - Componentes de la interfaz gráfica
+	
+	static final String NOMBRE_PARTIDO = "Desafio_";
+	static final String HORA_PARTIDO = "21:00";
+	
+	private Partido cPartidoNuevo;
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -55,51 +66,68 @@ public class FragmentCrearPartido extends Fragment {
         super.onActivityCreated(state);
         
         //Obtenemos los elementos de la interfaz grafica
-        edtTxtNombrePartido = (EditText)getView().findViewById(R.id.edtTxtNombPartido);
-        edtTxtFechaPartido = (EditText)getView().findViewById(R.id.edtTxtFechaPartido);    
-        edtTxtHoraPartido = (EditText)getView().findViewById(R.id.edtTxtHoraPartido);    
-        edtTxtLugarPartido = (EditText)getView().findViewById(R.id.edtTxtUbicPartido);
         
+        //EditText
+        edtTxtNombrePartido = (EditText)getView().findViewById(R.id.edtTxtNombPartido);
+        edtTxtFechaPartido 	= (EditText)getView().findViewById(R.id.edtTxtFechaPartido);    
+        edtTxtHoraPartido 	= (EditText)getView().findViewById(R.id.edtTxtHoraPartido);    
+        edtTxtLugarPartido 	= (EditText)getView().findViewById(R.id.edtTxtUbicPartido);
+        //Botones
         imgBtnModificarFecha = (ImageButton)getView().findViewById(R.id.btnModificarFecha);
         imgBtnModificarHora = (ImageButton)getView().findViewById(R.id.btnModificarHora);
         imgBtnAceptar = (ImageButton)getView().findViewById(R.id.btnAceptar);
         imgBtnCancelar = (ImageButton)getView().findViewById(R.id.btnCancelar);
-        
-        spCantJugadores = (Spinner)getView().findViewById(R.id.spCantJugadores);
-        
+        //Spinner
+        spCantJugadores = (Spinner)getView().findViewById(R.id.spCantJugadores);        
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.spCantJugadoresItems, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_item_list);
         spCantJugadores.setAdapter(adapter);
-        
+        //RadioButton
         radBtnPrivado = (RadioButton)getView().findViewById(R.id.radioBtnPrivado);
-        radBtnPublico = (RadioButton)getView().findViewById(R.id.radioBtnPublico);
+        radBtnPublico = (RadioButton)getView().findViewById(R.id.radioBtnPublico);                
+                		
+		//Seteamos los valores por default
         
-        Calendar cal = Calendar.getInstance(Locale.getDefault());		
+        //Seteamos la fecha
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
         String sFechaHoy = DateFormat.format("dd-MM-yyyy", cal).toString();
-		
-		String sNombrePartido = "Desafio_" + sFechaHoy;
-		
+        edtTxtFechaPartido.setText(sFechaHoy);
+        //Seteamos el nombre del partido
+        String sNombrePartido = NOMBRE_PARTIDO + sFechaHoy;
 		edtTxtNombrePartido.setText(sNombrePartido);
-		edtTxtFechaPartido.setText(sFechaHoy);
-		edtTxtHoraPartido.setText("21:00");
+		//Seteamos la hora del partido
+		edtTxtHoraPartido.setText(HORA_PARTIDO);
 		
 		radBtnPrivado.setChecked(true);	
 		
-        //seteamos el evento OnClick del botón btnIngresar                                 
+        //seteamos el evento OnClick de los botones                                 
         vAgregarEventoBotónAceptar();
         vAgregarEventoBotónCancelar();	  
         vAgregarEventoBotónModificarFecha();
+        vAgregarEventoBotónModificarHora();
     }
     
     private void vAgregarEventoBotónAceptar(){
+    	//Al tocar el boton Aceptar, debemos pasar a la siguiente configuración del partido
     	imgBtnAceptar.setOnClickListener(new OnClickListener() 
         {   
         	public void onClick(View v) 
             {   
-        		//Agregamos el fragment para completar los datos de usuario y loguearse
+        		//Creamos una instancia de Partido para cargar los datos del nuevo Partido creado
+        		cPartidoNuevo = new Partido();
+        		
+        		cPartidoNuevo.setNombre(edtTxtNombrePartido.getText().toString());
+        		//Revisar en que formato guardar la fecha y la hora
+        		cPartidoNuevo.setFecha(edtTxtFechaPartido.getText().toString());        		
+        		cPartidoNuevo.setHora(edtTxtHoraPartido.getText().toString());
+        		cPartidoNuevo.setLugar(edtTxtLugarPartido.getText().toString());
+        		cPartidoNuevo.setCantJugadores(Integer.parseInt(spCantJugadores.getSelectedItem().toString()));
+        		
+        		//Agregamos el fragment para completar los datos de configuración del partido
 				FragmentManager fragmentManager;
 				android.support.v4.app.Fragment fragment;				
-				fragment = new FragmentConfPartido();
+				//fragment = new FragmentConfPartido();
+				fragment = FragmentConfPartido.newInstance(cPartidoNuevo);
 				fragmentManager = getActivity().getSupportFragmentManager();				
 				android.support.v4.app.FragmentTransaction ftFragmentTransaction = fragmentManager.beginTransaction();				
 				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);
@@ -109,8 +137,22 @@ public class FragmentCrearPartido extends Fragment {
             }
         }); 
     }
+    
+    
     private void vAgregarEventoBotónCancelar(){
-
+    	//Al tocar el boton Cancelar, debemos volver al HOME
+    	//Al tocar el boton Aceptar, debemos pasar a la siguiente configuración del partido
+    	imgBtnCancelar.setOnClickListener(new OnClickListener() 
+        {   
+        	public void onClick(View v) 
+            {   
+        		//Agregamos el fragment para completar los datos de configuración del partido
+				FragmentManager fragmentManager;				
+				
+				fragmentManager = getActivity().getSupportFragmentManager();
+				fragmentManager.popBackStack();					
+            }
+        }); 
     }
     
     private void vAgregarEventoBotónModificarFecha(){
@@ -120,6 +162,7 @@ public class FragmentCrearPartido extends Fragment {
     		public void onDateSet(DatePicker arg0, int iSelectYear, int iSelectMonth, int iSelectDay) 
 			{
 				String strSelectDay;
+				String strSelectMonth;
 				String sFecha;
 				
 				if(iSelectDay < 10)
@@ -127,7 +170,12 @@ public class FragmentCrearPartido extends Fragment {
 				else
 					strSelectDay = Integer.toString(iSelectDay);
 				
-				sFecha = strSelectDay + "-" + (iSelectMonth + 1) + "-" + iSelectYear;
+				if(iSelectMonth < 10)
+					strSelectMonth  = "0" + Integer.toString(iSelectMonth + 1);
+				else
+					strSelectMonth = Integer.toString(iSelectMonth + 1);
+				
+				sFecha = strSelectDay + "-" + strSelectMonth + "-" + iSelectYear;
 				
 				edtTxtFechaPartido.setText(sFecha);
 				
@@ -145,7 +193,7 @@ public class FragmentCrearPartido extends Fragment {
 			String[] arrFechaSeparada = edtTxtFechaPartido.getText().toString().split("-");
 
 			int iDay = Integer.parseInt(arrFechaSeparada[0].trim());
-			int iMonth = Integer.parseInt(arrFechaSeparada[1].trim());
+			int iMonth = Integer.parseInt(arrFechaSeparada[1].trim()) - 1;
 			int iYear = Integer.parseInt(arrFechaSeparada[2].trim());
   
     		DatePickerDialog datePickDiag = new DatePickerDialog(getActivity(), odsl, iYear, iMonth, iDay);
@@ -155,7 +203,46 @@ public class FragmentCrearPartido extends Fragment {
     }
     
     private void vAgregarEventoBotónModificarHora(){
+    	
+    	imgBtnModificarHora.setOnClickListener(new OnClickListener()
+        {
+    		public void onClick(View arg0) {
 
+    			String[] arrHoraSeparada = edtTxtHoraPartido.getText().toString().split(":");
+
+    			int iHour = Integer.parseInt(arrHoraSeparada[0].trim());
+    			int iFecha = Integer.parseInt(arrHoraSeparada[1].trim());
+
+                TimePickerDialog mTimePicker;
+                
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker view, int hourOfDay,
+							int minute) {
+						String sHora;
+						String sMinuto;
+						
+						// TODO Auto-generated method stub
+						if(hourOfDay < 10)
+							sHora  = "0" + Integer.toString(hourOfDay);
+						else
+							sHora = Integer.toString(hourOfDay);
+						
+						if(minute < 10)
+							sMinuto  = "0" + Integer.toString(minute);
+						else
+							sMinuto = Integer.toString(minute);
+						
+						edtTxtHoraPartido.setText(sHora + ":" + sMinuto);
+						
+					}
+                }, iHour, iFecha, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+    						
+        }
+        });
     }
 }
 

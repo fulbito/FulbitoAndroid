@@ -1,29 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    style="@style/FondoApp"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
-        style="@style/LayoutInicio" >
-        
+    <LinearLayout
+        style="@style/LayoutInicio"
+        android:orientation="vertical" >
+          
         <ImageView
 	        android:id="@+id/imgVwLogoFulbito"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:src="@drawable/logo" />
-        
-		<LinearLayout
-			android:id="@+id/loFragmentContainerInicio"
-			android:background="@drawable/fondo_layout_sombra"			
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:layout_alignParentBottom="true" >
-		</LinearLayout>
-        
-    </RelativeLayout>
+	        android:layout_width="@dimen/anchoElementosInicio"
+	        android:layout_height="match_parent"
+	        android:layout_weight="4"	     
+	        android:layout_gravity="center_horizontal"
+	        android:src="@drawable/logo" />        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+            
+            <LinearLayout
+				android:id="@+id/loFragmentContainerInicio"
+				android:background="@drawable/fondo_layout_sombra"			
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_centerHorizontal="true"
+				android:layout_alignParentBottom="true" >
+			</LinearLayout>
+            
+        </RelativeLayout>
+
+    </LinearLayout>
     
 </RelativeLayout>

@@ -47,6 +47,23 @@ public class PartidoDB {
         if(bResult == true)
         {
         	ContentValues values = new ContentValues();
+        	
+        	//ESTO DEBERIA ELIMINARSE YA QUE EL SERVIDOR DEBERIA DEVOLVERNOS EL ID DEL PARTIDO REGISTRADO
+        	Cursor cursor = db.rawQuery("SELECT MAX(id)+1 FROM PARTIDO", null);        	
+        	
+        	if (cursor != null && cursor.getCount() != 0)
+        	{
+        		cursor.moveToFirst();
+
+                //Asignamos los datos del partido
+        		partido.setId(cursor.getInt(0));
+        		
+                cursor.close();
+        	}
+        	else
+        	{
+        		partido.setId(1);
+        	}
 
         	values.put(FulbitoSQLiteHelper.PARTIDO_ID			, partido.getId());
         	values.put(FulbitoSQLiteHelper.PARTIDO_NOMBRE		, partido.getNombre());
@@ -66,7 +83,10 @@ public class PartidoDB {
         	}
         	catch(SQLException e)
         	{
-        		Log.e("PartidoDB:bInsertarPartido", "Error al insertar en tabla " + FulbitoSQLiteHelper.TABLA_PARTIDO);
+        		Log.e("PartidoDB:bInsertarPartido", 
+        				"Error al insertar en tabla [" + FulbitoSQLiteHelper.TABLA_PARTIDO + "]" +
+        				e.getMessage()
+        		);
         		bResult = false;
         	}
         	
@@ -251,7 +271,8 @@ public class PartidoDB {
         		partido.setId(cursor.getInt(0));
         		partido.setNombre(cursor.getString(1));
         		partido.setFecha(cursor.getString(2));
-        		partido.setHora(cursor.getInt(3));
+        		//partido.setHora(cursor.getInt(3));
+        		partido.setHora(cursor.getString(3));
         		partido.setLugar(cursor.getString(4));
         		partido.setCantJugadores(cursor.getInt(5));
         		//Asignamos los datos del usuario administrados del partido        		
@@ -339,7 +360,8 @@ public class PartidoDB {
                 		partido.setId(cursor.getInt(0));
                 		partido.setNombre(cursor.getString(1));
                 		partido.setFecha(cursor.getString(2));
-                		partido.setHora(cursor.getInt(3));
+                		//partido.setHora(cursor.getInt(3));
+                		partido.setHora(cursor.getString(3));
                 		partido.setLugar(cursor.getString(4));
                 		partido.setCantJugadores(cursor.getInt(5));
                 		//Asignamos los datos del usuario administrados del partido        		
@@ -427,7 +449,8 @@ public class PartidoDB {
                 		partido.setId(cursor.getInt(0));
                 		partido.setNombre(cursor.getString(1));
                 		partido.setFecha(cursor.getString(2));
-                		partido.setHora(cursor.getInt(3));
+                		//partido.setHora(cursor.getInt(3));
+                		partido.setHora(cursor.getString(3));
                 		partido.setLugar(cursor.getString(4));
                 		partido.setCantJugadores(cursor.getInt(5));
                 		//Asignamos los datos del usuario administrados del partido        		

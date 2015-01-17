@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimenTxtInicio">22sp</dimen>
+    <!-- tamaño promedio de pantallas large 960dp x 720dp -->
+    <!-- Dimensiones para la pantalla de inicio -->
+    <dimen name="anchoElementosInicio">600dp</dimen>
     <dimen name="dimenTxtTituloInicio">27sp</dimen>
+    
+    <!-- Dimensiones formularios -->
+    <!-- Alto por componente 130 dp -->
+    <dimen name="margenFilaForm">10dp</dimen>
+    <dimen name="dimenTxtEtiqForm">12sp</dimen>
+    <dimen name="dimenElemForm">40dp</dimen>
+        
+    <dimen name="dimenTxtInicio">22sp</dimen>
 </resources>

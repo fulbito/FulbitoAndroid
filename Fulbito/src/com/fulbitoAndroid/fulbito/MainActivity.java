@@ -81,6 +81,9 @@ public class MainActivity extends Activity {
 	    	//Obtenemos los datos del usuario logueado
 	    	usrLogueado = SingletonUsuarioLogueado.getUsuarioLogueado();
 	    	
+	    	//Provisorio
+	    	usrLogueado = null;
+	    	
 	    	if(usrLogueado == null)
 	    	{
 	    		//No hay un usuario logueado

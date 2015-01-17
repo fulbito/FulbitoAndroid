@@ -20,6 +20,7 @@ import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.ItemMenuLateral;
 import com.fulbitoAndroid.herramientas.ListMenuAdapter;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
+import com.fulbitoAndroid.admPartido.FragmentMisPartidos;
 import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
 import com.fulbitoAndroid.admUsuario.ModUsuarioActivity;
 import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
@@ -200,10 +201,18 @@ public class HomeActivity extends ActionBarActivity {
 				ftFragmentTransaction.commit();
 				break;
 			case 3:
+				fragment = new FragmentMisPartidos();				
+				ftFragmentTransaction = fragmentManager.beginTransaction();
+				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);		        																								
+				//Agregamos el fragment anterior a la pila para volver
+				ftFragmentTransaction.addToBackStack(null);
+				ftFragmentTransaction.commit();
+				break;
+			case 4:
 				Intent intent = new Intent(getApplicationContext(), ModUsuarioActivity.class);
                 startActivity(intent);
 				break;
-			case 4:
+			case 5:
 			    /*UsuarioDB usrDB = new UsuarioDB();
 			    usrDB.bDeleteUsuario();*/
 			    SingletonUsuarioLogueado.eliminarUsuarioLogueado();

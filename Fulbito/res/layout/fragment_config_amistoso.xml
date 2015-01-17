@@ -6,24 +6,23 @@
 
     <TextView
         android:id="@+id/txtVwTipoSeleccion"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/dimenTxtInicio"
-        android:textColor="#FFFFFF"
-        android:textStyle="italic"
+        style="@style/TxtVwForm"
+        android:layout_margin="@dimen/margenFilaForm"
         android:text="Elige el modo de seleccion de equipos" />
     
     <RadioGroup android:id="@+id/radGruopTipoSeleccion"
 	    android:orientation="vertical"
 	    android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margenFilaForm" >
 	 
         <RadioButton
             android:id="@+id/radioBtnYoLosArmo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimenElementos"
             android:layout_weight="1"
-            android:button="@drawable/fulbito_btn_radio_holo_dark"                    
+            android:button="@drawable/fulbito_btn_radio_holo_dark"
+            android:layout_margin="@dimen/margenFilaForm"                    
             android:text="Yo los armo"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/dimenTxtInicio" />
@@ -34,6 +33,7 @@
 		    android:layout_height="@dimen/dimenElementos"
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:layout_margin="@dimen/margenFilaForm"
 		    android:text="Pan y Queso"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />
@@ -44,6 +44,7 @@
 		    android:layout_height="@dimen/dimenElementos"
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:layout_margin="@dimen/margenFilaForm"
 		    android:text="Dos jugadores eligen equipo"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />
@@ -54,6 +55,7 @@
 		    android:layout_height="@dimen/dimenElementos"
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
+		    android:layout_margin="@dimen/margenFilaForm"
 		    android:text="Seleccion aleatoria"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />

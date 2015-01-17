@@ -78,7 +78,7 @@ public class FragmentRegistrar extends Fragment {
     	TextView txtVwRegistrar = (TextView) getView().findViewById(R.id.txtVwRegistrar);
     	
     	//Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
-    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");                       
+    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Black.ttf");                       
         txtVwRegistrar.setTypeface(typeFace);
     	
     	//Agregamos las validaciones correspondientes a los campos texto

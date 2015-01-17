@@ -37,8 +37,8 @@
 	<string name="txtImgFotoPerfilDesc">Profile picture</string>
 	<string name="txtBotonModificarPassword">Change Password</string>
 	<string name="txtBotonGuardarCambios">Save Profile</string>
-	<string name="txtCampoFechaNacimiento">date of birth</string>
-	<string name="txtCampoTelefono">phone</string>		
+	<string name="txtCampoFechaNacimiento">Date of birth</string>
+	<string name="txtCampoTelefono">Phone</string>		
 	
 	<!-- Intefaz crear partido -->
 	<string name="txtNombrePartido">Name of match</string>

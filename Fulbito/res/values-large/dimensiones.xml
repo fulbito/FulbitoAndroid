@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimenTxtInicio">18sp</dimen>
+    <!-- tamaño promedio de pantallas large 640dp x 480dp -->
+    
+    <!-- Dimensiones para la pantalla de inicio -->
+    <dimen name="anchoElementosInicio">400dp</dimen>
     <dimen name="dimenTxtTituloInicio">24sp</dimen>
     
-    <dimen name="dimenElementos">48dp</dimen>
+    <!-- Dimensiones formularios -->
+    <!-- Alto por componente 90 dp -->
+    <dimen name="margenFilaForm">10dp</dimen>
+    <dimen name="dimenTxtEtiqForm">12sp</dimen>
+    <dimen name="dimenElemForm">40dp</dimen>
+            
+    <dimen name="dimenTxtInicio">18sp</dimen>        
+    <dimen name="dimenElementos">48dp</dimen>    
+    <dimen name="anchoElementos">400dp</dimen>    
+    <dimen name="anchoBotonLargo">400dp</dimen>
+    
 </resources>

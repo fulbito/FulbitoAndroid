@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 
 public class FragmentConfAmistoso extends Fragment {
 
-
+	private String sMac = "HOLA";
+	
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -21,6 +22,10 @@ public class FragmentConfAmistoso extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
 
+    }
+    
+    public String getPrueba(){
+    	return sMac;
     }
 }
 

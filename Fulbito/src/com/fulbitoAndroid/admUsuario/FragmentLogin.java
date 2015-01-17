@@ -83,7 +83,7 @@ public class FragmentLogin extends Fragment {
     	TextView txtVwLogin = (TextView) getView().findViewById(R.id.txtVwLogin);
     	
     	//Seteamos el tipo de fuente a los TextView txtVwLogin
-    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");                        
+    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Black.ttf");                        
         txtVwLogin.setTypeface(typeFace);        
         
         TextView txtTextOlvidoContrasena = (TextView) getView().findViewById(R.id.txtVwOlvidoContrasena);
@@ -139,6 +139,23 @@ public class FragmentLogin extends Fragment {
     	btnIngresar.setOnClickListener(new OnClickListener() 
         {   public void onClick(View v) 
             {   
+	        	//Hasta que arreglen el login entramos directamente
+        		Usuario cUsrLogin 	= null;
+    		
+            	cUsrLogin = new Usuario();
+            	
+            	cUsrLogin.setAlias("Mariano");
+            	cUsrLogin.setEmail("mac@gmail.com");
+    	    	cUsrLogin.setPassword("123456");
+    	    	cUsrLogin.setId(1);    	    
+    	    	
+        		SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
+        	
+	    		Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
+				startActivity(intent);
+				getActivity().finish();
+				
+        		/*
         		//Validamos los campos que ingreso el usuario
         		vValidarCampoCorreo();
         		vValidarCampoContrasena();
@@ -155,7 +172,8 @@ public class FragmentLogin extends Fragment {
 	        		//Hay campos incorrectos
         			Toast.makeText(getActivity().getApplicationContext(), 
         				R.string.txtRevisarCampos, Toast.LENGTH_LONG).show();
-	        	}  
+	        	}
+	        	*/  
             }
         }); 
     }

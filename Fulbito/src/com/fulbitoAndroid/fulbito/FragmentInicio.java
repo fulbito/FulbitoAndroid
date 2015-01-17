@@ -49,7 +49,7 @@ public class FragmentInicio extends Fragment {
         btnRegistrar = (Button) getView().findViewById(R.id.btnInicioRegistrar);
     	
         //Seteamos el tipo de fuente a los TextView txtVwLogin y txtVwRegistrar
-    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Helvetica-Black-SemiBold.ttf");                       
+    	Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Black.ttf");                       
         txtVwLogin.setTypeface(typeFace);        
         
         TextView txtVwRegistrar = (TextView) getView().findViewById(R.id.txtVwRegistrar);       

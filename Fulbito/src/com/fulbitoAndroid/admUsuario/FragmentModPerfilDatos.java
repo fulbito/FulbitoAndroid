@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -71,7 +72,7 @@ public class FragmentModPerfilDatos extends Fragment {
     	  } 
       };
       
-      Button btnElegirFechaNacimiento = (Button)getView().findViewById(R.id.btnFechaNacimiento);
+      ImageButton btnElegirFechaNacimiento = (ImageButton)getView().findViewById(R.id.btnFechaNacimiento);
       btnElegirFechaNacimiento.setOnClickListener(new OnClickListener()
       {
     	  public void onClick(View arg0) {

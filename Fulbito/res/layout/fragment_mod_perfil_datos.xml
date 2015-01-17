@@ -19,45 +19,25 @@
 	        android:orientation="vertical" > 
         		
 		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:gravity="center"
-		        android:orientation="vertical" >
+		        style="@style/FilaFormulario" >
 		        
 		        <TextView
 	                android:id="@+id/txtVwAlias"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_margin="5dp"
-	                android:textSize="@dimen/dimenTxtInicio"
-	                android:textColor="#FFFFFF"
-	                android:textStyle="italic"
-	                android:gravity="center"
+	                style="@style/TxtVwForm"
 	                android:text="@string/txtCampoAlias" />
 			    
 			    <EditText
 			        android:id="@+id/edtTxtAlias"
-			        style="@style/EdtTxtFulbito1" >		        
+			        style="@style/EdtTxtVwForm" >		        
 			    </EditText>
 		    </LinearLayout>
 		    
-			<LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:gravity="center"
-		        android:orientation="vertical" >
+		    <LinearLayout
+		        style="@style/FilaFormulario" >
 			    
 			    <TextView
 			        android:id="@+id/txtVwFechaNacimiento"
-			        android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_margin="5dp"
-	                android:textSize="@dimen/dimenTxtInicio"
-	                android:textColor="#FFFFFF"
-	                android:textStyle="italic"
-	                android:gravity="center"
+			        style="@style/TxtVwForm"
 			        android:text="@string/txtCampoFechaNacimiento" />
 		    
 			    <LinearLayout
@@ -68,99 +48,75 @@
 			    
 			        <EditText
 						android:id="@+id/edtFechaNacimiento"
-						style="@style/EdtTxtFulbito1"
+						style="@style/EdtTxtVwForm"
 						android:layout_width="0dp"
 						android:layout_weight="1"
-						android:layout_height="@dimen/dimenElementos"
 						android:editable="false" >
 					</EditText>
 			
-			       <Button
-						android:id="@+id/btnFechaNacimiento"					
-						android:layout_height="@dimen/dimenElementos"
-						android:layout_width="wrap_content"
-						android:background="@drawable/boton_interfaz_login"  
-		       			android:textStyle="italic"
-		       			android:textColor="#000000"
-		       			android:textSize="@dimen/dimenTxtInicio"
-		       			android:paddingTop="0dp"        			
-		       			android:paddingBottom="0dp"
-		       			android:paddingRight="5dp"
-		       			android:paddingLeft="5dp"
-		               	android:singleLine="true"
-		               	android:layout_marginLeft="5dp"
-						android:text="Elegir" />
+			       <ImageButton
+			            android:id="@+id/btnFechaNacimiento"
+			            android:layout_width="@dimen/dimenElementos"
+			            android:layout_height="match_parent"
+			            android:layout_marginLeft="@dimen/dimenElementos"
+			            android:background="@drawable/boton_interfaz_login"
+			            android:src="@drawable/ic_action_edit" />
+			       	
 			    </LinearLayout>
 		    </LinearLayout>
 		    
 			<LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:gravity="center"
-		        android:orientation="vertical" >
+		        style="@style/FilaFormulario" >
 			    
 				<TextView
 			        android:id="@+id/txtVwTelefono"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_margin="5dp"
-			        android:text="@string/txtCampoTelefono"
-			        android:textColor="#FFFFFF"
-			        android:gravity="center" />
+			        style="@style/TxtVwForm"
+			        android:text="@string/txtCampoTelefono" />
 			    
 			    <EditText
 			        android:id="@+id/edtTxtTelefono"
 			        android:inputType="phone"
-			        style="@style/EdtTxtFulbito1" >
+			        style="@style/EdtTxtVwForm" >
 			    </EditText>
 			    			    			    
 		    </LinearLayout>
 		    
-			 <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_weight="1"
-		        android:gravity="center"
-		        android:orientation="vertical" >
+			<LinearLayout
+		        style="@style/FilaFormulario" >
 			    
-			    <TextView
+				<TextView
 		            android:id="@+id/textView1"
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            android:text="Sexo"
-		            android:textColor="#FFFFFF"
-		            android:layout_margin="5dp"
-		        	android:gravity="center" /> 
-		        	
+		            style="@style/TxtVwForm"
+		            android:text="Sexo" /> 
+		        
 			    <RadioGroup android:id="@+id/gruporb"
 				    android:orientation="horizontal"
 				    android:layout_width="match_parent"
-				    android:layout_weight="1"
+				    android:layout_margin="@dimen/margenFilaForm"
 				    android:layout_height="@dimen/dimenElementos"
 				    android:text="SEXO" >
 			 
 			        <RadioButton
 			            android:id="@+id/radioButton1"
-			            android:layout_width="match_parent"
-			            android:layout_height="match_parent"
+			            style="@style/TxtVwForm"
 			            android:text="M"
 			            android:layout_weight="1"
-			            android:textColor="#FFFFFF"
-			        	android:gravity="center" />
+			            android:layout_margin="@dimen/margenFilaForm"		
+			            android:gravity="center"	            
+			        	android:button="@drawable/fulbito_btn_radio_holo_dark" />
 			
 			        <RadioButton
 			            android:id="@+id/radioButton2"
-			            android:layout_width="match_parent"
-			            android:layout_height="match_parent"
+			            style="@style/TxtVwForm"
 			            android:text="F"
 			            android:layout_weight="1"
-			            android:textColor="#FFFFFF"
-			        	android:gravity="center" />
-				</RadioGroup>
-			     
-			     
+			            android:layout_margin="@dimen/margenFilaForm"
+			        	android:gravity="center"
+			        	android:button="@drawable/fulbito_btn_radio_holo_dark" />
+				</RadioGroup>    				    
+			     			     
 		    </LinearLayout>
+			
 		</LinearLayout>		    	    	     		
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -184,7 +140,6 @@
 		</LinearLayout>
 	    	       
     </LinearLayout>
-
 
 	<LinearLayout
 		android:layout_width="match_parent"

@@ -4,12 +4,14 @@
         name="opciones_menu_lateral">
         <item>Perfil</item>
         <item>Crear partido</item>
+        <item>Mis partidos</item>
         <item>Partidos públicos</item>
         <item>Cerrar sesión</item>
     </string-array>
     <array name= "iconos_menu_lateral">
         <item>@drawable/ic_action_person_light</item>
         <item>@drawable/ic_action_group</item>
+        <item>@drawable/ic_action_search</item>
         <item>@drawable/ic_action_search</item>
         <item>@drawable/ic_action_search</item>
     </array>

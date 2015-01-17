@@ -131,8 +131,9 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     			PARTIDO_ID 			+ "	INTEGER, " +
     			PARTIDO_NOMBRE 		+ "	TEXT, " +
     			PARTIDO_FECHA 		+ "	TEXT, " +
-    			PARTIDO_HORA		+ "	INTEGER, " +
-    			PARTIDO_LUGAR		+ "	TEXT" +
+    			//PARTIDO_HORA		+ "	INTEGER, " +
+    			PARTIDO_HORA		+ "	TEXT, " +
+    			PARTIDO_LUGAR		+ "	TEXT, " +
     			PARTIDO_CANT_JUG 	+ "	INTEGER, " +
     			PARTIDO_ID_USR_ADM	+ "	INTEGER, " +
     			"PRIMARY KEY (" + PARTIDO_ID + "), " +

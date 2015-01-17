@@ -15,7 +15,8 @@ public class Partido {
 	private int		iId;
 	private String  sNombre;
 	private String  sFecha;
-	private int  	iHora;
+	//private int  	iHora;
+	private String 	sHora;
 	private int  	iCantJugadores;
 	private String 	sLugar;
 	private Usuario	uUsuarioAdm;
@@ -34,7 +35,8 @@ public class Partido {
 		this.iId 				= 0;
 		this.sNombre 			= "";
 		this.sFecha 			= "";
-		this.iHora 				= 0;
+		//this.iHora 				= 0;
+		this.sHora 				= "";
 		this.iCantJugadores 	= 0;
 		this.sLugar 			= "";
 		this.uUsuarioAdm 		= new Usuario();
@@ -46,7 +48,8 @@ public class Partido {
 		this.iId 				= cPartidoOrigen.getId();
 		this.sNombre 			= cPartidoOrigen.getNombre();
 	    this.sFecha 			= cPartidoOrigen.getFecha();
-	    this.iHora 				= cPartidoOrigen.getHora();
+	    //this.iHora 				= cPartidoOrigen.getHora();
+	    this.sHora 				= cPartidoOrigen.getHora();
 	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
 	    this.sLugar				= cPartidoOrigen.getLugar();
 	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();
@@ -70,11 +73,21 @@ public class Partido {
 	public void setFecha(String sFecha) {
 		this.sFecha = sFecha;
 	}
+	/*
 	public int getHora() {
 		return iHora;
 	}
+	*/
+	public String getHora() {
+		return sHora;
+	}
+	/*
 	public void setHora(int iHora) {
 		this.iHora = iHora;
+	}
+	*/
+	public void setHora(String sHora) {
+		this.sHora = sHora;
 	}
 	public int getCantJugadores() {
 		return iCantJugadores;
@@ -101,7 +114,8 @@ public class Partido {
   		this.iId 				= cPartidoOrigen.getId();
 		this.sNombre 			= cPartidoOrigen.getNombre();
 	    this.sFecha 			= cPartidoOrigen.getFecha();
-	    this.iHora 				= cPartidoOrigen.getHora();
+	    //this.iHora 				= cPartidoOrigen.getHora();
+	    this.sHora 				= cPartidoOrigen.getHora();
 	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
 	    this.sLugar				= cPartidoOrigen.getLugar();
 	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();

@@ -6,11 +6,8 @@
 
     <TextView
         android:id="@+id/txtVwUsrDesafio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/dimenTxtInicio"
-        android:textColor="#FFFFFF"
-        android:textStyle="italic"
+        style="@style/TxtVwForm"
+        android:layout_margin="@dimen/margenFilaForm"
         android:text="Selecciona usuario a desafiar" />
 
     <EditText
@@ -19,6 +16,7 @@
         android:layout_height="@dimen/dimenElementos"
         android:textColor="#FFFFFF"
         android:background="@drawable/fulbito_edit_text_holo_dark"
+        android:layout_margin="@dimen/margenFilaForm"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/dimenTxtInicio"
         android:ellipsize="end"

@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
     
     <TextView
 		android:id="@+id/txtVwLogin"
-		style="@style/TxtVwLogin"
+		style="@style/TxtVwInicio"
 		android:text="@string/txtLogin" />
 
 	<EditText
 	    android:id="@+id/edtTxtEmailLogin"
-	    style="@style/EdtTxtFulbito1"
+	    style="@style/EdtTxtInicio"
 	    android:inputType="textEmailAddress"
 	    android:hint="@string/txtCampoCorreoElectronico" >
 	</EditText>
 
     <EditText
         android:id="@+id/edtTxtContrasenaLogin"
-        style="@style/EdtTxtFulbito1"
+        style="@style/EdtTxtInicio"
         android:inputType="textPassword"
         android:hint="@string/txtCampoContrasena" />
 
 	<Button
 	    android:id="@+id/btnIngresar"
-	    style="@style/BtnFulbito1"
+	    style="@style/BtnInicio"
 	    android:text="@string/txtBotonIngresar" />
 	
 	<TextView
 		android:id="@+id/txtVwOlvidoContrasena"
-		style="@style/TxtVwLogin"
+		style="@style/TxtVwInicio"
 		android:text="@string/txtOlvidoContrasena" />
 
 	<Button
 	    android:id="@+id/btnRecuperarContrasena"
-	    style="@style/BtnFulbito1"
+	    style="@style/BtnInicio"
 	    android:text="@string/txtRecuperarContrasena" />
             
 </LinearLayout>

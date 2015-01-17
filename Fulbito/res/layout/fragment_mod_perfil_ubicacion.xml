@@ -14,17 +14,16 @@
         
 	    <TextView
 	        android:id="@+id/txtTituloUbicacion"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_margin="5dp"
+	        style="@style/TxtVwForm"
 	        android:text="¿DÓNDE JUGAS?"
-	        android:textColor="#FFFFFF"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:layout_margin="@dimen/margenFilaForm" />
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:layout_weight="1"
+	        android:layout_margin="@dimen/margenFilaForm"
 	        android:orientation="vertical" > 
 	        
 		    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,8 +32,74 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				class="com.google.android.gms.maps.SupportMapFragment"/>
-		    
-		    <TextView
+		    		    	    
+	    </LinearLayout>	    
+	    
+	    <LinearLayout
+            style="@style/FilaFormulario" >	        
+	        
+            <TextView
+                android:id="@+id/txtVwEscribeLugar"
+                style="@style/TxtVwForm"
+                android:text="Escribe un lugar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimenElementos" >
+
+                <EditText
+                    android:id="@+id/edtTxtDireccion"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    style="@style/EdtTxtVwForm"
+                    android:inputType="textPostalAddress" />
+
+                <ImageButton
+		            android:id="@+id/btnBuscarDireccion"
+		            android:layout_width="@dimen/dimenElementos"
+		            android:layout_height="match_parent"		            
+		            android:background="@drawable/boton_interfaz_login"
+		            android:src="@drawable/ic_action_search" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        
+	    <LinearLayout
+            style="@style/FilaFormulario" >            
+            
+            <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal" >
+
+		        
+		        <TextView
+                	android:id="@+id/txtVwRadioJuego"
+	                style="@style/TxtVwForm"
+	                android:layout_width="wrap_content"
+	                android:textSize="@dimen/dimenTxtInicio"
+	                android:text="Radio de juego" />
+		        
+		        <TextView
+		            android:id="@+id/txtKmRadios"
+		            style="@style/TxtVwForm"           
+		            android:gravity="center"
+		            android:textColor="#FFFFFF" />
+		
+		    </LinearLayout>
+
+            <SeekBar
+	            android:id="@+id/seekBarRadioUbicacion"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="@dimen/margenFilaForm"
+	            android:layout_gravity="center" />
+
+        </LinearLayout>
+	     
+	    <!--
+	    <TextView
 	            android:id="@+id/txtVwEscribeLugar"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"            
@@ -95,9 +160,8 @@
 		    <SeekBar
 	            android:id="@+id/seekBarRadioUbicacion"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" />
-	    
-	    </LinearLayout>
+	            android:layout_height="wrap_content" /> 
+	     -->
 	    	       
     </LinearLayout>
 

@@ -6,36 +6,36 @@
     
             <TextView
                 android:id="@+id/txtVwRegistrar"
-                style="@style/TxtVwLogin"
+                style="@style/TxtVwInicio"
                 android:text="@string/txtRegistrar" />
             
             <EditText
                 android:id="@+id/edtTxtAlias"
-                style="@style/EdtTxtFulbito1"
+                style="@style/EdtTxtInicio"
                 android:inputType="textPersonName"
                 android:hint="@string/txtCampoAlias" />
 
             <EditText
                 android:id="@+id/edtTxtEmailRegistrar"
-                style="@style/EdtTxtFulbito1"   
+                style="@style/EdtTxtInicio"   
                 android:inputType="textEmailAddress"
                 android:hint="@string/txtCampoCorreoElectronico" />
 
             <EditText
                 android:id="@+id/edtTxtContrasenaRegistrar"
-               style="@style/EdtTxtFulbito1"   
+               style="@style/EdtTxtInicio"   
                 android:inputType="textPassword"
                 android:hint="@string/txtCampoContrasena" />
 
             <EditText
                 android:id="@+id/edtTxtConfirmarContrasena" 
-                style="@style/EdtTxtFulbito1"   
+                style="@style/EdtTxtInicio"   
                 android:inputType="textPassword"
                 android:hint="@string/txtCampoConfirmarContrasena" />
 
             <Button
                 android:id="@+id/btnRegistrar"
-                style="@style/BtnFulbito1"
+                style="@style/BtnInicio"
                 android:text="@string/txtBotonRegistrarme" />
 
 </LinearLayout>
