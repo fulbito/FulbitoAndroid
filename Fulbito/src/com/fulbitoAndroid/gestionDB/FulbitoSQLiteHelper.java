@@ -46,6 +46,8 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     static final String PARTIDO_CANT_JUG	= "cant_jugadores";
     static final String PARTIDO_LUGAR		= "lugar";
     static final String PARTIDO_ID_USR_ADM	= "id_usuario_adm";
+    static final String PARTIDO_ID_TIPO_PART 	= "id_tipo_partido";
+    static final String PARTIDO_ID_TIPO_VISIB 	= "id_tipo_visibilidad";
 	/////////////////////////////////////////////////////////////    
     // TABLA TIPO_PARTIDO
     static final String TABLA_TIPO_PARTIDO = "tipo_partido";
@@ -136,14 +138,34 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     			PARTIDO_LUGAR		+ "	TEXT, " +
     			PARTIDO_CANT_JUG 	+ "	INTEGER, " +
     			PARTIDO_ID_USR_ADM	+ "	INTEGER, " +
+    			PARTIDO_ID_TIPO_PART	+ "	INTEGER, " +
+    			PARTIDO_ID_TIPO_VISIB	+ "	INTEGER, " +
     			"PRIMARY KEY (" + PARTIDO_ID + "), " +
     			"FOREIGN KEY(" + PARTIDO_ID_USR_ADM +") REFERENCES " + TABLA_USUARIO + "(" + USUARIO_ID + ")" +
+    		" ) ";
+    
+    //Sentencia SQL para crear la tabla TIPO_PARTIDO
+    private static final String S_CREATE_TIPO_PARTIDO = 
+    		"CREATE TABLE " + TABLA_TIPO_PARTIDO + 
+    		" ( " +
+    			TIPO_PARTIDO_ID 	+ "	INTEGER, " +
+    			TIPO_PARTIDO_DESC 	+ "	TEXT " +    			
+    		" ) ";
+
+    //Sentencia SQL para crear la tabla TIPO_VISIBILIDAD
+    private static final String S_CREATE_TIPO_VISIBILIDAD = 
+    		"CREATE TABLE " + TABLA_TIPO_VISIBILIDAD + 
+    		" ( " +
+    			TIPO_VISIBILIDAD_ID 	+ "	INTEGER, " +
+    			TIPO_VISIBILIDAD_DESC 	+ "	TEXT " +    			
     		" ) ";
     
     //Sentencia SQL para dropear la tabla de usuario
     private static final String S_DROP_USUARIO 		= "DROP TABLE IF EXISTS " + TABLA_USUARIO;
     private static final String S_DROP_DAT_OPC_USR 	= "DROP TABLE IF EXISTS " + TABLA_DAT_OPC_USR;
     private static final String S_DROP_PARTIDO 		= "DROP TABLE IF EXISTS " + TABLA_PARTIDO;
+    private static final String S_DROP_TIPO_PARTIDO	= "DROP TABLE IF EXISTS " + TABLA_TIPO_PARTIDO;
+    private static final String S_DROP_TIPO_VISIBILIDAD	= "DROP TABLE IF EXISTS " + TABLA_TIPO_VISIBILIDAD;
  
     public FulbitoSQLiteHelper(Context contexto) {
         super(contexto, DATABASE_NAME, null, DATABASE_VERSION);

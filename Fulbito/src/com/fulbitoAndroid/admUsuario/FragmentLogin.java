@@ -147,6 +147,8 @@ public class FragmentLogin extends Fragment {
             	cUsrLogin.setAlias("Mariano");
             	cUsrLogin.setEmail("mac@gmail.com");
     	    	cUsrLogin.setPassword("123456");
+    	    	cUsrLogin.setFechaNacimiento("1987-08-11");
+    	    	cUsrLogin.setTelefono("15-5345-0633");
     	    	cUsrLogin.setId(1);    	    
     	    	
         		SingletonUsuarioLogueado.registrarUsuarioLogueado(cUsrLogin);
@@ -156,6 +158,7 @@ public class FragmentLogin extends Fragment {
 				getActivity().finish();
 				
         		/*
+        		 * Comentado hasta que arreglen el login
         		//Validamos los campos que ingreso el usuario
         		vValidarCampoCorreo();
         		vValidarCampoContrasena();

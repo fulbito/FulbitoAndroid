@@ -374,7 +374,7 @@ public class FragmentModPerfilUbicacion extends Fragment{
             	 addresses = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
             	 sLatitud = Double.toString(loc.getLatitude());
             	 sLongitud = Double.toString(loc.getLongitude());
-             } 
+             }              
              catch (IOException e1) 
              {
             	 Log.e("ObtenerDireccionTask", "IO Exception in getFromLocation() - " + e1.getMessage());
@@ -392,6 +392,13 @@ public class FragmentModPerfilUbicacion extends Fragment{
 				 Log.e("ObtenerDireccionTask", errorString);
 				 e2.printStackTrace();
 				 return errorString;
+             }
+             catch (RuntimeException e3) 
+             {
+            	 //Este catch lo agregue xq cuando probe la aplicación en modo avion, pinchaba
+            	 Log.e("ObtenerDireccionTask", "RuntimeException in getFromLocation() - " + e3.getMessage());
+            	 e3.printStackTrace();
+            	 return ("RuntimeException trying to get address");
              }
              
              // If the reverse geocode returned an address
@@ -494,7 +501,15 @@ public class FragmentModPerfilUbicacion extends Fragment{
 	              Log.e("GetLatLongTask", errorString);
 	              e2.printStackTrace();
 	              return null;
-              }                        
+              }
+              catch (RuntimeException e3) 
+              {
+             	 //Este catch lo agregue xq cuando probe la aplicación en modo avion, pinchaba
+             	 Log.e("ObtenerDireccionTask", "RuntimeException in getFromLocationName() - " + e3.getMessage());
+             	 e3.printStackTrace();
+             	 return null;
+              }
+
               
               // If the reverse geocode returned an address
               if (addresses != null && addresses.size() > 0) 

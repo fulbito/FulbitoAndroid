@@ -3,12 +3,12 @@
     <!-- tamaño promedio de pantallas small 426dp x 320dp -->
     
     <!-- Dimensiones para la pantalla de inicio -->
-    <dimen name="anchoElementosInicio">280dp</dimen>
+    <dimen name="anchoElementosInicio">240dp</dimen>
     <dimen name="dimenTxtTituloInicio">16sp</dimen>
     
     <!-- Dimensiones formularios -->
     <!-- Alto por componente 60 dp -->
-    <dimen name="margenFilaForm">2dp</dimen>
+    <dimen name="margenFilaForm">0dp</dimen>
     <dimen name="dimenTxtEtiqForm">12sp</dimen>
     <dimen name="dimenElemForm">40dp</dimen>
     

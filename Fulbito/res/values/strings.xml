@@ -47,8 +47,11 @@
 	<string name="txtTipoPartido">Kind of match</string>
 	<string name="txtUbicacionPartido">Field/Place</string>
 	<string name="txtCantidadJugadores">Number of players</string>
-	<string name="txtVisibilidad">Visibilidad del partido</string>
+	<string name="txtVisibilidad">Visibility of the match</string>
 	<string name="txtCrearPartido">Create match</string>
+	<string name="txtFechaHoraPartido">Date/Hour</string>
+	<string name="txtPartidoPublico">Public</string>
+	<string name="txtPartidoPrivado">Private</string>
 	
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No internet connection. Please check your connection.</string>

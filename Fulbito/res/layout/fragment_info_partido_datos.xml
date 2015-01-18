@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab1Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_layout_sombra" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwNombPartido"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtNombrePartido" />
+
+                <EditText
+                    android:id="@+id/edtTxtNombPartido"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" >
+
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwFechaHoraPartido"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtFechaHoraPartido" />
+
+                <EditText
+                    android:id="@+id/edtTxtFechaHoraPartido"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwLugarPartido"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtUbicacionPartido" />
+
+                <EditText
+                    android:id="@+id/edtTxtLugarPartido"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwCantJugadores"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtCantidadJugadores" />
+
+                <EditText
+                    android:id="@+id/edtTxtCantJugadores"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwVisibilidad"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtVisibilidad" />
+
+                <EditText
+                    android:id="@+id/edtTxtVisibilidad"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/FilaFormulario"
+                android:layout_width="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtVwTipoPartido"
+                    style="@style/TxtVwForm"
+                    android:text="@string/txtTipoPartido" />
+
+                <EditText
+                    android:id="@+id/edtTxtTipoPartido"
+                    style="@style/EdtTxtVwForm"
+                    android:layout_height="@dimen/dimenElementos"
+                    android:layout_weight="1"
+                    android:editable="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btnModificar"
+	          	android:layout_width="match_parent"
+	          	android:layout_height="@dimen/dimenElementos"
+	          	android:background="@drawable/boton_interfaz_login"
+                android:text="Modificar" />
+            
+        </LinearLayout>
+                            
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btnEliminar"
+          		android:layout_width="match_parent"
+          		android:layout_height="@dimen/dimenElementos"
+          		android:background="@drawable/boton_interfaz_login"
+                android:text="Eliminar" />
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+	
+</LinearLayout>

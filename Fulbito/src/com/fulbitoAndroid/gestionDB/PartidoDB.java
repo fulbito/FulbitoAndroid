@@ -72,6 +72,8 @@ public class PartidoDB {
         	values.put(FulbitoSQLiteHelper.PARTIDO_CANT_JUG		, partido.getCantJugadores());
         	values.put(FulbitoSQLiteHelper.PARTIDO_LUGAR		, partido.getLugar());
         	values.put(FulbitoSQLiteHelper.PARTIDO_ID_USR_ADM	, partido.getUsuarioAdm().getId());
+        	values.put(FulbitoSQLiteHelper.PARTIDO_ID_TIPO_VISIB, partido.getTipoVisibilidad());
+        	values.put(FulbitoSQLiteHelper.PARTIDO_ID_TIPO_PART	, partido.getTipoPartido());
 
         	try{        	
         		db.insertOrThrow(FulbitoSQLiteHelper.TABLA_PARTIDO, null, values);
@@ -428,11 +430,13 @@ public class PartidoDB {
         			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_FECHA,
         			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_HORA,
         			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_LUGAR,
-        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_CANT_JUG,
+        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_CANT_JUG,        			
         			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_USR_ADM,
         			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_ALIAS,
         			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_EMAIL,
-        			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_FOTO
+        			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_FOTO,
+        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_TIPO_PART,
+        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_TIPO_VISIB,
         		};	        		        
         	
         	Cursor cursor = qbQuery.query(db, sCampos, null, null, null, null, null);                	
@@ -458,6 +462,9 @@ public class PartidoDB {
                 		partido.getUsuarioAdm().setAlias(cursor.getString(7));
                 		partido.getUsuarioAdm().setEmail(cursor.getString(8));                
                 		partido.getUsuarioAdm().setFoto(cursor.getString(9));
+                		
+                		partido.setTipoPartido(cursor.getInt(10));
+                		partido.setTipoVisibilidad(cursor.getInt(11));
                     	
                         listaPartidos.add(partido);
                         cursor.moveToNext();

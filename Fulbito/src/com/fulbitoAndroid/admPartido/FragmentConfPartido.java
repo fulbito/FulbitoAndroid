@@ -32,6 +32,7 @@ public class FragmentConfPartido extends Fragment {
 	private int iItemAnterior = -1;
 	
 	private Partido cPartidoNuevo;
+	private int iTipoPartido;
 	
 	//TIPOS DE PARTIDO
 	private static final int TP_AMISTOSO = 0;
@@ -49,6 +50,7 @@ public class FragmentConfPartido extends Fragment {
         args.putString("hora", cParamPartidoNuevo.getHora());
         args.putString("lugar", cParamPartidoNuevo.getLugar());
         args.putInt("cant_jug", cParamPartidoNuevo.getCantJugadores());
+        args.putInt("tipo_visibilidad", cParamPartidoNuevo.getTipoVisibilidad());
         
         f.setArguments(args);
 
@@ -73,6 +75,8 @@ public class FragmentConfPartido extends Fragment {
         
         imgBtnAceptar = (ImageButton)getView().findViewById(R.id.btnAceptar);
         imgBtnCancelar = (ImageButton)getView().findViewById(R.id.btnCancelar);
+        
+        iTipoPartido = getActivity().getResources().getInteger(R.integer.id_tp_amistoso);
         
         vAgregarEventoSpinnerTipoPartido();
         
@@ -115,6 +119,7 @@ public class FragmentConfPartido extends Fragment {
                 			//el fragment está dentro del FragmentManager, solo se lo hace visible con show
                 			ft.show(fm.findFragmentByTag("AMISTOSO"));
                 		iItemAnterior = TP_AMISTOSO;
+                		iTipoPartido = getActivity().getResources().getInteger(R.integer.id_tp_amistoso);
     					break;
     				case TP_DESAFIO_USR:
     					if(fm.findFragmentByTag("DESAFIO_USR") == null)
@@ -124,6 +129,7 @@ public class FragmentConfPartido extends Fragment {
                 			//el fragment está dentro del FragmentManager, solo se lo hace visible con show
                 			ft.show(fm.findFragmentByTag("DESAFIO_USR"));
     					iItemAnterior = TP_DESAFIO_USR;
+    					iTipoPartido = getActivity().getResources().getInteger(R.integer.id_tp_desafio_usr);
     					break;
     				case TP_DESAFIO_EQ:
     					if(fm.findFragmentByTag("DESAFIO_EQ") == null)
@@ -133,6 +139,7 @@ public class FragmentConfPartido extends Fragment {
                 			//el fragment está dentro del FragmentManager, solo se lo hace visible con show
                 			ft.show(fm.findFragmentByTag("DESAFIO_EQ"));
     					iItemAnterior = TP_DESAFIO_EQ;
+    					iTipoPartido = getActivity().getResources().getInteger(R.integer.id_tp_desafio_eq);
     					break;
     			}
     			
@@ -153,12 +160,24 @@ public class FragmentConfPartido extends Fragment {
         	public void onClick(View v) 
             {   
         		cPartidoNuevo = new Partido();
+                /*
+                getString(key, defValue) was added in API 12. Use getString(key), as this will return null if the key doesn't exist.
                 
                 cPartidoNuevo.setNombre(getArguments().getString("nombre", ""));
                 cPartidoNuevo.setFecha(getArguments().getString("fecha", ""));
                 cPartidoNuevo.setHora(getArguments().getString("hora", ""));
                 cPartidoNuevo.setLugar(getArguments().getString("lugar", ""));
                 cPartidoNuevo.setCantJugadores(getArguments().getInt("cant_jug", 0));
+                */
+        		
+        		cPartidoNuevo.setNombre(getArguments().getString("nombre"));
+                cPartidoNuevo.setFecha(getArguments().getString("fecha"));
+                cPartidoNuevo.setHora(getArguments().getString("hora"));
+                cPartidoNuevo.setLugar(getArguments().getString("lugar"));
+                cPartidoNuevo.setCantJugadores(getArguments().getInt("cant_jug"));
+                cPartidoNuevo.setTipoVisibilidad(getArguments().getInt("tipo_visibilidad"));
+                
+                cPartidoNuevo.setTipoPartido(iTipoPartido);
                 
                 android.support.v4.app.FragmentManager fm;
     			
@@ -182,10 +201,26 @@ public class FragmentConfPartido extends Fragment {
                 //Insertamos los datos del usuario logueado en la tabla USUARIO
 				PartidoDB partidoDB = new PartidoDB();
 				partidoDB.bInsertarPartido(cPartidoNuevo);
+				
+				//Agregamos el fragment para completar los datos de configuración del partido
+				FragmentManager fragmentManager;
+				android.support.v4.app.Fragment fragment;				
+				//fragment = new FragmentInfoPartido();
+				fragment = FragmentInfoPartido.newInstance(cPartidoNuevo);
+				fragmentManager = getActivity().getSupportFragmentManager();
+				
+				//Quitamos del BackStack los fragments ConfPartido y CrearPartido
+				fragmentManager.popBackStack();
+				fragmentManager.popBackStack();
+				
+				android.support.v4.app.FragmentTransaction ftFragmentTransaction = fragmentManager.beginTransaction();				
+				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);
+				//Agregamos el fragment anterior a la pila para volver				
+				ftFragmentTransaction.addToBackStack(null);
+				ftFragmentTransaction.commit();
             }
         }); 
     }
-    
     
     private void vAgregarEventoBotónCancelar(){
     	//Al tocar el boton Cancelar, debemos volver al HOME

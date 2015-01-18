@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -45,6 +46,8 @@ public class FragmentCrearPartido extends Fragment {
 	
 	private Spinner spCantJugadores;
 	
+	private RadioGroup rgTipoVisibilidad;
+	
 	private RadioButton radBtnPrivado;
 	private RadioButton radBtnPublico;
 	// FIN - Componentes de la interfaz gráfica
@@ -53,6 +56,7 @@ public class FragmentCrearPartido extends Fragment {
 	static final String HORA_PARTIDO = "21:00";
 	
 	private Partido cPartidoNuevo;
+	int iTipoVisibilidad;
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -82,9 +86,10 @@ public class FragmentCrearPartido extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.spCantJugadoresItems, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_item_list);
         spCantJugadores.setAdapter(adapter);
-        //RadioButton
-        radBtnPrivado = (RadioButton)getView().findViewById(R.id.radioBtnPrivado);
-        radBtnPublico = (RadioButton)getView().findViewById(R.id.radioBtnPublico);                
+        //RadioGroup
+        rgTipoVisibilidad = (RadioGroup)getView().findViewById(R.id.radGroupTipoVis);        
+        rgTipoVisibilidad.check(R.id.radioBtnPrivado); //Default   
+        iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_privado);
                 		
 		//Seteamos los valores por default
         
@@ -98,13 +103,12 @@ public class FragmentCrearPartido extends Fragment {
 		//Seteamos la hora del partido
 		edtTxtHoraPartido.setText(HORA_PARTIDO);
 		
-		radBtnPrivado.setChecked(true);	
-		
         //seteamos el evento OnClick de los botones                                 
         vAgregarEventoBotónAceptar();
         vAgregarEventoBotónCancelar();	  
         vAgregarEventoBotónModificarFecha();
         vAgregarEventoBotónModificarHora();
+        vAgregarEventoRadioButton();
     }
     
     private void vAgregarEventoBotónAceptar(){
@@ -121,7 +125,8 @@ public class FragmentCrearPartido extends Fragment {
         		cPartidoNuevo.setFecha(edtTxtFechaPartido.getText().toString());        		
         		cPartidoNuevo.setHora(edtTxtHoraPartido.getText().toString());
         		cPartidoNuevo.setLugar(edtTxtLugarPartido.getText().toString());
-        		cPartidoNuevo.setCantJugadores(Integer.parseInt(spCantJugadores.getSelectedItem().toString()));
+        		cPartidoNuevo.setCantJugadores(Integer.parseInt(spCantJugadores.getSelectedItem().toString()));        		
+        		cPartidoNuevo.setTipoVisibilidad(iTipoVisibilidad);
         		
         		//Agregamos el fragment para completar los datos de configuración del partido
 				FragmentManager fragmentManager;
@@ -137,8 +142,7 @@ public class FragmentCrearPartido extends Fragment {
             }
         }); 
     }
-    
-    
+        
     private void vAgregarEventoBotónCancelar(){
     	//Al tocar el boton Cancelar, debemos volver al HOME
     	//Al tocar el boton Aceptar, debemos pasar a la siguiente configuración del partido
@@ -243,6 +247,23 @@ public class FragmentCrearPartido extends Fragment {
     						
         }
         });
+    }
+
+    private void vAgregarEventoRadioButton(){
+    	rgTipoVisibilidad.setOnCheckedChangeListener(
+    			new RadioGroup.OnCheckedChangeListener() {
+    				public void onCheckedChanged(RadioGroup group, int checkedId) {
+    	  
+    					switch(checkedId) {
+    						case R.id.radioBtnPrivado:
+    							iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_privado);
+    							break;
+    						case R.id.radioBtnPublico:
+    							iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_privado);
+    							break;
+    					}
+    				}
+    			});
     }
 }
 

@@ -42,6 +42,9 @@
 	<string name="txtUbicacionPartido">Cancha/Lugar</string>
 	<string name="txtCantidadJugadores">Cantidad jujadores</string>
 	<string name="txtCrearPartido">Crear partido</string>
+	<string name="txtFechaHoraPartido">Fecha/Hora</string>
+	<string name="txtPartidoPublico">Público</string>
+	<string name="txtPartidoPrivado">Privado</string>
 	
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No hay conexion a internet. Por favor revise su conexion.</string>

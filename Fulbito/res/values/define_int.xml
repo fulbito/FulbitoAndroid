@@ -2,4 +2,14 @@
 <resources>
     <integer name="min_largo_contrasena">6</integer>
     <integer name="max_largo_contrasena">15</integer>
+    
+    <!-- IDs TIPO_VISIBILIDAD -->
+    <integer name="id_tv_privado">1</integer>
+    <integer name="id_tv_publico">2</integer>
+    
+    <!-- IDs TIPO_PARTIDO -->
+    <integer name="id_tp_amistoso">1</integer>
+    <integer name="id_tp_desafio_usr">2</integer>
+    <integer name="id_tp_desafio_eq">3</integer>
+    
 </resources>

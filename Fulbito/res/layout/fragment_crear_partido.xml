@@ -135,7 +135,7 @@
 	                style="@style/TxtVwForm"
 	                android:text="@string/txtVisibilidad" />
 	
-	            <RadioGroup android:id="@+id/radGruopTipoPriv"
+	            <RadioGroup android:id="@+id/radGroupTipoVis"
 				    android:orientation="horizontal"
 				    android:layout_width="match_parent"
 				    android:layout_margin="@dimen/margenFilaForm"
@@ -147,7 +147,7 @@
 	                    android:layout_weight="1"
 	                    android:layout_margin="@dimen/margenFilaForm"
 	                    android:button="@drawable/fulbito_btn_radio_holo_dark"                    
-	                    android:text="Privado"
+	                    android:text="@string/txtPartidoPrivado"
 	                    android:gravity="center" />
 	
 	                <RadioButton
@@ -156,7 +156,7 @@
 	                    android:layout_weight="1"
 	                    android:layout_margin="@dimen/margenFilaForm"
 	                    android:button="@drawable/fulbito_btn_radio_holo_dark"
-	                    android:text="Público"
+	                    android:text="@string/txtPartidoPublico"
 	                    android:gravity="center" />
 				</RadioGroup>
 	

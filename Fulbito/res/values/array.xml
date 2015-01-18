@@ -25,6 +25,7 @@
         <item>11</item>
     </string-array>
     
+    <!-- La posición del item define el ID del TIPO_PARTIDO, debe respetar el ID definido en la BD del servidor -->
     <string-array name="spTipoPartidoItems">
         <item>Friendly</item>
         <item>Challenge user</item>

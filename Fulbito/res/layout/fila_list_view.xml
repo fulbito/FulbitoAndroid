@@ -3,7 +3,9 @@
  android:id="@+id/rowTextView"   
  android:layout_width="fill_parent"   
  android:layout_height="@dimen/dimenElemForm"  
- android:layout_margin="@dimen/margenFilaForm"  
+ android:layout_margin="@dimen/margenFilaForm"
+ android:layout_gravity="center_vertical"  
+ android:gravity="center_vertical"
  android:textSize="@dimen/dimenTxtInicio"
  android:textColor="#FFFFFF" >  
 </TextView> 

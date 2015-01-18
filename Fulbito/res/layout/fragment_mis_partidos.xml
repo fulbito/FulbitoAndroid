@@ -35,13 +35,21 @@
 
             </LinearLayout>
             
-            <ListView 
+            <LinearLayout
                 android:layout_width="match_parent"
             	android:layout_height="match_parent"
-            	android:background="@drawable/fondo_layout_sombra"
-                android:layout_weight="1"   
-				android:id="@+id/mainListView">  
-		    </ListView>
+            	android:layout_weight="1"
+            	android:background="@drawable/fondo_layout_sombra"                
+                android:orientation="vertical" >
+
+                <ListView 
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content"
+	                android:divider="@android:color/transparent"
+					android:id="@+id/mainListView">  
+			    </ListView>
+
+            </LinearLayout>                        
         
         </LinearLayout>
 

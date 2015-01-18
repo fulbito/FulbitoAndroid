@@ -20,9 +20,10 @@ public class Partido {
 	private int  	iCantJugadores;
 	private String 	sLugar;
 	private Usuario	uUsuarioAdm;
+	private int 	iTipoVisibilidad;
+	private int 	iTipoPartido;
+	
 	/*
-	private String 	sTipoVisibilidad;
-	private String 	sTipoPartido;
 	private String 	sTipoPeriodicidad;
 	private String 	sEstado;
 	*/
@@ -40,6 +41,8 @@ public class Partido {
 		this.iCantJugadores 	= 0;
 		this.sLugar 			= "";
 		this.uUsuarioAdm 		= new Usuario();
+		this.iTipoPartido 		= 0;
+		this.iTipoVisibilidad 	= 0;
 	}
 	
 	//Constructor de copia	
@@ -53,6 +56,8 @@ public class Partido {
 	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
 	    this.sLugar				= cPartidoOrigen.getLugar();
 	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();
+	    this.iTipoPartido		= cPartidoOrigen.getTipoPartido();
+	    this.iTipoVisibilidad	= cPartidoOrigen.getTipoVisibilidad();
     }
 
 	public int getId() {
@@ -107,6 +112,18 @@ public class Partido {
 	public void setUsuarioAdm(Usuario uUsuarioAdm) {
 		this.uUsuarioAdm = uUsuarioAdm;
 	}
+	public int getTipoPartido() {
+		return iTipoPartido;
+	}
+	public void setTipoPartido(int iTipoPartido) {
+		this.iTipoPartido = iTipoPartido;
+	}
+	public int getTipoVisibilidad() {
+		return iTipoVisibilidad;
+	}
+	public void setTipoVisibilidad(int iTipoVisibilidad) {
+		this.iTipoVisibilidad = iTipoVisibilidad;
+	}
 	
 	//metodo de copia
   	public void vCopiar(Partido cPartidoOrigen)
@@ -119,5 +136,7 @@ public class Partido {
 	    this.iCantJugadores		= cPartidoOrigen.getCantJugadores();
 	    this.sLugar				= cPartidoOrigen.getLugar();
 	    this.uUsuarioAdm		= cPartidoOrigen.getUsuarioAdm();
+	    this.iTipoPartido		= cPartidoOrigen.getTipoPartido();
+	    this.iTipoVisibilidad	= cPartidoOrigen.getTipoVisibilidad();
 	}
 }
