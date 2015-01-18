@@ -259,7 +259,7 @@ public class FragmentCrearPartido extends Fragment {
     							iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_privado);
     							break;
     						case R.id.radioBtnPublico:
-    							iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_privado);
+    							iTipoVisibilidad = getActivity().getResources().getInteger(R.integer.id_tv_publico);
     							break;
     					}
     				}

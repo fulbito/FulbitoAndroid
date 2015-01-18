@@ -59,10 +59,10 @@ public class FragmentInfoPartidoDatos extends Fragment{
         switch(cPartido.getTipoVisibilidad())
         {
         	case 1:
-        		sTipoVisibilidad = getActivity().getResources().getString(R.string.txtPartidoPublico);
+        		sTipoVisibilidad = getActivity().getResources().getString(R.string.txtPartidoPrivado);
         		break;
         	case 2:
-        		sTipoVisibilidad = getActivity().getResources().getString(R.string.txtPartidoPrivado);
+        		sTipoVisibilidad = getActivity().getResources().getString(R.string.txtPartidoPublico);
         		break;
         }
         
