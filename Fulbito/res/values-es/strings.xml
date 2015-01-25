@@ -40,12 +40,16 @@
 	<string name="txtTipoPartido">Tipo de partido</string>
 	<string name="txtVisibilidad">Visibilidad del partido</string>
 	<string name="txtUbicacionPartido">Cancha/Lugar</string>
-	<string name="txtCantidadJugadores">Cantidad jujadores</string>
+	<string name="txtCantidadJugadores">Cantidad jugadores</string>
 	<string name="txtCrearPartido">Crear partido</string>
 	<string name="txtFechaHoraPartido">Fecha/Hora</string>
 	<string name="txtPartidoPublico">Público</string>
 	<string name="txtPartidoPrivado">Privado</string>
-	
+	<string name="txtYolosArmo">Yo los armo</string>
+	<string name="txtPanQueso">Pan y Queso</string>
+	<string name="txtDosJugadores">Dos jugadores eligen equipo</string>
+	<string name="txtAleatorio">Selección Aleatoria</string>
+		
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No hay conexion a internet. Por favor revise su conexion.</string>
 	<string name="errMsjLoginOffline">No hay conexion a internet. Se inicia la aplicación en modo desconectado.</string>

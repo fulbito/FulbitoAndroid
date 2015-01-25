@@ -1,7 +1,10 @@
 package com.fulbitoAndroid.admPartido;
 
 import com.fulbitoAndroid.clases.Partido;
+import com.fulbitoAndroid.fulbito.DatosConfiguracion;
 import com.fulbitoAndroid.fulbito.R;
+import com.fulbitoAndroid.gestionDB.PartidoAmistosoDB;
+import com.fulbitoAndroid.gestionDB.PartidoDB;
 import com.fulbitoAndroid.herramientas.TabContentVacio;
 
 import android.content.Context;
@@ -37,25 +40,19 @@ public class FragmentInfoPartido extends Fragment{
 		return cPartido;
 	}
 	
-	public static FragmentInfoPartido newInstance(Partido cParamPartido) {
+	public static FragmentInfoPartido newInstance(int iIdPartido) {
 		FragmentInfoPartido f = new FragmentInfoPartido();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
         
-        args.putString("nombre", cParamPartido.getNombre());
-        args.putString("fecha", cParamPartido.getFecha());
-        args.putString("hora", cParamPartido.getHora());
-        args.putString("lugar", cParamPartido.getLugar());
-        args.putInt("cant_jug", cParamPartido.getCantJugadores());
-        args.putInt("tipo_visibilidad", cParamPartido.getTipoVisibilidad());
-        args.putInt("tipo_partido", cParamPartido.getTipoPartido());
+        args.putInt("id_partido", iIdPartido);
         
         f.setArguments(args);
 
         return f;
     }
-	
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -67,22 +64,25 @@ public class FragmentInfoPartido extends Fragment{
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
         
-        cPartido = new Partido();
-        /*
-        cPartido.setNombre(getArguments().getString("nombre", ""));
-        cPartido.setFecha(getArguments().getString("fecha", ""));
-        cPartido.setHora(getArguments().getString("hora", ""));
-        cPartido.setLugar(getArguments().getString("lugar", ""));
-        cPartido.setCantJugadores(getArguments().getInt("cant_jug", 0));
-        */
-        cPartido.setNombre(getArguments().getString("nombre"));
-        cPartido.setFecha(getArguments().getString("fecha"));
-        cPartido.setHora(getArguments().getString("hora"));
-        cPartido.setLugar(getArguments().getString("lugar"));
-        cPartido.setCantJugadores(getArguments().getInt("cant_jug"));
-        cPartido.setTipoPartido(getArguments().getInt("tipo_partido"));
-        cPartido.setTipoVisibilidad(getArguments().getInt("tipo_visibilidad"));
+        //Obtenemos los datos del partido a mostrar
+		PartidoDB cPartidoDB = new PartidoDB();
+		int iIdPartido = getArguments().getInt("id_partido");
+		cPartido = cPartidoDB.parSelectPartidoById(iIdPartido);
         
+        switch(cPartido.getTipoPartido())
+        {
+        	case DatosConfiguracion.TP_ID_AMISTOSO:
+        		PartidoAmistosoDB cPartidoAmistosoDB = new PartidoAmistosoDB();
+        		cPartido = cPartidoAmistosoDB.parSelectPartidoAmistosoById(iIdPartido);
+        		break;
+        	case DatosConfiguracion.TP_ID_DESAFIO_EQ:
+        		cPartido = cPartidoDB.parSelectPartidoById(iIdPartido);        		        		
+        		break;
+        	case DatosConfiguracion.TP_ID_DESAFIO_USR:
+        		cPartido = cPartidoDB.parSelectPartidoById(iIdPartido);
+        		break;
+        }
+
         //Obtenemos el control del Tabhost creado en el XML
         tbTabHost = (TabHost)getView().findViewById(android.R.id.tabhost);
         

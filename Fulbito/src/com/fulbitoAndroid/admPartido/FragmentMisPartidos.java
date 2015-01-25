@@ -10,7 +10,6 @@ import com.fulbitoAndroid.gestionDB.PartidoDB;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,12 @@ import android.widget.ListView;
 
 public class FragmentMisPartidos extends Fragment{
 	
+	//Componentes de la interfaz gráfica
 	private ListView lvMisPartidos;
-	List<Partido> lMisPartidos = new ArrayList<Partido>();
-	private ArrayAdapter<String> listAdapter;
+	//Atributos variables 
+	private List<Partido> listMisPartidos = new ArrayList<Partido>();
+	private ArrayAdapter<String> listPartidosAdapter;
+	
 	@Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -33,30 +35,28 @@ public class FragmentMisPartidos extends Fragment{
  
     @Override
     public void onActivityCreated(Bundle state) {
-        super.onActivityCreated(state);
         
-        lvMisPartidos = (ListView) getView().findViewById( R.id.mainListView );  
+    	super.onActivityCreated(state);
+        
+    	//Obtenemos los componentes de la interfaz
+        lvMisPartidos = (ListView) getView().findViewById(R.id.mainListView);  
         
         //Obtenemos todos mis partidos (Aca deberían ser los partidos que cree y los que participo)
-		PartidoDB partidoDB = new PartidoDB();		
+		PartidoDB partidoDB = new PartidoDB();				
+		listMisPartidos = partidoDB.partSelectAllPartido();
 		
-		lMisPartidos = partidoDB.partSelectAllPartido();
-		
-		// Create ArrayAdapter using the planet list.  
-	    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fila_list_view);  
+		//Creamos el ArrayAdapter usando la lista de mis partidos.  
+	    listPartidosAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fila_list_view);  
 	      
-	    // Add more planets. If you passed a String[] instead of a List<String>   
-	    // into the ArrayAdapter constructor, you must not add more items.   
-	    // Otherwise an exception will occur. 
-	    for(int i=0; i < lMisPartidos.size(); i++)
+	    //Agregamos los nombres de los partidos
+	    for(int i=0; i < listMisPartidos.size(); i++)
 	    {
-	    	listAdapter.add(lMisPartidos.get(i).getNombre());
+	    	listPartidosAdapter.add(listMisPartidos.get(i).getNombre());
 	    } 
 	      
-	    // Set the ArrayAdapter as the ListView's adapter.  
-	    lvMisPartidos.setAdapter( listAdapter ); 
-	    
-	    
+	    //Seteamos el ArrayAdapter al ListView.  
+	    lvMisPartidos.setAdapter( listPartidosAdapter ); 
+	    	    
 	    lvMisPartidos.setOnItemClickListener( 
 	    		new OnItemClickListener() {
 	    			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -64,7 +64,7 @@ public class FragmentMisPartidos extends Fragment{
 						FragmentManager fragmentManager;
 						android.support.v4.app.Fragment fragment;				
 						//fragment = new FragmentInfoPartido();
-						fragment = FragmentInfoPartido.newInstance(lMisPartidos.get(arg2));
+						fragment = FragmentInfoPartido.newInstance(listMisPartidos.get(arg2).getId());
 						fragmentManager = getActivity().getSupportFragmentManager();
 		
 						android.support.v4.app.FragmentTransaction ftFragmentTransaction = fragmentManager.beginTransaction();				

@@ -52,6 +52,10 @@
 	<string name="txtFechaHoraPartido">Date/Hour</string>
 	<string name="txtPartidoPublico">Public</string>
 	<string name="txtPartidoPrivado">Private</string>
+	<string name="txtYolosArmo">I build the teams</string>
+	<string name="txtPanQueso">One and one selection</string>
+	<string name="txtDosJugadores">Two players choose</string>
+	<string name="txtAleatorio">Random selection</string>
 	
 	<!-- Mensajes de error -->
 	<string name="errMsjSinConexion">No internet connection. Please check your connection.</string>

@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:button="@drawable/fulbito_btn_radio_holo_dark"
             android:layout_margin="@dimen/margenFilaForm"                    
-            android:text="Yo los armo"
+            android:text="@string/txtYolosArmo"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/dimenTxtInicio" />
 
@@ -34,18 +34,18 @@
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
 		    android:layout_margin="@dimen/margenFilaForm"
-		    android:text="Pan y Queso"
+		    android:text="@string/txtPanQueso"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />
 		
 		<RadioButton
-		    android:id="@+id/radioDosJugadores"
+		    android:id="@+id/radioBtnDosJugadores"
 		    android:layout_width="match_parent"
 		    android:layout_height="@dimen/dimenElementos"
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
 		    android:layout_margin="@dimen/margenFilaForm"
-		    android:text="Dos jugadores eligen equipo"
+		    android:text="@string/txtDosJugadores"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />
 		
@@ -56,7 +56,7 @@
 		    android:layout_weight="1"
 		    android:button="@drawable/fulbito_btn_radio_holo_dark"
 		    android:layout_margin="@dimen/margenFilaForm"
-		    android:text="Seleccion aleatoria"
+		    android:text="@string/txtAleatorio"
 		    android:textColor="#FFFFFF"
 		    android:textSize="@dimen/dimenTxtInicio" />
 	</RadioGroup>

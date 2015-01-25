@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fulbitoAndroid.clases.Partido;
+import com.fulbitoAndroid.fulbito.DatosConfiguracion;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -29,9 +30,9 @@ public class PartidoDB {
 
 	public PartidoDB() {
 		dbHelper = SingletonFulbitoDB.getInstance();
-	}
+	}	
 	
-	//Metodo para insertar un registro en la tabla USUARIO
+	//Metodo para insertar un registro en la tabla PARTIDO
 	public boolean bInsertarPartido(Partido partido){		
 		boolean bResult = true;
 		
@@ -47,24 +48,7 @@ public class PartidoDB {
         if(bResult == true)
         {
         	ContentValues values = new ContentValues();
-        	
-        	//ESTO DEBERIA ELIMINARSE YA QUE EL SERVIDOR DEBERIA DEVOLVERNOS EL ID DEL PARTIDO REGISTRADO
-        	Cursor cursor = db.rawQuery("SELECT MAX(id)+1 FROM PARTIDO", null);        	
-        	
-        	if (cursor != null && cursor.getCount() != 0)
-        	{
-        		cursor.moveToFirst();
-
-                //Asignamos los datos del partido
-        		partido.setId(cursor.getInt(0));
-        		
-                cursor.close();
-        	}
-        	else
-        	{
-        		partido.setId(1);
-        	}
-
+        	        	
         	values.put(FulbitoSQLiteHelper.PARTIDO_ID			, partido.getId());
         	values.put(FulbitoSQLiteHelper.PARTIDO_NOMBRE		, partido.getNombre());
         	values.put(FulbitoSQLiteHelper.PARTIDO_FECHA		, partido.getFecha());
@@ -123,6 +107,8 @@ public class PartidoDB {
         	values.put(FulbitoSQLiteHelper.PARTIDO_CANT_JUG		, partido.getCantJugadores());
         	values.put(FulbitoSQLiteHelper.PARTIDO_LUGAR		, partido.getLugar());
         	values.put(FulbitoSQLiteHelper.PARTIDO_ID_USR_ADM	, partido.getUsuarioAdm().getId());
+        	values.put(FulbitoSQLiteHelper.PARTIDO_ID_TIPO_PART	, partido.getTipoPartido());
+        	values.put(FulbitoSQLiteHelper.PARTIDO_ID_TIPO_VISIB, partido.getTipoVisibilidad());
         	
         	String FILTROS = FulbitoSQLiteHelper.PARTIDO_ID + " = " + Integer.toString(partido.getId());
         	
@@ -212,7 +198,7 @@ public class PartidoDB {
 	}	
 
 	//Metodo para obtener un registro de la tabla PARTIDO filtrando por ID
-	public Partido usrSelectPartidoById(int iIdPartido){
+	public Partido parSelectPartidoById(int iIdPartido){
 		boolean bResult = true;
 		
 		Partido partido = new Partido();
@@ -254,7 +240,9 @@ public class PartidoDB {
         			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_USR_ADM,
         			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_ALIAS,
         			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_EMAIL,
-        			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_FOTO
+        			FulbitoSQLiteHelper.TABLA_USUARIO + "." + FulbitoSQLiteHelper.USUARIO_FOTO,
+        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_TIPO_PART,
+        			FulbitoSQLiteHelper.TABLA_PARTIDO + "." + FulbitoSQLiteHelper.PARTIDO_ID_TIPO_VISIB
         		};
         	
         	String FILTROS = FulbitoSQLiteHelper.TABLA_PARTIDO + 
@@ -282,7 +270,8 @@ public class PartidoDB {
         		partido.getUsuarioAdm().setAlias(cursor.getString(7));
         		partido.getUsuarioAdm().setEmail(cursor.getString(8));                
         		partido.getUsuarioAdm().setFoto(cursor.getString(9));
-                
+        		partido.setTipoPartido(cursor.getInt(10));
+        		partido.setTipoVisibilidad(cursor.getInt(11));
                 cursor.close();
         	}
         	else
@@ -485,4 +474,43 @@ public class PartidoDB {
 
         return listaPartidos;
 	}
+	
+	//Metodo para obtener el proximo id de partido a insertar
+	public int iSelectNextPartidoId(){
+		boolean bResult = true;
+		
+		int iNextId = -1;
+		//Obtenemos el acceso a la base de datos
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db == null)
+        {
+        	Log.e("PartidoDB:bInsertarPartido", "La base de datos no fue abierta correctamente");
+        	bResult = false;
+        }
+
+        if(bResult == true)
+        {        	
+        	//ESTO DEBERIA ELIMINARSE YA QUE EL SERVIDOR DEBERIA DEVOLVERNOS EL ID DEL PARTIDO REGISTRADO
+        	Cursor cursor = db.rawQuery("SELECT MAX(id)+1 FROM PARTIDO", null);        	
+        	
+        	if (cursor != null && cursor.getCount() != 0)
+        	{
+        		cursor.moveToFirst();
+
+                //Asignamos los datos del partido
+        		iNextId = cursor.getInt(0);
+        		
+                cursor.close();
+        	}
+        	else
+        	{
+        		iNextId = 1;
+        	}        	
+        	
+            //Cerramos la base de datos
+            db.close();
+        }
+
+        return iNextId;
+	}	
 }

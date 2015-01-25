@@ -143,8 +143,12 @@
                 android:id="@+id/btnModificar"
 	          	android:layout_width="match_parent"
 	          	android:layout_height="@dimen/dimenElementos"
-	          	android:background="@drawable/boton_interfaz_login"
-                android:text="Modificar" />
+	          	android:background="@drawable/boton_interfaz_login"			
+				android:textStyle="italic"
+				android:textColor="#000000"
+				android:textSize="@dimen/dimenTxtInicio"
+				android:padding="0dp"
+                android:text="Modificar" />            
             
         </LinearLayout>
                             
@@ -159,7 +163,11 @@
                 android:id="@+id/btnEliminar"
           		android:layout_width="match_parent"
           		android:layout_height="@dimen/dimenElementos"
-          		android:background="@drawable/boton_interfaz_login"
+          		android:background="@drawable/boton_interfaz_login"		
+				android:textStyle="italic"
+				android:textColor="#000000"
+				android:textSize="@dimen/dimenTxtInicio"
+				android:padding="0dp"
                 android:text="Eliminar" />
             
         </LinearLayout>

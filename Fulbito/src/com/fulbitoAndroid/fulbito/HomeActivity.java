@@ -19,6 +19,7 @@ import java.util.List;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.herramientas.ItemMenuLateral;
 import com.fulbitoAndroid.herramientas.ListMenuAdapter;
+import com.fulbitoAndroid.admPartido.FragmentConfPartido;
 import com.fulbitoAndroid.admPartido.FragmentCrearPartido;
 import com.fulbitoAndroid.admPartido.FragmentMisPartidos;
 import com.fulbitoAndroid.admUsuario.FragmentModificarPerfil;
@@ -193,7 +194,8 @@ public class HomeActivity extends ActionBarActivity {
 				ftFragmentTransaction.commit();			        
 		        break;
 			case 2:
-				fragment = new FragmentCrearPartido();				
+				//fragment = new FragmentCrearPartido();
+				fragment = FragmentCrearPartido.newInstance(FragmentCrearPartido.I_MODO_ALTA, -1);
 				ftFragmentTransaction = fragmentManager.beginTransaction();
 				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);		        																								
 				//Agregamos el fragment anterior a la pila para volver

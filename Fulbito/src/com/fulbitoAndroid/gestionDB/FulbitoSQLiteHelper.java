@@ -48,23 +48,25 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     static final String PARTIDO_ID_USR_ADM	= "id_usuario_adm";
     static final String PARTIDO_ID_TIPO_PART 	= "id_tipo_partido";
     static final String PARTIDO_ID_TIPO_VISIB 	= "id_tipo_visibilidad";
-	/////////////////////////////////////////////////////////////    
+	/*
+    /////////////////////////////////////////////////////////////    
     // TABLA TIPO_PARTIDO
     static final String TABLA_TIPO_PARTIDO = "tipo_partido";
     // CAMPOS TABLA TIPO_PARTIDO
     static final String TIPO_PARTIDO_ID 	= "id";
-    static final String TIPO_PARTIDO_DESC 	= "descripcion";
+    static final String TIPO_PARTIDO_DESC 	= "descripcion";        
 	/////////////////////////////////////////////////////////////
     // TABLA TIPO_VISIBILIDAD
     static final String TABLA_TIPO_VISIBILIDAD = "tipo_visibilidad";
     // CAMPOS TABLA TIPO_VISIBILIDAD
     static final String TIPO_VISIBILIDAD_ID 	= "id";
     static final String TIPO_VISIBILIDAD_DESC 	= "descripcion";
-	/////////////////////////////////////////////////////////////
+    */
+	/////////////////////////////////////////////////////////////    
     // TABLA PARTIDO_AMISTOSO
     static final String TABLA_PART_AMISTOSO = "partido_amistoso";
     // CAMPOS TABLA PARTIDO_AMISTOSO
-    static final String PART_AMISTOSO_PART_ID 			= "id_partido";
+    static final String PART_AMISTOSO_PART_ID 		= "id_partido";
     static final String PART_AMISTOSO_TIPO_SELEC 	= "id_tipo_seleccion";
 	/////////////////////////////////////////////////////////////
     // TABLA TIPO_SELECCION
@@ -99,7 +101,7 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
 	static final String TABLA_DESAFIO_EQ = "partido_desafio_equipo";
 	// CAMPOS TABLA JUGADOR
 	static final String DESAFIO_EQ_ID_PARTIDO	= "id_partido";
-		/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
 	//Sentencia SQL para crear la tabla USUARIO
     private static final String S_CREATE_USUARIO = 
     		"CREATE TABLE " + TABLA_USUARIO + 
@@ -143,7 +145,7 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     			"PRIMARY KEY (" + PARTIDO_ID + "), " +
     			"FOREIGN KEY(" + PARTIDO_ID_USR_ADM +") REFERENCES " + TABLA_USUARIO + "(" + USUARIO_ID + ")" +
     		" ) ";
-    
+    /*
     //Sentencia SQL para crear la tabla TIPO_PARTIDO
     private static final String S_CREATE_TIPO_PARTIDO = 
     		"CREATE TABLE " + TABLA_TIPO_PARTIDO + 
@@ -159,14 +161,27 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
     			TIPO_VISIBILIDAD_ID 	+ "	INTEGER, " +
     			TIPO_VISIBILIDAD_DESC 	+ "	TEXT " +    			
     		" ) ";
+    */
+    //Sentencia SQL para crear la tabla PARTIDO_AMISTOSO
+    private static final String S_CREATE_PARTIDO_AMISTOSO = 
+    		"CREATE TABLE " + TABLA_PART_AMISTOSO + 
+    		" ( " +
+    			PART_AMISTOSO_PART_ID 		+ "	INTEGER, " +
+    			PART_AMISTOSO_TIPO_SELEC 	+ "	INTEGER, " +
+    			"PRIMARY KEY (" + PART_AMISTOSO_PART_ID + "), " +
+    			"FOREIGN KEY(" + PART_AMISTOSO_PART_ID +") REFERENCES " + TABLA_PARTIDO + "(" + PARTIDO_ID + ")" +
+    		" ) ";
     
     //Sentencia SQL para dropear la tabla de usuario
     private static final String S_DROP_USUARIO 		= "DROP TABLE IF EXISTS " + TABLA_USUARIO;
     private static final String S_DROP_DAT_OPC_USR 	= "DROP TABLE IF EXISTS " + TABLA_DAT_OPC_USR;
     private static final String S_DROP_PARTIDO 		= "DROP TABLE IF EXISTS " + TABLA_PARTIDO;
+    /*
     private static final String S_DROP_TIPO_PARTIDO	= "DROP TABLE IF EXISTS " + TABLA_TIPO_PARTIDO;
     private static final String S_DROP_TIPO_VISIBILIDAD	= "DROP TABLE IF EXISTS " + TABLA_TIPO_VISIBILIDAD;
- 
+    */
+    private static final String S_DROP_PART_AMISTOSO	= "DROP TABLE IF EXISTS " + TABLA_PART_AMISTOSO;
+    
     public FulbitoSQLiteHelper(Context contexto) {
         super(contexto, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -177,6 +192,7 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(S_CREATE_USUARIO);
         db.execSQL(S_CREATE_DAT_OPC_USR);
         db.execSQL(S_CREATE_PARTIDO);
+        db.execSQL(S_CREATE_PARTIDO_AMISTOSO);        
     }
  
     @Override
@@ -190,10 +206,12 @@ public class FulbitoSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(S_DROP_USUARIO);
         db.execSQL(S_DROP_DAT_OPC_USR);
         db.execSQL(S_DROP_PARTIDO);
+        db.execSQL(S_DROP_PART_AMISTOSO);
  
         //Se crean las nuevas versiones de las tablas
         db.execSQL(S_CREATE_USUARIO);
         db.execSQL(S_CREATE_DAT_OPC_USR);
         db.execSQL(S_CREATE_PARTIDO);
-    }
+        db.execSQL(S_CREATE_PARTIDO_AMISTOSO);
+    }    
 }

@@ -9,6 +9,8 @@ Fecha		Autor		Descripción
 ----------------------------------------------------------------------------- */
 package com.fulbitoAndroid.clases;
 
+import android.os.Bundle;
+
 public class Partido {
 	
 	//Atributos privados
@@ -139,4 +141,44 @@ public class Partido {
 	    this.iTipoPartido		= cPartidoOrigen.getTipoPartido();
 	    this.iTipoVisibilidad	= cPartidoOrigen.getTipoVisibilidad();
 	}
+  	
+	private static final String S_PART_ID 			= "partido_id";
+	private static final String S_PART_NOMBRE 		= "part_nombre";
+	private static final String S_PART_FECHA 		= "part_fecha";
+	private static final String S_PART_HORA 		= "part_hora";
+	private static final String S_PART_CANT_JUG 	= "part_cant_jug";
+	private static final String S_PART_LUGAR 		= "part_lugar";
+	private static final String S_PART_TIPO_PARTIDO = "part_tipo";
+	private static final String S_PART_TIPO_VISIB 	= "part_visib";	
+	
+	//metodo de copia
+  	public void vAgregarPartidoEnBundle(Bundle cBundle)
+  	{
+  		cBundle.putInt(S_PART_ID, this.iId);
+  		cBundle.putString(S_PART_NOMBRE, this.sNombre);
+  		cBundle.putString(S_PART_FECHA, this.sFecha);
+  		cBundle.putString(S_PART_HORA, this.sHora);
+  		cBundle.putInt(S_PART_CANT_JUG, this.iCantJugadores);
+  		cBundle.putString(S_PART_LUGAR, this.sLugar);
+  		cBundle.putInt(S_PART_TIPO_PARTIDO, this.iTipoPartido);
+  		cBundle.putInt(S_PART_TIPO_VISIB, this.iTipoVisibilidad);  		
+	}
+  	
+  	//metodo de copia
+  	static public Partido vObtenerPartidoDeBundle(Bundle cBundle)
+  	{
+  		Partido cPartido = new Partido();
+  		
+  		cPartido.setId(cBundle.getInt(S_PART_ID));
+  		cPartido.setNombre(cBundle.getString(S_PART_NOMBRE));
+  		cPartido.setFecha(cBundle.getString(S_PART_FECHA));
+  		cPartido.setHora(cBundle.getString(S_PART_HORA));
+  		cPartido.setCantJugadores(cBundle.getInt(S_PART_CANT_JUG));
+  		cPartido.setLugar(cBundle.getString(S_PART_LUGAR));
+  		cPartido.setTipoPartido(cBundle.getInt(S_PART_TIPO_PARTIDO));
+  		cPartido.setTipoVisibilidad(cBundle.getInt(S_PART_TIPO_VISIB));  		
+  		
+  		return cPartido;
+	}
 }
+
