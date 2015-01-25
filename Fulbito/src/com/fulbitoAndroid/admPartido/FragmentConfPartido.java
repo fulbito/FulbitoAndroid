@@ -3,6 +3,8 @@ package com.fulbitoAndroid.admPartido;
 
 import com.fulbitoAndroid.clases.Partido;
 import com.fulbitoAndroid.clases.PartidoAmistoso;
+import com.fulbitoAndroid.clases.SingletonUsuarioLogueado;
+import com.fulbitoAndroid.clases.Usuario;
 import com.fulbitoAndroid.fulbito.DatosConfiguracion;
 import com.fulbitoAndroid.fulbito.R;
 import com.fulbitoAndroid.gestionDB.PartidoAmistosoDB;
@@ -187,8 +189,6 @@ public class FragmentConfPartido extends Fragment {
         		switch(iItemAnterior)
     			{
     				case DatosConfiguracion.TP_ID_AMISTOSO:
-    					//Analizar como resolver cuando se cambia de partido amistoso a otro tipo de partido, y viceversa.
-    					//Hay que eliminar de la base de datos el tipo anterior
     					cPartidoNuevo = vProcesarPartidoAmistoso();
     					break;
     				case DatosConfiguracion.TP_ID_DESAFIO_USR:
@@ -235,6 +235,10 @@ public class FragmentConfPartido extends Fragment {
 		//Obtenenemos los datos cargados en el fragment FragmentCrearPartido
 		Partido cPartido = Partido.vObtenerPartidoDeBundle(getArguments());
 		
+		//Seteamos el id del usuario que crea el partido
+		Usuario usrUsuario = SingletonUsuarioLogueado.getUsuarioLogueado();		
+		cPartido.getUsuarioAdm().setId(usrUsuario.getId());
+		
 		//Si el tipo de partido nuevo es diferente al anterior debemos tomar una acción, por el momento solo esta la lógice de Partido Amistoso
 		if(cPartido.getTipoPartido() != iTipoPartido)
 		{
@@ -271,6 +275,7 @@ public class FragmentConfPartido extends Fragment {
         	case FragmentCrearPartido.I_MODO_MODIFICAR:
         		if(iTipoPartidoAnterior != DatosConfiguracion.TP_ID_AMISTOSO)
         		{
+        			//Se modifica un partido cuyo tipo de partido era distinto a TIPO AMISTOSO
         			cPartidoAmistosoDB.bInsertarPartidoAmistoso(cPartidoNuevo);
         		}
         		//Hacemos el UPDATE en la BD

@@ -26,12 +26,18 @@ public class FragmentInfoPartido extends Fragment{
 	android.support.v4.app.Fragment fragmentTab4;
 	android.support.v4.app.FragmentTransaction ft;
 	android.support.v4.app.FragmentManager fm;
-	
+	//Fragments que incluye la interfaz de información de partidos
 	FragmentInfoPartidoDatos 		datosFragment;
 	FragmentInfoPartidoEquipos 		equiposFragment;
 	FragmentInfoPartidoChat 		chatFragment;
 	FragmentInfoPartidoInvitaciones invitacionesFragment;
-
+	//Constantes
+	private static final String S_PARTIDO_ID 		= "id_partido";
+	private static final String S_TAG_DATOS 		= "DATOS";
+	private static final String S_TAG_EQUIPOS 		= "EQUIPOS";
+	private static final String S_TAG_CHAT 			= "CHAT";
+	private static final String S_TAG_INVITACIONES 	= "INVITACIONES";
+	
 	String sTagTabAnterior = "";
 	
 	private Partido cPartido;
@@ -45,8 +51,8 @@ public class FragmentInfoPartido extends Fragment{
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
-        
-        args.putInt("id_partido", iIdPartido);
+        //Pasamos el ID del partido para consultar sus datos en la BD
+        args.putInt(S_PARTIDO_ID, iIdPartido);
         
         f.setArguments(args);
 
@@ -66,9 +72,11 @@ public class FragmentInfoPartido extends Fragment{
         
         //Obtenemos los datos del partido a mostrar
 		PartidoDB cPartidoDB = new PartidoDB();
-		int iIdPartido = getArguments().getInt("id_partido");
+		
+		//Obtenemos los datos del partido
+		int iIdPartido = getArguments().getInt(S_PARTIDO_ID);
 		cPartido = cPartidoDB.parSelectPartidoById(iIdPartido);
-        
+        //Obtenemos los datos particulares dependiendo del tipo de partido
         switch(cPartido.getTipoPartido())
         {
         	case DatosConfiguracion.TP_ID_AMISTOSO:
@@ -90,20 +98,20 @@ public class FragmentInfoPartido extends Fragment{
         tbTabHost.setup();
                         
         //Agregamos la pestaña de modificar datos de usuario
-        vAgregarTab("DATOS", 
+        vAgregarTab(S_TAG_DATOS, 
         		R.drawable.tab_img_selector_datos);
         
         //Agregamos la pestaña de modificar foto de usuario
-        vAgregarTab("EQUIPOS", 
+        vAgregarTab(S_TAG_EQUIPOS, 
         		R.drawable.tab_img_selector_foto);
         
         //Agregamos la pestaña de modificar ubicacion de usuario
-        vAgregarTab("CHAT", 
+        vAgregarTab(S_TAG_CHAT, 
         		R.drawable.
         		tab_img_selector_ubicacion);
         
         //Agregamos la pestaña de modificar configuracion de notificaciones de usuario
-        vAgregarTab("INVITACIONES", 
+        vAgregarTab(S_TAG_INVITACIONES, 
         		R.drawable.tab_img_selector_notificaciones);  
         
         //Se esta trabajando con fragments dentro de un fragment, por lo tanto no debemos usar 
@@ -112,8 +120,8 @@ public class FragmentInfoPartido extends Fragment{
         fm =  getChildFragmentManager();
     	ft = fm.beginTransaction();
     	//Añadimos el fragment inicial FragmentInfoPartidoDatos
-		ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoDatos(), "DATOS");	
-		sTagTabAnterior = "DATOS";
+		ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoDatos(), S_TAG_DATOS);	
+		sTagTabAnterior = S_TAG_DATOS;
 		//Commiteamos los cambios
 		ft.commit();
 		
@@ -128,73 +136,73 @@ public class FragmentInfoPartido extends Fragment{
 
             	ft = fm.beginTransaction();
             	//sacamos el fragment activo
-            	if(sTagTabAnterior == "DATOS")
+            	if(sTagTabAnterior == S_TAG_DATOS)
             	{
-            		datosFragment = (FragmentInfoPartidoDatos) fm.findFragmentByTag("DATOS");
+            		datosFragment = (FragmentInfoPartidoDatos) fm.findFragmentByTag(S_TAG_DATOS);
             		ft.hide(datosFragment);
             		//ft.detach(datosFragment);
             	}
             	
-            	if(sTagTabAnterior == "EQUIPOS")
+            	if(sTagTabAnterior == S_TAG_EQUIPOS)
             	{
-            		equiposFragment = (FragmentInfoPartidoEquipos) fm.findFragmentByTag("EQUIPOS");
+            		equiposFragment = (FragmentInfoPartidoEquipos) fm.findFragmentByTag(S_TAG_EQUIPOS);
             		ft.hide(equiposFragment);
             		//ft.detach(fotoFragment);
             	}
             	
-            	if(sTagTabAnterior == "CHAT")
+            	if(sTagTabAnterior == S_TAG_CHAT)
             	{
-            		chatFragment = (FragmentInfoPartidoChat) fm.findFragmentByTag("CHAT");
+            		chatFragment = (FragmentInfoPartidoChat) fm.findFragmentByTag(S_TAG_CHAT);
             		ft.hide(chatFragment);
             		//ft.detach(ubicacionFragment);
             	}
             	
-            	if(sTagTabAnterior == "INVITACIONES")
+            	if(sTagTabAnterior == S_TAG_INVITACIONES)
             	{
-            		invitacionesFragment = (FragmentInfoPartidoInvitaciones) fm.findFragmentByTag("INVITACIONES");
+            		invitacionesFragment = (FragmentInfoPartidoInvitaciones) fm.findFragmentByTag(S_TAG_INVITACIONES);
             		ft.hide(invitacionesFragment);
             		//ft.detach(notificacionesFragment);
             	}
             	
             	//hacemos visible el fragment correspondiente a la pestaña seleccionada
-            	if(tabId.equalsIgnoreCase("DATOS"))
+            	if(tabId.equalsIgnoreCase(S_TAG_DATOS))
             	{
             		//buscamos el fragment dentro del FragmentManager
-            		datosFragment = (FragmentInfoPartidoDatos) fm.findFragmentByTag("DATOS");
+            		datosFragment = (FragmentInfoPartidoDatos) fm.findFragmentByTag(S_TAG_DATOS);
             		if(datosFragment == null)
             			//el fragment NO está dentro del FragmentManager, se lo añade y se lo hace visible con add
-            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoDatos(), "DATOS");
+            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoDatos(), S_TAG_DATOS);
             		else  
             			//el fragment está dentro del FragmentManager, solo se lo hace visible con attach
             			//ft.attach(datosFragment);
             			ft.show(datosFragment);
             	}
             	
-            	if(tabId.equalsIgnoreCase("EQUIPOS"))
+            	if(tabId.equalsIgnoreCase(S_TAG_EQUIPOS))
             	{
-            		equiposFragment = (FragmentInfoPartidoEquipos) fm.findFragmentByTag("EQUIPOS");
+            		equiposFragment = (FragmentInfoPartidoEquipos) fm.findFragmentByTag(S_TAG_EQUIPOS);
             		if(equiposFragment == null)
-            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoEquipos(), "EQUIPOS");
+            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoEquipos(), S_TAG_EQUIPOS);
             		else            			
             			//ft.attach(fotoFragment);
             			ft.show(equiposFragment);
             	}
             	
-            	if(tabId.equalsIgnoreCase("CHAT"))
+            	if(tabId.equalsIgnoreCase(S_TAG_CHAT))
             	{
-            		chatFragment = (FragmentInfoPartidoChat) fm.findFragmentByTag("CHAT");
+            		chatFragment = (FragmentInfoPartidoChat) fm.findFragmentByTag(S_TAG_CHAT);
             		if(chatFragment == null)
-            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoChat(), "CHAT");
+            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoChat(), S_TAG_CHAT);
             		else            			
             			//ft.attach(ubicacionFragment);
             			ft.show(chatFragment);
             	}
             	
-            	if(tabId.equalsIgnoreCase("INVITACIONES"))
+            	if(tabId.equalsIgnoreCase(S_TAG_INVITACIONES))
             	{
-            		invitacionesFragment = (FragmentInfoPartidoInvitaciones) fm.findFragmentByTag("INVITACIONES");
+            		invitacionesFragment = (FragmentInfoPartidoInvitaciones) fm.findFragmentByTag(S_TAG_INVITACIONES);
             		if(invitacionesFragment == null)
-            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoInvitaciones(), "INVITACIONES");
+            			ft.add(R.id.realtabcontent_mod_partido, new FragmentInfoPartidoInvitaciones(), S_TAG_INVITACIONES);
             		else            			
             			//ft.attach(notificacionesFragment);
             			ft.show(invitacionesFragment);

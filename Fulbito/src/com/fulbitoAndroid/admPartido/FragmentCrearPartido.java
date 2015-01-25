@@ -212,10 +212,10 @@ public class FragmentCrearPartido extends Fragment {
         		//Agregamos el fragment para completar los datos de configuración del partido
 				FragmentManager fragmentManager;
 				android.support.v4.app.Fragment fragment;
-				
+				//Al fragment le pasamos los datos del partido creado/modificado
 				fragment 		= FragmentConfPartido.newInstance(iFlagModo, cPartidoNuevo);
 				fragmentManager = getActivity().getSupportFragmentManager();
-				
+				//Añadimos el fragment
 				android.support.v4.app.FragmentTransaction ftFragmentTransaction = fragmentManager.beginTransaction();				
 				ftFragmentTransaction.replace(R.id.loFragmentContainerHome, fragment);
 				//Agregamos el fragment anterior a la pila para volver

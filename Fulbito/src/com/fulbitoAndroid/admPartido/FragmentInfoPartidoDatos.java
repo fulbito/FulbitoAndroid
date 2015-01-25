@@ -2,13 +2,11 @@ package com.fulbitoAndroid.admPartido;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import com.fulbitoAndroid.clases.Partido;
 import com.fulbitoAndroid.clases.PartidoAmistoso;
 import com.fulbitoAndroid.fulbito.DatosConfiguracion;
 import com.fulbitoAndroid.fulbito.R;
-import com.fulbitoAndroid.gestionDB.FulbitoSQLiteHelper;
 import com.fulbitoAndroid.gestionDB.PartidoAmistosoDB;
 import com.fulbitoAndroid.gestionDB.PartidoDB;
 
@@ -25,14 +23,13 @@ import android.widget.EditText;
 public class FragmentInfoPartidoDatos extends Fragment{
 	
 	private Partido cPartido;
-	
+	//Componentes de la interfaz gráfica
 	private EditText edtTxtNombrePartido;
 	private EditText edtTxtFechaHoraPartido;
 	private EditText edtTxtLugarPartido;
 	private EditText edtTxtCantJugadores;
 	private EditText edtTxtVisibilidad;
 	private EditText edtTxtTipoPartido;
-	
 	private Button btnModificar;
 	private Button btnEliminar;
 	
@@ -60,7 +57,7 @@ public class FragmentInfoPartidoDatos extends Fragment{
         edtTxtCantJugadores 	= (EditText)getView().findViewById(R.id.edtTxtCantJugadores);    
         edtTxtVisibilidad 		= (EditText)getView().findViewById(R.id.edtTxtVisibilidad);
         edtTxtTipoPartido 		= (EditText)getView().findViewById(R.id.edtTxtTipoPartido);
-        
+        //Botones
         btnModificar	= (Button)getView().findViewById(R.id.btnModificar);
     	btnEliminar		= (Button)getView().findViewById(R.id.btnEliminar);;
         
